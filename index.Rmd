@@ -55,12 +55,13 @@ class: inverse, center, middle
 
 # .big-text[Hola mundo! `r emo::ji("smile")`] 
 
-Install the **xaringan** package from [Github](https://github.com/yihui/xaringan):
-
 ```{r eval=FALSE, tidy=FALSE}
 remotes::install_github("yihui/xaringan")
 ```
 
+```{r embed-xaringan, echo=FALSE}
+xaringanExtra::embed_xaringan(url = "index.html", ratio = "3:2")
+```
 --
 
 You are recommended to use the [RStudio IDE](https://www.rstudio.com/products/rstudio/), but you do not have to.
