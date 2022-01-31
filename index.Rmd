@@ -121,3 +121,9 @@ class: inverse, middle, center
 
 # Using xaringan
 
+---
+# Inserción de un contador
+
+```{r echo=FALSE}
+countdown(minutes = 5, top = 0, font_size = "3em")
+```
