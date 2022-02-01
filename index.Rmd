@@ -162,10 +162,18 @@ countdown(minutes = 2, top = 0, font_size = "2em")
 .panelset[
   
   .panel[.panel-name[Salida]
-```{r ejer2, echo=FALSE}
+```{r ejer2-1, echo=FALSE, eval=FALSE}
 # Gráfico en R
 ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
   geom_density()#<<
+ggsave("ejer2.png") 
+```
+
+```{r ejer2, echo=FALSE, eval=FALSE}
+# Gráfico en R
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("ejer2.png")
+```
 ```
          
          
