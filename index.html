@@ -140,7 +140,7 @@ class: inverse, middle, center
 ---
 # .center[Ejercicio 1]
 
-<div class="countdown" id="timer_61f87f82" style="top:0;right:0;font-size:3em;" data-warnwhen="0">
+<div class="countdown" id="timer_61f8873e" style="top:0;right:0;font-size:3em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -169,8 +169,8 @@ c
 ---
 # .center[Ejercicio 2]
 
-<div class="countdown" id="timer_61f87f33" style="top:0;right:0;font-size:3em;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+<div class="countdown" id="timer_61f8867d" style="top:0;right:0;font-size:2em;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
 .panelset[
@@ -182,16 +182,25 @@ c
   ]
   
   .panel[.panel-name[Código en R]
+  
 
 ```r
-# Código en R base para la generación de un gráfico de dispersión
+# Código en R base para la generación de un 
+# gráfico de dispersión
 
-plot(iris$Sepal.Length, iris$Petal.Length, col = "red")
+ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
+  geom_density()
 ```
          
   ]
   
 ]
+
+---
+
+# Gráfico por fuera de tabset
+
+&lt;img src="index_files/figure-html/unnamed-chunk-6-1.png" width="144" style="display: block; margin: auto;" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -21,6 +21,7 @@ knitr::opts_chunk$set(collapse = TRUE,
                       fig.retina = 3,
                       echo = FALSE,
                       fig.align='center')
+library(ggplot2)
 library(countdown)
 library(emo)
 library(xaringanExtra)
@@ -155,7 +156,7 @@ c
 # .center[Ejercicio 2]
 
 ```{r echo=FALSE}
-countdown(minutes = 5, top = 0, font_size = "3em")
+countdown(minutes = 2, top = 0, font_size = "2em")
 ```
 
 .panelset[
@@ -163,19 +164,35 @@ countdown(minutes = 5, top = 0, font_size = "3em")
   .panel[.panel-name[Salida]
 ```{r ejer2, echo=FALSE}
 # Gráfico en R
-plot(iris$Sepal.Length, iris$Petal.Length, col = "red")
+ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
+  geom_density()#<<
 ```
          
          
   ]
   
   .panel[.panel-name[Código en R]
-```{r echo=T, eval=FALSE}
-# Código en R base para la generación de un gráfico de dispersión
+  
+```{r echo=T, eval=FALSE,  fig.width=2, fig.height=4}
+# Código en R base para la generación de un 
+# gráfico de dispersión
 
-plot(iris$Sepal.Length, iris$Petal.Length, col = "red")
+ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
+  geom_density()
 ```         
          
   ]
   
 ]
+
+---
+
+# Gráfico por fuera de tabset
+
+```{r echo=FALSE, eval=TRUE,  fig.width=2, fig.height=4}
+# Código en R base para la generación de un 
+# gráfico de dispersión
+
+ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
+  geom_density()
+```         
