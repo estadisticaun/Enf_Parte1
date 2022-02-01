@@ -25,6 +25,7 @@ library(countdown)
 library(emo)
 library(xaringanExtra)
 xaringanExtra::use_tile_view()
+xaringanExtra::use_clipboard()
 xaringanExtra::use_webcam()
 xaringanExtra::use_share_again()
 xaringanExtra::use_fit_screen()
@@ -122,8 +123,59 @@ class: inverse, middle, center
 # Using xaringan
 
 ---
-# Inserción de un contador
+# .center[Ejercicio 1]
 
 ```{r echo=FALSE}
 countdown(minutes = 5, top = 0, font_size = "3em")
 ```
+
+.panelset[
+  
+  .panel[.panel-name[Salida]
+```{r ejer1, echo=FALSE}
+# names of created objects
+c <- c(1:3)
+c
+```
+         
+         
+  ]
+  
+  .panel[.panel-name[Código en R]
+```{r echo=T, eval=FALSE}
+c <- c(1:3)
+c
+```         
+         
+  ]
+  
+]
+
+---
+# .center[Ejercicio 2]
+
+```{r echo=FALSE}
+countdown(minutes = 5, top = 0, font_size = "3em")
+```
+
+.panelset[
+  
+  .panel[.panel-name[Salida]
+```{r ejer2, echo=FALSE}
+# Gráfico en R
+plot(iris$Sepal.Length, iris$Petal.Length, col = "red")
+```
+         
+         
+  ]
+  
+  .panel[.panel-name[Código en R]
+```{r echo=T, eval=FALSE}
+# Código en R base para la generación de un gráfico de dispersión
+
+plot(iris$Sepal.Length, iris$Petal.Length, col = "red")
+```         
+         
+  ]
+  
+]
