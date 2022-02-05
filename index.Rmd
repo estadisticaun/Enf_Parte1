@@ -22,6 +22,7 @@ knitr::opts_chunk$set(collapse = TRUE,
                       echo = FALSE,
                       fig.align='center')
 library(ggplot2)
+library(downloadthis)
 library(countdown)
 library(emo)
 library(xaringanExtra)
@@ -153,6 +154,7 @@ c
 ]
 
 ---
+
 # .center[Ejercicio 2]
 
 ```{r echo=FALSE}
@@ -160,8 +162,8 @@ countdown(minutes = 2, top = 0, font_size = "2em")
 ```
 
 .panelset[
-  
   .panel[.panel-name[Salida]
+  
 ```{r ejer2-1, echo=FALSE, eval=FALSE}
 # Gráfico en R
 ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
@@ -169,38 +171,64 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species))+
 ggsave("ejer2.png") 
 ```
 
-```{r ejer2, echo=FALSE, eval=FALSE}
+
 # Gráfico en R
+
 ```{r echo=FALSE, out.width="80%"}
 knitr::include_graphics("ejer2.png")
 ```
-```
-         
-         
-  ]
-  
-  .panel[.panel-name[Código en R]
-  
+       
+]
+    .panel[.panel-name[Código en R]
+
+
 ```{r echo=T, eval=FALSE,  fig.width=2, fig.height=4}
 # Código en R base para la generación de un 
 # gráfico de dispersión
 
 ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
   geom_density()
-```         
-         
+```
+
   ]
   
 ]
+
 
 ---
 
 # Gráfico por fuera de tabset
 
-```{r echo=FALSE, eval=TRUE,  fig.width=2, fig.height=4}
+```{r  echo=FALSE, eval=TRUE,  fig.width=2, fig.height=4}
 # Código en R base para la generación de un 
 # gráfico de dispersión
 
 ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
   geom_density()
-```         
+```
+
+
+---
+
+# Descargar archivos
+
+```{r echo=FALSE, eval=TRUE,  fig.width=6, fig.height=4}
+# Código en R base para la generación de un 
+# gráfico de dispersión
+
+ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
+  geom_density()
+``` 
+
+
+```{r echo=FALSE}
+iris %>%
+  download_this(
+    output_name = "Datos",
+    output_extension = ".xlsx",
+    button_label = "Descargar archivo en Excel",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save")
+```
+
