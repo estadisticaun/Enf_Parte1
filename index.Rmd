@@ -1,19 +1,20 @@
 ---
 title: "Estadística Aplicada a la Investigación"
 # subtitle: "<br/>Facultad de Enfermería"
-author: "<br/> Prof. Alberto Rodríguez R"
+author: "<br/> Profesor <br/> Alberto Rodríguez R"
 institute: "<br/><br/>Facultad de Enfermería <br/> Universidad Nacional de Colombia"
 date: "Última Actualización: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
     nature:
-      highlightStyle: github
+      highlightStyle: solarized-light
       highlightLines: true
       countIncrementalSlides: false
+      ratio: 170:100
 ---
-
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
+class: center, middle
+exclude: true
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -39,9 +40,118 @@ xaringanExtra::use_progress_bar(color = "#0051BA", location = "top", height = "1
 xaringanExtra::use_broadcast()
 ```
 
-???
+---
 
-Image credit: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sharingan_triple.svg)
+# .big-text[`r emo::ji("scroll")` Contenido del curso!] 
+
+1. [Módulo: Estadística Descriptiva y Exploratoria](#modulo1)
+
+1. [Módulo: Probabilidad e Inferencia Estadística](#modulo2)
+
+1. [Módulo: Modelamiento Estadístico](#modulo3)
+
+1. [Módulo: Comunicación de Resultados](#modulo4)
+
+
+---
+
+name: modulo1
+
+class: title-slide, right, middle, hide-count, hide-logo
+
+background-image: url("https://images.unsplash.com/photo-1591903934817-c02acbfd4665?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80")
+background-size: cover
+
+<br>
+<br>
+<br>
+<br>
+
+# .black.big-text[Estadística<br>Descriptiva y Exploratoria]
+## .black[Módulo - 1]
+
+.footnote[
+.white[Crédito de la imagen:][Karina L](https://unsplash.com/photos/zJRQ5nngdPA)
+]
+
+---
+class: center, middle
+
+# Sesión 1
+
+---
+
+# .big-text[`r emo::ji("scroll")` Agenda!] 
+
+* Presentación: docentes y alumnos
+
+* Presentación del curso
+
+* Metodología de desarrollo del curso
+
+* Software estadístico
+
+* Instalación de R y Rstudio
+
+
+---
+name: modulo2
+
+class: title-slide, right, middle, hide-count, hide-logo
+
+background-image: url("https://images.unsplash.com/photo-1513949474464-08a0bdb4fa54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80")
+background-size: cover
+
+# .white.big-text[Probabilidad e<br>Inferencia Estadística] 
+## .white.black[Módulo - 2]
+
+
+.footnote[
+.white[Crédito de la imagen:][Kelly Sikkema
+](https://unsplash.com/photos/p1ZgObLpa0A)
+]
+
+---
+
+name: modulo3
+
+class: title-slide, center, middle, hide-count, hide-logo
+
+background-image: url("https://images.unsplash.com/photo-1617164924207-40e6ee7c3ffe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80")
+background-size: cover
+
+# .white.big-text[Modelamiento Estadístico]
+## .white[Módulo - 3]
+
+.footnote[
+.white[Crédito de la imagen:][Kayvan Mazhar](https://unsplash.com/photos/SfxhjdST3Qs)
+]
+
+
+---
+name: modulo4
+
+
+class: title-slide, hide-count, hide-logo
+
+background-image: url("https://images.unsplash.com/photo-1617063033111-74cf600531d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80")
+
+background-size: cover
+
+# .white.big-text[Comunicación de Resultados <br> Documentos Dinámicos]
+## .white[Módulo - 4]
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.footnote[
+.white[Crédito de la imagen:][John Anvik](https://images.unsplash.com/photo-1617063033111-74cf600531d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80)
+]
+
+
 
 ---
 class: center, middle
