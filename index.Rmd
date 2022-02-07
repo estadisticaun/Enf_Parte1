@@ -26,6 +26,7 @@ library(ggplot2)
 library(downloadthis)
 library(countdown)
 library(emo)
+library(icons)
 library(xaringanExtra)
 xaringanExtra::use_tile_view()
 xaringanExtra::use_clipboard()
@@ -92,6 +93,30 @@ class: center, middle
 * Software estadístico
 
 * Instalación de R y Rstudio
+
+---
+class: middle, hide-logo
+
+.pull-left[
+```{r , echo=FALSE, out.width="70%", fig.align='left'}
+knitr::include_graphics("https://github.com/estadisticaun/AlbertoR/blob/main/public/img/who-am-i/user-picture-2.jpg") 
+# `r format(Sys.Date(), "%d %B %Y") 
+# <i class="fab fa-r-project"></i>
+```
+
+Dr Ajay Kumar Koli<br>Assistant Professor<br>Department of Travel & Tourism<br>Vishwakarma University - Pune<br>`r icons::fontawesome$solid$rocket` [@ajay_kolii](https://twitter.com/ajay_kolii)<br>`r icons::fontawesome$solid$rocket` [koliajaykumar@gmail.com](koliajaykumar@gmail.com)
+<br>`r icons::fontawesome$solid$rocket` [https://koliajay.netlify.app/](https://koliajay.netlify.app/)
+]
+
+.pull-right[
+<br>
+<br>
+<br>
+<br>
+# .big-text[Hello! `r emo::ji("blush")`]
+
+]
+
 
 
 ---
