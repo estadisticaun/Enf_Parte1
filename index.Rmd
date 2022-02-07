@@ -42,6 +42,59 @@ xaringanExtra::use_broadcast()
 ```
 
 ---
+name: modulo0
+
+class: title-slide, left, middle, hide-count, hide-logo
+
+background-image: url("https://images.unsplash.com/photo-1638366271870-8b3d428f27f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80")
+background-size: cover
+
+# .black.big-text[Características del Curso]
+## .black[Aspectos Generales]
+
+.footnote[
+.white[Image credits:][Markus Spiske](https://images.unsplash.com/photo-1638366271870-8b3d428f27f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80)
+]
+
+---
+class: center, middle
+
+# `r emo::ji("teacher")` <br> ¿Quién Será Su Profesor?<br>Su Tutor<br>Su "Compañero"
+
+---
+class: middle, hide-logo
+
+.pull-left[
+```{r , echo=FALSE, out.width="65%", fig.align='left'}
+knitr::include_graphics("imagenes/Foto.jpg") 
+# `r format(Sys.Date(), "%d %B %Y") 
+# <i class="fab fa-r-project"></i>
+```
+
+* Alberto Rodríguez R
+* Docente Ocasional - Facultad de Enfermería <br>
+  Universidad Nacional de Colombia - UNAL
+* Asesor - Dirección Nacional de Planeación y Estadística - [DNPE](http://planeacion.unal.edu.co/home/)<br>`r icons::fontawesome$brands$twitter` [@tipsder](https://twitter.com/tipsder)<br>`r icons::fontawesome$brands$github` [estadisticaun](https://github.com/estadisticaun)<br>`r icons::fontawesome$solid$envelope` [albrodriguezr@unal.edu.co](albrodriguezr@unal.edu.co)
+<br>`r icons::fontawesome$brands$chrome` [https://albertor.netlify.app/](https://albertor.netlify.app/)
+]
+
+.pull-right[
+# ¡Algunos datos de interés!
+<br>
+<br>
+<br>
+<br>
+# .big-text[Bienvenidos!`r emo::ji("blush")`]
+
+]
+
+
+---
+class: center, middle
+
+# `r emo::ji("student")` <br> ¿Quiénes son los Estudiantes de Este Curso?<br><br><br>¡Su Turno!
+
+---
 
 # .big-text[`r emo::ji("scroll")` Contenido del curso!] 
 
@@ -93,35 +146,6 @@ class: center, middle
 * Software estadístico
 
 * Instalación de R y Rstudio
-
----
-class: middle, hide-logo
-
-.pull-left[
-```{r , echo=FALSE, out.width="65%", fig.align='left'}
-knitr::include_graphics("imagenes/Foto.jpg") 
-# `r format(Sys.Date(), "%d %B %Y") 
-# <i class="fab fa-r-project"></i>
-```
-
-* Alberto Rodríguez R
-* Profesor Ocasional - Facultad de Enfermería
-* Universidad Nacional de Colombia - UNAL
-* Asesor - Dirección Nacional de Planeación y Estadística - [DNPE](http://planeacion.unal.edu.co/home/)<br>`r icons::fontawesome$brands$twitter` [@tipsder](https://twitter.com/tipsder)<br>`r icons::fontawesome$brands$github` [estadisticaun](https://github.com/estadisticaun)<br>`r icons::fontawesome$solid$envelope` [albrodriguezr@unal.edu.co](albrodriguezr@unal.edu.co)
-<br>`r icons::fontawesome$brands$chrome` [https://albertor.netlify.app/](https://albertor.netlify.app/)
-]
-
-.pull-right[
-# Algunos datos del profesor
-<br>
-<br>
-<br>
-<br>
-# .big-text[Bienvenidos!`r emo::ji("blush")`]
-
-]
-
-
 
 ---
 name: modulo2
