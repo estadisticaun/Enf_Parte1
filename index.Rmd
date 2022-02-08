@@ -28,6 +28,7 @@ library(countdown)
 library(emo)
 library(icons)
 library(xaringanExtra)
+library(fontawesome)
 xaringanExtra::use_tile_view()
 xaringanExtra::use_clipboard()
 xaringanExtra::use_webcam()
@@ -67,8 +68,6 @@ class: middle, hide-logo
 .pull-left[
 ```{r , echo=FALSE, out.width="65%", fig.align='left'}
 knitr::include_graphics("imagenes/Foto.jpg") 
-# `r format(Sys.Date(), "%d %B %Y") 
-# <i class="fab fa-r-project"></i>
 ```
 
 * Alberto Rodríguez R
@@ -134,6 +133,39 @@ class: center, middle
 # Módulo 4: Comunicación de Resultados
 
 ![](imagenes/Modulo4.png)
+
+---
+class: middle, hide-logo
+
+.pull-left[
+### UNA ANALOGÍA:<br> ¡Excel, SPSS, Tableau, otros! 
+```{r , echo=FALSE, out.width="32%", fig.align='center'}
+knitr::include_graphics("imagenes/Softwares.png") 
+```
+
+```{r , echo=FALSE, out.width="81%", fig.align='left'}
+knitr::include_graphics("imagenes/Spss.jpg")
+```
+
+<br>
+<br>
+<br>
+<br>
+.footnote[
+Créditos de la imagén (arriba):  [Brian Matangelo](https://unsplash.com/photos/gRof2_Ftu7A) <br>
+<br>
+Créditos de la imagén (derecha):  [Kevin Oetiker](https://unsplash.com/photos/ReYGRz3shIg)
+]
+
+]
+
+.pull-right[
+<!-- Icónos tomados de https://fontawesome.com/v4.7/icons/ -->
+### `r fa("r-project", fill = "steelblue")`  ¡R y Rstudio!
+```{r , echo=FALSE, out.height="100%", fig.align='left'}
+knitr::include_graphics("imagenes/RyRstudio.jpg") 
+```
+]
 
 
 ---
