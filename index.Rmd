@@ -96,8 +96,7 @@ class: center, middle
 
 ---
 
-# .big-text[`r emo::ji("scroll")` Contenido del curso!] 
-
+# .big-text[`r emo::ji("scroll")` Contenido del Curso - Módulos] 
 1. [Módulo: Estadística Descriptiva y Exploratoria](#modulo1)
 
 1. [Módulo: Probabilidad e Inferencia Estadística](#modulo2)
@@ -105,6 +104,36 @@ class: center, middle
 1. [Módulo: Modelamiento Estadístico](#modulo3)
 
 1. [Módulo: Comunicación de Resultados](#modulo4)
+
+---
+
+# Enfoque del Curso
+
+![](imagenes/EnfCurso.png)
+
+---
+
+# Módulo 1: Estadística Descriptiva y Exploratoria
+
+![](imagenes/Modulo1.png)
+
+---
+
+# Módulo 2: Probabilidad e Inferencia Estadística
+
+![](imagenes/Modulo2.png)
+
+---
+
+# Módulo 3: Modelamiento Estadístico
+
+![](imagenes/Modulo3.png)
+
+---
+
+# Módulo 4: Comunicación de Resultados
+
+![](imagenes/Modulo4.png)
 
 
 ---
@@ -203,8 +232,6 @@ background-size: cover
 .footnote[
 .white[Crédito de la imagen:][John Anvik](https://images.unsplash.com/photo-1617063033111-74cf600531d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80)
 ]
-
-
 
 ---
 class: center, middle
