@@ -7,11 +7,13 @@ date: "Última Actualización: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
+    seal: false
     nature:
       highlightStyle: solarized-light
       highlightLines: true
       countIncrementalSlides: false
       ratio: 170:100
+
 ---
 class: center, middle
 exclude: true
@@ -41,6 +43,27 @@ xaringanExtra::use_extra_styles(hover_code_line = TRUE, mute_unhighlighted_code 
 xaringanExtra::use_progress_bar(color = "#0051BA", location = "top", height = "10px")
 xaringanExtra::use_broadcast()
 ```
+
+---
+
+class: title-slide, center, middle, hide-count, hide-logo
+
+background-image: url("https://www.arquitecturapanamericana.com/wp-content/gallery/edificio-facultad-de-enfermeria-universidad-nacional-de-colombia-sede-bogota/1158ARN.jpg")
+background-size: cover
+
+# .big-text.black[ <p style="color:#ffffff;">Estadística Aplicada a la Investigación</p>
+]
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.footnote[
+.white[Créditos de la Imagen:][UNAL](https://www.arquitecturapanamericana.com/wp-content/gallery/edificio-facultad-de-enfermeria-universidad-nacional-de-colombia-sede-bogota/1158ARN.jpg)
+]
 
 ---
 name: modulo0
