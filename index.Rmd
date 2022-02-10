@@ -62,7 +62,7 @@ background-size: cover
 <br>
 
 .footnote[
-.white[Créditos de la Imagen:][UNAL](https://www.arquitecturapanamericana.com/wp-content/gallery/edificio-facultad-de-enfermeria-universidad-nacional-de-colombia-sede-bogota/1158ARN.jpg)
+.white[Créditos de la Imagen:][Arquitectura Panamericana](https://www.arquitecturapanamericana.com/wp-content/gallery/edificio-facultad-de-enfermeria-universidad-nacional-de-colombia-sede-bogota/1158ARN.jpg)
 ]
 
 ---
@@ -157,6 +157,74 @@ class: center, middle
 
 ![](imagenes/Modulo4.png)
 
+
+---
+
+# Softwares Estadísticos Seleccionados
+
+<br>
+<br>
+<br>
+```{r , echo=FALSE, out.width="70%", fig.align='center'}
+knitr::include_graphics("imagenes/R-rstudio.png") 
+```
+
+.footnote[
+Ir a sitios web de los softwares: <br> [R](https://www.r-project.org/) <br>
+[Rstudio](https://www.rstudio.com/)
+]
+
+---
+class: middle, hide-logo
+
+.pull-left[
+## Qué es R `r fa("r-project", fill = "steelblue")`
+
+“R es un ambiente de programación formado por un conjunto de herramientas muy flexibles que pueden ampliarse fácilmente mediante paquetes, librerías o definiendo nuestras propias funciones.”<br><br>
+[Extraido de: Máxima Formación](https://www.maximaformacion.es/blog-dat/que-es-r-software/)
+
+```{r , echo=FALSE, out.width="95%", fig.align='left'}
+knitr::include_graphics("imagenes/R.png")
+```
+
+]
+
+.pull-right[
+## Qué es Rstudio 
+
+“RStudio es un entorno de desarrollo integrado (IDE) para el lenguaje de programación R.”
+<br><br>
+
+[Extraido de: Wikipedia](https://es.wikipedia.org/wiki/RStudio)
+
+```{r , echo=FALSE, out.width="95%", fig.align='left'}
+knitr::include_graphics("imagenes/Rstudio.png")
+```
+]
+
+---
+# Breve historia y autores de R
+
+" ... en 1991 en el Departamento de Estadística de la ***Universidad de Auckland en Nueva Zelanda***, **Ross Ihaka y Robert Gentleman** crean R como un subdialecto de S e implementado su propio dialecto. El nombre de R es debido a la primera letra de sus creadores **Ross** y **Robert**. Anunciándolo en 1993 al público y en 1995 Martin Machler convence a Ross y Robert de usar la Licencia Publica General GNU haciendo a R como software libre. " [Extraido de: Estadística con R](http://rstadistica.blogspot.com/2015/10/historiaR.html)
+
+```{r , echo=FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("imagenes/AutoresR.jpg")
+```
+
+
+[<font size="1">Autores <br> Izquierda: Ross Ihaka <br> Derecha: Robert Gentleman</font>]()
+
+
+---
+
+# R y Rstudio: `r emo::ji("happy")` <FONT COLOR="green">ventajas</FONT>  y <FONT COLOR="red">desventajas</FONT> `r emo::ji("frowning")`
+
+```{r , echo=FALSE, out.width="90%", fig.align='center'}
+knitr::include_graphics("imagenes/Herramientas.png") 
+```
+
+
+
 ---
 class: middle, hide-logo
 
@@ -236,16 +304,16 @@ name: modulo2
 
 class: title-slide, right, middle, hide-count, hide-logo
 
-background-image: url("https://images.unsplash.com/photo-1513949474464-08a0bdb4fa54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80")
+background-image: url("https://images.unsplash.com/photo-1522069213448-443a614da9b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=873&q=80")
 background-size: cover
 
-# .white.big-text[Probabilidad e<br>Inferencia Estadística] 
+# .white.big-text[Probabilidad e<br>Inferencia<br> Estadística] 
 ## .white.black[Módulo - 2]
 
 
 .footnote[
-.white[Crédito de la imagen:][Kelly Sikkema
-](https://unsplash.com/photos/p1ZgObLpa0A)
+.white[Crédito de la imagen:][Jonathan Petersson
+](https://unsplash.com/photos/a6N685qLsHQ)
 ]
 
 ---
@@ -254,14 +322,14 @@ name: modulo3
 
 class: title-slide, center, middle, hide-count, hide-logo
 
-background-image: url("https://images.unsplash.com/photo-1617164924207-40e6ee7c3ffe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80")
+background-image: url("https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80")
 background-size: cover
 
 # .white.big-text[Modelamiento Estadístico]
 ## .white[Módulo - 3]
 
 .footnote[
-.white[Crédito de la imagen:][Kayvan Mazhar](https://unsplash.com/photos/SfxhjdST3Qs)
+.white[Crédito de la imagen:][Greg Rakozy](https://unsplash.com/photos/oMpAz-DN-9I)
 ]
 
 
