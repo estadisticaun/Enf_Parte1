@@ -212,7 +212,7 @@ knitr::include_graphics("imagenes/AutoresR.jpg")
 ```
 
 
-[<font size="1">Autores <br> Izquierda: Ross Ihaka <br> Derecha: Robert Gentleman</font>]()
+[Autores <br> Izquierda: Ross Ihaka](https://en.wikipedia.org/wiki/Ross_Ihaka)<br> [Derecha: Robert Gentleman](https://en.wikipedia.org/wiki/Robert_Gentleman_(statistician))
 
 
 ---
