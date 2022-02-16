@@ -62,7 +62,7 @@ background-size: cover
 <br>
 
 .footnote[
-.white[Créditos de la Imagen:][Arquitectura Panamericana](https://www.arquitecturapanamericana.com/wp-content/gallery/edificio-facultad-de-enfermeria-universidad-nacional-de-colombia-sede-bogota/1158ARN.jpg)
+.white[Créditos de la Imagen: ][Arquitectura Panamericana](https://www.arquitecturapanamericana.com/wp-content/gallery/edificio-facultad-de-enfermeria-universidad-nacional-de-colombia-sede-bogota/1158ARN.jpg)
 ]
 
 ---
@@ -162,23 +162,25 @@ class: center, middle
 
 # Softwares Estadísticos Seleccionados
 
+
 <br>
 <br>
-<br>
-```{r , echo=FALSE, out.width="70%", fig.align='center'}
+```{r , echo=FALSE, out.width="50%", fig.align='center'}
 knitr::include_graphics("imagenes/R-rstudio.png") 
 ```
 
 .footnote[
-Ir a sitios web de los softwares: <br> [R](https://www.r-project.org/) <br>
-[Rstudio](https://www.rstudio.com/)
+Ir a sitios web de los softwares seleccionados: <br> [R](https://www.r-project.org/) <br>
+[Rstudio](https://www.rstudio.com/) <br><br>
+Para más información sobre otros softwares estadísticos útiles para la gestión estadística y de datos, los invitamos a ir al [Capítulo 2](https://bookdown.org/gboccardo/manual-ED-UCH/como-definir-que-y-cuantos-software-de-analisis-estadistico-manejar.html) del libro **RStudio para Estadística Descriptiva en Ciencias Sociales**. [Ir al libro](https://bookdown.org/gboccardo/manual-ED-UCH/)
 ]
+
 
 ---
 class: middle, hide-logo
 
 .pull-left[
-## Qué es R `r fa("r-project", fill = "steelblue")`
+## ¿Qué es R? `r fa("r-project", fill = "steelblue")`
 
 “R es un ambiente de programación formado por un conjunto de herramientas muy flexibles que pueden ampliarse fácilmente mediante paquetes, librerías o definiendo nuestras propias funciones.”<br><br>
 [Extraido de: Máxima Formación](https://www.maximaformacion.es/blog-dat/que-es-r-software/)
@@ -190,7 +192,7 @@ knitr::include_graphics("imagenes/R.png")
 ]
 
 .pull-right[
-## Qué es Rstudio 
+## ¿Qué es Rstudio? 
 
 “RStudio es un entorno de desarrollo integrado (IDE) para el lenguaje de programación R.”
 <br><br>
@@ -214,6 +216,14 @@ knitr::include_graphics("imagenes/AutoresR.jpg")
 
 [Autores <br> Izquierda: Ross Ihaka](https://en.wikipedia.org/wiki/Ross_Ihaka)<br> [Derecha: Robert Gentleman](https://en.wikipedia.org/wiki/Robert_Gentleman_(statistician))
 
+
+---
+# ¡Un poco más sobre el poder de R!
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/XcBLEVknqvY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+.footnote[
+Más detalles de la historia de R en: <br> [Historia de R en Detalle, por Andrew Zieffler](https://www.datadreaming.org/post/a-history-of-r/)]
 
 ---
 
@@ -257,6 +267,28 @@ Créditos de la imagén (derecha):  [Kevin Oetiker](https://unsplash.com/photos/
 knitr::include_graphics("imagenes/RyRstudio.jpg") 
 ```
 ]
+
+---
+# ¿Cómo instalar R y Rstudio en nuestras computadoras?
+<br><br>
+
+### Para instalar R y Rstudio en nuestras computadoras, los invitamos a seguir los pasos definidos en el Capítulo 1 [Instalar R y Rstudio](https://rbasico.netlify.app/1-instalar) del libro [Un Primer Curso de R.](https://rbasico.netlify.app/) <br> Ir al contenido de este documento dando click en el siguiente enlace. <br>
+[https://rbasico.netlify.app/1-instalar](https://rbasico.netlify.app/1-instalar)
+
+
+---
+# Una Primera Panorámica de R
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/PantallaR.png") 
+```
+
+---
+# Una Primera Panorámica de Rstudio
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/PantallaRstudio.png") 
+```
 
 
 ---
