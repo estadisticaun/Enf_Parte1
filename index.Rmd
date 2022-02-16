@@ -272,7 +272,7 @@ knitr::include_graphics("imagenes/RyRstudio.jpg")
 # ¿Cómo instalar R y Rstudio en nuestras computadoras?
 <br><br>
 
-### Para instalar R y Rstudio en nuestras computadoras, los invitamos a seguir los pasos definidos en el Capítulo 1 [Instalar R y Rstudio](https://rbasico.netlify.app/1-instalar) del libro [Un Primer Curso de R.](https://rbasico.netlify.app/) <br> Ir al contenido de este documento dando click en el siguiente enlace. <br>
+### Para instalar R y Rstudio en nuestras computadoras, los invitamos a seguir los pasos definidos en el Capítulo 1, [Instalar R y Rstudio](https://rbasico.netlify.app/1-instalar), del libro [Un Primer Curso de R.](https://rbasico.netlify.app/) <br> Ir al contenido de este documento dando click en el siguiente enlace. <br>
 [https://rbasico.netlify.app/1-instalar](https://rbasico.netlify.app/1-instalar)
 
 
