@@ -290,6 +290,18 @@ knitr::include_graphics("imagenes/PantallaR.png")
 knitr::include_graphics("imagenes/PantallaRstudio.png") 
 ```
 
+---
+# Interfaz de Rstudio - Características
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Interfaz_RStudio.jpg") 
+```
+
+.footnote[
+.black[Crédito de la imagen: ][Ciencia de Datos para Gente Sociable
+](https://bitsandbricks.github.io/ciencia_de_datos_gente_sociable/una-presentaci%C3%B3n-a-toda-marcha-de-r.html#nuestro-primer-proyecto-en-r)
+]
+
 
 ---
 
@@ -330,6 +342,13 @@ class: center, middle
 * Software estadístico
 
 * Instalación de R y Rstudio
+
+
+---
+# Visualización
+
+.green[Ir al siguiente enlace: ][Data To Viz](https://www.data-to-viz.com/)
+
 
 ---
 name: modulo2
