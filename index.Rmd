@@ -34,7 +34,7 @@ library(fontawesome)
 xaringanExtra::use_tile_view()
 xaringanExtra::use_clipboard()
 xaringanExtra::use_webcam()
-xaringanExtra::use_share_again()
+# xaringanExtra::use_share_again()
 xaringanExtra::use_fit_screen()
 xaringanExtra::use_panelset()
 xaringanExtra::use_scribble()
@@ -119,13 +119,13 @@ class: center, middle
 ---
 
 # .big-text[`r emo::ji("scroll")` Contenido del Curso - Módulos] 
-1. [Módulo: Estadística Descriptiva y Exploratoria](#modulo1)
+1. [Módulo: Estadística Descriptiva y Exploratoria (5 sesiones)](#modulo1)
 
-1. [Módulo: Probabilidad e Inferencia Estadística](#modulo2)
+1. [Módulo: Probabilidad e Inferencia Estadística (6 sesiones)](#modulo2)
 
-1. [Módulo: Modelamiento Estadístico](#modulo3)
+1. [Módulo: Modelamiento Estadístico (1 sesión)](#modulo3)
 
-1. [Módulo: Comunicación de Resultados](#modulo4)
+1. [Módulo: Comunicación de Resultados (1 sesión)](#modulo4)
 
 ---
 
@@ -157,6 +157,48 @@ class: center, middle
 
 ![](imagenes/Modulo4.png)
 
+---
+
+# Características de la asignatura y su desarrollo
+
+--
+
+- Asignatura virtual.
+
+--
+
+- Asignatura con amplio contenido
+
+--
+
+- Asignatura teórico práctica. Con énfasis en componentes prácticos.
+
+--
+
+- Desarrollo de ejercicios en clase.
+
+--
+
+- Uso de software estadístico libre **-sin costos-.**
+
+--
+
+- Competencia en **programación** básica para su desarrollo.
+
+--
+
+- Estructura de calificaciones enfocada en lo práctico: 2 talleres (60%) y un trabajo final (40%) desarrollado en PDF o HTML.
+
+--
+
+- Una característica final. Más que sus profesores, nuestra función en esta asignatura es ser sus asesores, mentores o compañeros adelantados. 
+
+--
+<br>
+<br>
+<br>
+
+<p style="background-color:tomato;text-align: center;"><b>Lo más importante </b><br> ¡Sintánse libres de consultar y expresar todas sus dudas por pequeñas que estas parezcan!</p>
 
 ---
 
@@ -302,6 +344,38 @@ knitr::include_graphics("imagenes/Interfaz_RStudio.jpg")
 ](https://bitsandbricks.github.io/ciencia_de_datos_gente_sociable/una-presentaci%C3%B3n-a-toda-marcha-de-r.html#nuestro-primer-proyecto-en-r)
 ]
 
+---
+# Mi primer Script / Código en R
+.pull-left[
+
+## Pasos
+
+
+- Ir a la opción del menú: <br> `File -> New File  -> R Script`.
+
+- En la hoja/pestaña que se abre - `panel de edición`- colocar un primer comentario antecedidio de la letra (#). El comentario debe ser "#Mi primer códido de R"
+
+- Asignar a una variable llamada **Edad** el valor 45 (edad del profesor).
+
+- Mostrar los valores de la variable **Edad** en la Consola.
+]
+
+.pull-rigth[
+
+## El resultado
+
+```{r, echo=TRUE,eval=FALSE}
+# Mi primer código de R
+
+# Edad del profesor
+Edad <- 45
+
+# Imprimir/mostrar el resultado
+Edad
+print(Edad)
+```
+]
+
 
 ---
 
@@ -329,7 +403,140 @@ class: center, middle
 
 # Sesión 1
 
+# Tipos de Variables
+
 ---
+# Definición de Variable Estadística
+
+"Una variable estadística es una característica que puede fluctuar y cuya variación es susceptible a adoptar diferentes valores, los cuales pueden medirse u observarse." <br> [Extraido de: Wikipedia](https://es.wikipedia.org/wiki/Variable_estadística)
+
+"La variable es una característica, cualidad o propiedad observada que puede adquirir diferentes valores y es susceptible de ser cuantificada o medida en una investigación. Para ser nominada como tal, debe tener la posibilidad de variar entre dos valores, como mínimo."<br> [Extraido de: Revista Scielo](http://www.scielo.org.pe/scielo.php?script=sci_arttext&pid=S2227-47312021000100016)
+
+"Una variable estadística es una característica de una muestra o población de datos que puede adoptar diferentes valores."<br> [Extraido de: Economipedia](https://economipedia.com/definiciones/variable-estadistica.html)
+
+
+---
+# .center[Tipos de Variables]
+
+.panelset[
+  
+  .panel[.panel-name[Por Influencia]
+  
+  #### Variables independientes
+  
+  "Una variable independiente es aquella cuyo valor no depende de otra variable. Es aquella característica o propiedad que se supone es la causa del fenómeno estudiado. En investigación experimental se llama así a la variable que el investigador manipula."
+  
+  #### Variables dependientes
+  
+"Una variable dependiente es aquella cuyos valores dependen de los que tomen otra variable. La variable dependiente es una función que se suele representar por la y. La variable dependiente se representa en el eje ordenadas. Son las variables de respuesta que se observan en el estudio, y que podrían estar influidas por los valores de las variables independientes."
+
+<br>
+
+[Fuente: Wikipedia](https://es.wikipedia.org/wiki/Variable_estad%C3%ADstica#Seg%C3%BAn_la_influencia)
+]
+  
+  .panel[.panel-name[Por Nivel de Medida]
+   
+   #### Variables Cualitativas
+   
+"Son el tipo de variables que como su nombre lo indica expresan distintas cualidades, características o modalidad. Cada modalidad que se presenta se denomina atributo o categoría, y la medición consiste en una clasificación de dichos atributos. Las variables cualitativas pueden ser [dicotómicas](https://es.wikipedia.org/wiki/Variable_estadística#Según_el_nivel_de_medida) cuando solo pueden tomar *dos valores posibles*, como sí y no, hombre y mujer o ser [politómicas](https://es.wikipedia.org/wiki/Variable_estadística#Según_el_nivel_de_medida) cuando pueden adquirir *tres o más valores*. Dentro de ellas podemos distinguir: variables ordinales y variables nominales"
+   
+   #### Variables Cuantitativas
+   
+"Son las variables que toman como argumento cantidades numéricas, son variables matemáticas. Las variables cuantitativas además pueden ser: variables discretas y variables continuas"
+
+<br>
+
+[Fuente: Wikipedia](https://es.wikipedia.org/wiki/Variable_estadística#Según_el_nivel_de_medida)
+]
+
+  
+  .panel[.panel-name[Numéricas]
+   
+También llamadas variables cuantitativas. Describen una característica en términos de un valor numérico o cantidad. Pueden ser de dos subtipos.
+
+#### Variables Continuas
+
+"Son aquellas características que son medidas dentro de un rango continuo infinito de valores numéricos y se registran con números reales. Pueden presentar cualquier valor dentro de cierto intervalo.
+
+<p style="color:green;">Ejemplos: Estatura (176 cm), peso(55.6 kg), Tamaño de lesión de leishmaniasis (6.07mm), etc.</p>
+
+#### Variables Discretas
+
+"Son también llamadas discontinuas, y están asociadas a conteos o enumeraciones, razón por la cual, solo permiten ser registradas con números enteros (0,1,2,3, etc.)"
+
+<p style="color:green;">Ejemplos: Edad -años cumplidos-(45), Número de hijos en una familia (0, 1, 2), Número de familias residentes en un barrio (200, 250), etc.</p>
+
+[Fuente: Wikipedia](https://es.wikipedia.org/wiki/Variable_estadística#Variables_Numéricas)
+
+  ]
+  
+  .panel[.panel-name[Categóricas]
+
+En las ciencias de la salud es bastante frecuente encontrarse con variables categóricas, como el sexo, la raza, lugar de procedencia, categoría laboral, etc. Las variables categóricas pueden clasificarse en:
+[Fuente: Wikipedia](https://es.wikipedia.org/wiki/Variable_estadística#Variables_categóricas)
+
+#### Variables nominales
+"Es aquella variable cualitativa cuya categoría no sigue ningún orden, se agrupa sin ninguna jerarquía entre sí." Por ejemplo, Lateralidad (zurdo, diestro), Estado civil (soltero, casado, divorciado, unión libre), etc.
+
+#### Variables ordinales
+"Son aquellas variables categóricas con orden secuencial o progresión natural esperable o jerarquía.". Por ejemplo, Medalla deportiva (oro, plata, bronce), Estrato (Estrato 1, Estrato 2, ...), etc.
+
+#### Variables dicotómicas
+
+"Es aquella variable categórica, la cual puede adoptar solamente dos valores." Por ejemplo, Sexo (masculino, femenino), Posee obesidad (sí, no), etc.
+  ]
+  
+  .panel[.panel-name[Constructos]
+   
+En investigación en salud y en específico en el área de la enfermería es común acudir al uso de variables llamadas constructos teóricos.
+
+### Definición de constructo
+
+Según Kerlinger y Lee, "Un *constructo* es un concepto, que tiene el significado agregado de haber sido inventado o adoptado para un propósito científico especial, de forma deliberada y consiente.
+
+<p style="color:green;">Algunos ejemplos de variables asociadas a constructos en el área de la enfermería son: <b>habilidad de cuidado de los cuidadores, calidad de vida de un paciente, salud marital en una pareja, etc.</b></p>
+
+  ]
+  
+  .panel[.panel-name[Otras]
+  <br>
+  <br>
+En el contexto de la investigación en salud y a lo largo del desarrollo profesional es altamente probable que nos encontremos con el uso de la palabra **variable** haciendo referencia a:
+
+ <br>
+
+* Variables intervinientes
+* Variables confusoras
+* Variables de respuesta
+* Variables de control
+* Etc.
+  ]
+  
+  ]
+
+---
+# .center[Creación/inserción de variables en R]
+
+
+
+<br>
+<blockquote>
+<p><strong><p style="color:red;">Variables en R</p></strong><br>
+En R, la información de las variables se almacenan en vectores los cuales se construyen haciendo uso de paréntesis precedidos de la letra minuscula c **c()**. Así mismo, los elementos o tipos de datos que conforman un vector están separados por comas y estos deben ser en su totalidad de la misma tipología.
+</p>
+</blockquote>
+<br>
+
+
+
+
+
+
+
+
+---
+exclude: true
 
 # .big-text[`r emo::ji("scroll")` Agenda!] 
 
@@ -345,6 +552,7 @@ class: center, middle
 
 
 ---
+exclude: true
 # Visualización
 
 .green[Ir al siguiente enlace: ][Data To Viz](https://www.data-to-viz.com/)
@@ -352,6 +560,7 @@ class: center, middle
 
 ---
 name: modulo2
+exclude: true
 
 class: title-slide, right, middle, hide-count, hide-logo
 
@@ -370,6 +579,7 @@ background-size: cover
 ---
 
 name: modulo3
+exclude: true
 
 class: title-slide, center, middle, hide-count, hide-logo
 
@@ -386,6 +596,7 @@ background-size: cover
 
 ---
 name: modulo4
+exclude: true
 
 
 class: title-slide, hide-count, hide-logo
@@ -408,6 +619,7 @@ background-size: cover
 ]
 
 ---
+exclude: true
 class: center, middle
 
 # xaringan
@@ -416,10 +628,12 @@ class: center, middle
 
 ---
 class: inverse, center, middle
+exclude: true
 
 # Get Started
 
 ---
+exclude: true
 
 # .big-text[Hola mundo! `r emo::ji("smile")`] 
 
@@ -427,26 +641,16 @@ class: inverse, center, middle
 remotes::install_github("yihui/xaringan")
 ```
 
-You are recommended to use the [RStudio IDE](https://www.rstudio.com/products/rstudio/), but you do not have to.
-
-- Create a new R Markdown document from the menu `File -> New File -> R Markdown -> From Template -> Ninja Presentation`;<sup>1</sup>
-
---
-
-- Click the `Knit` button to compile it;
-
---
-
-- or use the [RStudio Addin](https://rstudio.github.io/rstudioaddins/)<sup>2</sup> "Infinite Moon Reader" to live preview the slides (every time you update and save the Rmd document, the slides will be automatically reloaded in RStudio Viewer.
-
 ---
 background-image: url(`r xaringan:::karl`)
 background-position: 50% 50%
 class: center, bottom, inverse
+exclude: true
 
 # You only live once!
 
 ---
+exclude: true
 
 # Hello Ninja
 
@@ -459,6 +663,7 @@ As a presentation ninja, you certainly should not be satisfied by the "Hello Wor
 Basically **xaringan** injected the chakra of R Markdown (minus Pandoc) into **remark.js**. The slides are rendered by remark.js in the web browser, and the Markdown source needed by remark.js is generated from R Markdown (**knitr**).
 
 ---
+exclude: true
 
 # remark.js
 
@@ -477,6 +682,7 @@ It is important to be familiar with remark.js before you can understand the opti
 .footnote[[*] It is different with Pandoc's Markdown! It is limited but should be enough for presentation purposes. Come on... You do not need a slide for the Table of Contents! Well, the Markdown support in remark.js [may be improved](https://github.com/gnab/remark/issues/142) in the future.]
 
 ---
+exclude: true
 background-image: url(`r xaringan:::karl`)
 background-size: cover
 class: center, bottom, inverse
@@ -484,11 +690,13 @@ class: center, bottom, inverse
 # I was so happy to have discovered remark.js!
 
 ---
+exclude: true
 class: inverse, middle, center
 
 # Using xaringan
 
 ---
+exclude: true
 # .center[Ejercicio 1]
 
 ```{r echo=FALSE}
@@ -518,6 +726,7 @@ c
 ]
 
 ---
+exclude: true
 
 # .center[Ejercicio 2]
 
@@ -560,6 +769,7 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species))+
 
 
 ---
+exclude: true
 
 # Gráfico por fuera de tabset
 
@@ -573,6 +783,7 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species))+
 
 
 ---
+exclude: true
 
 # Descargar archivos
 
@@ -595,4 +806,13 @@ iris %>%
     has_icon = TRUE,
     icon = "fa fa-save")
 ```
+
+
+
+```{r}
+# FUENTES DE INVESTIGACIÓN
+# ASOCIACIÓN Y COMPARACIÓN
+# https://www.maximaformacion.es/blog-dat/guia-para-encontrar-tu-prueba-estadistica/
+```
+
 
