@@ -378,6 +378,20 @@ print(Edad)
 
 
 ---
+# .center[¡Vamos a un receso!]
+
+```{r, echo=FALSE}
+countdown(minutes = 15, seconds = 0, 
+          left = 0, right = 0, top = 0.5,
+          padding = "50px",
+          margin = "5%",
+          font_size = "6em")
+
+```
+
+
+
+---
 
 name: modulo1
 
@@ -474,7 +488,6 @@ También llamadas variables cuantitativas. Describen una característica en tér
   .panel[.panel-name[Categóricas]
 
 En las ciencias de la salud es bastante frecuente encontrarse con variables categóricas, como el sexo, la raza, lugar de procedencia, categoría laboral, etc. Las variables categóricas pueden clasificarse en:
-[Fuente: Wikipedia](https://es.wikipedia.org/wiki/Variable_estadística#Variables_categóricas)
 
 #### Variables nominales
 "Es aquella variable cualitativa cuya categoría no sigue ningún orden, se agrupa sin ninguna jerarquía entre sí." Por ejemplo, Lateralidad (zurdo, diestro), Estado civil (soltero, casado, divorciado, unión libre), etc.
@@ -518,21 +531,45 @@ En el contexto de la investigación en salud y a lo largo del desarrollo profesi
 ---
 # .center[Creación/inserción de variables en R]
 
-
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
+En R, la información de las variables se almacenan en vectores los cuales se construyen haciendo uso de paréntesis precedidos de la letra minuscula c **c( )**. Así mismo, los elementos o tipos de datos que conforman un vector están separados por comas y estos deben ser en su totalidad de la misma tipología.
+]
 
 <br>
-<blockquote>
-<p><strong><p style="color:red;">Variables en R</p></strong><br>
-En R, la información de las variables se almacenan en vectores los cuales se construyen haciendo uso de paréntesis precedidos de la letra minuscula c **c()**. Así mismo, los elementos o tipos de datos que conforman un vector están separados por comas y estos deben ser en su totalidad de la misma tipología.
-</p>
-</blockquote>
-<br>
 
+<p style="color:red;">Ejemplos de variables en R</p>
 
+```{r, echo=TRUE,eval=FALSE}
+# Ejemplos de variables en R
 
+c(10, 20, 17, 25)
 
+c(12.33, 3.45, 7.05, 6.23)
 
+c(TRUE, FALSE, TRUE, TRUE, FALSE)
 
+c("H", "F", "H", "F", "F")
+```
+
+---
+# .center[Asignar nombres de variables en R]
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
+En R, para nombrar una variable, existen 5 criterios o reglas que deben ser tenidas en cuenta:
+<br><br>
+<ol>
+  <li> Los nombres de las variables pueden estar conformadas por letras (mayúsculas o minúsculas), números, un punto (.) o un guión bajo (_). </li><br>
+  <li>Podemos comenzar un nombre de variable con una letra o un punto, pero los puntos no pueden ser seguidos por un número. </li><br>
+  <li>No podemos comenzar un nombre de variable con un número.</li><br>
+  <li>No se permiten caracteres especiales, por ejemplo, espacios, símbolos de operadores, paréntesis.</li><br>
+  <li>No podemos usar una palabra clave ya utilizada e interpretada por R como un nombre de variable (Palabras Reservadas). Por ejemplo, if, else, for, while, break, next, repeat, NA, NULL y NaN</li>
+</ol>
+]
+
+---
+# .center[Nombres correctos e incorrectos de variables en R]
+
+![](imagenes/Variables_Validas.svg)
 
 
 ---
