@@ -571,6 +571,184 @@ En R, para nombrar una variable, existen 5 criterios o reglas que deben ser teni
 
 ![](imagenes/Variables_Validas.svg)
 
+---
+# Tipos de variables en R
+
+En R existen 5 tipos de datos básicos: lógicos, numéricos, enteros, caracter y complejos. 
+
+.panelset[
+  
+  .panel[.panel-name[Lógicos]
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
+Los tipos de datos lógicos asociados a variables lógicas, también conocidos como booleanos, representan en R falso o verdadero y se representan mediante las letras o palabras mayúsculas F o FALSE para el caso de falso y T o TRUE para el caso de verdadero.
+]
+<h4 style="color:red;">Ejemplos</h4>
+
+```{r, echo=TRUE,eval=FALSE}
+Var_log1 <- c(TRUE, FALSE, FALSE)
+Var_log1
+
+Var_log2 <- c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE)
+Var_log2
+```
+
+  ]
+  
+  .panel[.panel-name[Numéricos]
+  
+  .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
+  Los tipos de datos numéricos asociados a variables numéricas, también conocidos como numéros, datos decimales o dobles, hacen referencia a aquellos números (positivos o negativos) que se caracterizan por estar conformados por una parte entera y una decimal.En R, el punto (.) es el encargado de separar la parte entera de la parte decimal de un número. Por ejemplo, 3.14, 30.48, 2.05, son representaciones de números en R.
+  ]
+<h4 style="color:red;">Ejemplos</h4> 
+
+```{r, echo=TRUE,eval=FALSE}
+Var_num1 <- c(3.25, 3.0, 4.5, 6.27, 3.15)
+Var_num1
+
+Var_log2 <- c(155.3, 188.6, 156.4)
+Var_log2
+```
+
+  ]
+  
+  .panel[.panel-name[Enteros]
+  
+  .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
+  Los tipos de datos enteros en R asociados a variables enteras, también conocidos como números enteros, son aquellos que a diferencia de los numéricos, carecen de una parte decimal. Los número enteros en R están acompañados de la letra mayúscula (L). Por ejemplo, 3L representa el número entero 3 y -10L el número entero -10.
+  ]
+<h4 style="color:red;">Ejemplos</h4> 
+
+```{r, echo=TRUE,eval=FALSE}
+Var_ent1 <- c(15L, 19L, 45L, 30L, 60L)
+Var_ent1
+
+Var_ent2 <- c(1L, 0L, 2L, 3L, 2L, 4L, 7L)
+Var_ent2
+```
+  ]
+  
+  .panel[.panel-name[Cadena/caracter]
+  
+  .bg-washed-green.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
+  En R, los datos de tipo cadena o caracter hacen referencia a aquellos datos que contienen texto en su contenido. Los tipos de dato caracter o de texto en R se representan/encierran mediante comillas dobles " o sencillas ’ pero núnca a través de una mezcla o combinación entre los dos tipos de comillas. 
+  ]
+<h4 style="color:red;">Ejemplos</h4>  
+
+```{r, echo=TRUE,eval=FALSE}
+Var_tex1 <- c("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo")
+Var_tex1
+
+Var_tex2 <- c('Pedro', 'Maria', 'Pablo', 'Diana', 'Andres')
+Var_tex2
+```
+
+  ]
+  ]
+
+---
+# ¿Cómo identificar la tipología de una variable en R?
+
+
+Para identificar la tipología de una variable en R podemos hacer uso de la función `class()`. 
+<h4 style="color:red;">Ejemplos</h4>  
+
+```{r, echo=TRUE, eval=TRUE}
+# Crear cuatro tipos de variables
+Var_log1 <- c(TRUE, FALSE, FALSE)
+Var_num1 <- c(3.25, 3.0, 4.5, 6.27, 3.15)
+Var_ent1 <- c(15L, 19L, 45L, 30L, 60L)
+Var_tex1 <- c("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo")
+
+# Identificar los tipos de varaibles 
+
+class(Var_log1)
+class(Var_num1)
+class(Var_ent1)
+class(Var_tex1)
+```
+
+---
+# Marcos de datos en R
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
+Los marcos de datos o **data.frame** es la estructura de datos más empleada para almacenar la información requerida en el análisis de datos en R al permitir almacenar/disponer la información proveniente de poblaciones o muestras conformadas por individuos para los cuales se dispone de diversa información de interés contenida en **variables**.
+
+En R, los marcos de datos o data.frame se construyen haciendo uso de la función data.frame(). Dentro de la función data.frame(), la información de las variables está contenida en vectores con elementos de la misma tipología.
+]
+
+---
+# Ejemplo: crear un marco de datos en R
+
+* Crear un marco de datos llamado `df1` y en este almacenar 3 variables asociadas a la edad, el sexo, y el estado civil de 3 individuos.
+
+* Haciendo uso de la función  `class` varificar el tipo de objeto/variable que es`df1`.
+
+<h4 style="color:red;">Solución - alternativa 1</h4>  
+
+```{r, echo=TRUE, eval=FALSE}
+# Crear el marco de datos o data.frame
+df1 <- data.frame(Edad = c(14.3, 25.2, 20.7),
+                  Sexo = c("H", "F", "M"), 
+                  Ecivil = c("Soltero", "Casado", "Unión Libre"))
+
+# Mostar el contenido del data.frame
+df1 
+
+# Usar la función class para evaluar clase de objeto df1
+class(df1)
+```
+
+---
+# Ejemplo: crear un marco de datos en R
+
+<h4 style="color:red;">Solución - alternativa 2</h4>  
+
+```{r, echo=TRUE, eval=FALSE}
+# Crear las variables en vectores independientes
+
+Edad = c(14.3, 25.2, 20.7)
+Sexo = c("H", "F", "M")
+Ecivil = c("Soltero", "Casado", "Unión Libre")
+
+# Crear el marco de datos o data.frame
+df1 <- data.frame(Edad, Sexo, Ecivil)
+
+# Mostar el contenido del data.frame
+df1
+
+# Usar la función class para evaluar clase de objeto df1
+class(df1)
+```
+
+---
+# .center[Ejercicio en clase]
+
+```{r echo=FALSE}
+countdown(minutes = 5, top = 0, font_size = "2em")
+```
+
+<br>
+<br>
+<br>
+
+
+* Abrir una ventana de código/script de R yendo al menú del programa siguiendo la ruta `File -> New File  -> R Script`.
+
+* Crear un marco de datos llamado `df_clase` y en él almacenar el contenido de 5 variables: Rol, Edad, Estrato, Sexo y Estatura. El contenido de las variables es el de los integrantes del curso.
+
+* Mostrar los resultados del marco de datos `df_clase`.
+
+* Haciendo uso de la función  `class` mostrar el tipo de objeto que es `df_clase`.
+
+* Insertar los comentarios que se consideren necesarios dentro del script o programa.
+
+* Guardar el contenido del Script con el nombre `ejercicio1` en el lugar que se desee en nuestros computadores.
+
+---
+# .center[Datos ejercicio en clase]
+
+
 
 ---
 exclude: true
