@@ -31,6 +31,12 @@ library(emo)
 library(icons)
 library(xaringanExtra)
 library(fontawesome)
+library(gapminder)
+library(UnalData)
+library(writexl)
+library(dplyr)
+library(readxl)
+library(downloadthis)
 xaringanExtra::use_tile_view()
 xaringanExtra::use_clipboard()
 xaringanExtra::use_webcam()
@@ -747,6 +753,668 @@ countdown(minutes = 5, top = 0, font_size = "2em")
 
 ---
 # .center[Datos ejercicio en clase]
+
+
+
+---
+# .center[Repaso Sesión 1]
+
+---
+class: center, middle
+# `r emo::ji("package")`<br> Paquetes en R
+
+---
+# .center[¿Qué es un paquete en R?]
+
+"Un paquete (package) es una colección de funciones, datos y código R que se almacenan en una carpeta conforme a una estructura bien definida, fácilmente accesible para R." [Fuente: Introducción a R](https://cutt.ly/ZA1jRx4)
+
+### ¿Cómo funcionan los paquetes en R?
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/PaquetesR.png") 
+``` 
+
+---
+### .center[¿Cómo instalar paquetes en R?]
+
+### Antes de instalar un paquete
+
+Antes de instalar un paquete en R, como usuarios o investigadores, debemos reponder la pregunta *¿cuál paquete se requiere y para qué lo deseamos instalar?*.
+
+### Desde [CRAN](https://cran.r-project.org/)
+
+Haciendo uso de la función `library()`
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("Nombre del paquete", dependencies = TRUE)
+```
+
+### Desde [Github](https://github.com/)
+
+Haciendo uso de la función `install_github` del paquete `devtools`.
+
+```{r, echo=TRUE, eval=FALSE}
+devtools::install_github("Cuenta/Nombre") 
+```
+
+
+---
+### .center[Algunos ejemplos de instalación de paquetes en R]
+
+--
+
+- Instalar el paquete devtools. Este paquete contiene la función `install_github` que permite instalar paquetes desde Github.
+
+<br>
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("devtools", dependencies = TRUE)
+```
+<br>
+
+--
+
+- Instalar el paquete `readxl`. Este paquete contiene un conjunto de funciones que nos permiten importar a R conjuntos de datos disponibles en Excel.
+
+<br>
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("readxl", dependencies = TRUE)
+```
+
+---
+# Más sobre paquetes en R
+
+Para aquellos interesados en conocer más detalles sobre el uso y gestión de paquetes en R, los invito a explorar la sección 3.1 [Paquetes en R](https://rbasico.netlify.app/3-1-paquetes) del libro [Primer Curso de R](https://rbasico.netlify.app/).  
+
+---
+class: center, middle
+
+# `r emo::ji("bus")` <br> Importar datos a R
+
+
+---
+# Antes de Importar Datos - Datos Ordenados (Tidy Data)
+
+Un conjunto de datos (*data.frame()* o *tibble()*) se considera ordenado si cumple las siguientes 3 condiciones:
+
+- Cada variable forma una columna.
+
+- Cada Observación forma una fila.
+
+- Cada valor tiene su propia celda.
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+
+knitr::include_graphics("imagenes/Tidydata_1.jpg") 
+```  
+
+---
+# Ejemplos de datos no ordenados
+
+<br>
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+
+knitr::include_graphics("imagenes/Notidy.png") 
+```  
+
+---
+# Para Finalizar - Datos Ordenados
+
+### Dos citas
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
+Todas las familias felices se parecen unas a otras, pero cada familia infeliz lo es a su manera.” 
+
+.tr[
+— León Tolstoy
+]]
+
+.bg-washed-green.b--dark-green.ba.bw2.br3.shadow-5.ph4.mt5[
+Todos los set de datos ordenados se parecen unos a otros, pero cada set de datos desordenado lo es a su manera” 
+
+.tr[
+— Hadley Wickham
+]]
+
+Más información sobre datos ordenados en el el artículo [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf)
+
+
+---
+# Importar Datos en R - Fuentes de Datos
+
+El primer paso, en el proceso de gestión contemporanea de datos es la importación de estos al lenguaje de programación R. Para ello, como se ilustra en la imagen, es importante mencionar y destacar el número elevado y creciente de captura y almacenamiento de datos actualmente existente.
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+
+knitr::include_graphics("imagenes/ImportarG.png") 
+```
+
+---
+# Importar Datos de Excel a R - Fuentes
+
+A continuación, se describe el contenido de dos conjuntos de datos disponibles en excel los cuales serán utilizados para ilustrar el proceso de importación de datos a R, así como los ejercicios de transformación que hacen parte de esta sesión.
+
+- **Conjunto de datos 1**
+
+**Descripción**: Conjunto de datos con información histórica de 6 variables de un número importante de países pertenencientes a los diversos continentes que conforman nuestro planeta.
+
+```{r echo=FALSE}
+Paises <- read_excel("Datos/Sesion2/Paises.xlsx")
+
+Paises %>%
+  download_this(
+    output_name = "Paises",
+    output_extension = ".xlsx",
+    button_label = "Descargar archivo excel información países",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save")
+```
+
+
+- **Conjunto de datos 2**
+
+**Descripción**: Conjunto de datos con una muestra de 500 graduados de la Universidad Nacional de Colombia que presentaron las pruebas SaberPro durante los años 2016-2020. Este conjunto de datos cuenta con un total de 17 variables relacionadas con aspectos demográficos, socioeconómicos y de resultados obtenidos por los estudiantes de esta institución y evaluadas a través de las diversas competencias.
+
+```{r echo=FALSE}
+SaberPro <- read_excel("Datos/Sesion2/SaberPro.xlsx", 
+    sheet = "SaberPro")
+
+SaberPro %>%
+  download_this(
+    output_name = "SaberPro",
+    output_extension = ".xlsx",
+    button_label = "Descargar archivo excel pruebas SaberPro",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save")
+```
+
+
+---
+# Importar Datos de Excel a R - Con paquete readxl
+
+#### Opción 1
+
+Para importar datos a R desde excel y haciendo uso del paquete readxl se requiere el uso de la función `read_excel()`. Como se ilustra a continuación esta función demanda, en principio, de la definición de dos parámetros: la ruta de ubicación del archivo de excel a importar dentro de los PC personales y el nombre de la hoja de cálculo del archivo en donde se ubica la base de datos. 
+
+```{r, echo=TRUE, eval=FALSE}
+read_excel("Ruta en PC del archivo", sheet = "Nombre hoja")
+```
+
+##### Código para importar base de datos de países
+
+```{r, echo=TRUE, eval=FALSE}
+read_excel("C:/Users/Alberto/Documents/Personales/Enfermeria/Sesion2/Paises.xlsx", sheet = "Sheet1")
+```
+
+##### Código para importar base de datos resultados SaberPro - guardar base en objeto llamado SaberPro
+
+```{r, echo=TRUE, eval=FALSE}
+SaberPro <- read_excel("C:/Users/Alberto/Documents/Personales/Enfermeria/Sesion2/SaberPro.xlsx")
+```
+
+
+---
+## Importar Datos de Excel a R - Desde Ventana `Import Dataset`
+
+#### Opción 2
+
+En Rstudio existe una alternativa gráfica/visual para importar bases de datos desde Excel. Para ello, como se ilustra en el gráfico, debemos seguir la siguiente ruta: <br> `Environment -> Import Dataset`.
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+
+knitr::include_graphics("imagenes/ImportarRstudio.png") 
+```
+---
+# Importar otros tipos de archivos a R
+
+Otros tipos comunes de archivos utilizados en procesos de investigación son los archivos de texto simple (txt) o los de texto separado por comas (CSV).
+
+Dado el alcance de este curso, no es posible abordar los procesos de importación de estos tipos de archivos. Para aquellos interesados en explorar y conocer cómo importar estos tipos de archivos a R, los invitamos a explorar la **sección 3.2** [Importar/exportar datos](https://rbasico.netlify.app/3-2-importarexportar-datos.html#importar-datos-en-r) del libro [Un primer curso de R.](https://rbasico.netlify.app/)
+
+---
+# Exploración inicial de bases de datos - parte 1
+
+```{r, echo=TRUE, eval=FALSE}
+
+# Clase de objeto del conjunto de datos
+
+class(Paises)
+class(SaberPro)
+
+# Cantidad de individuos del conjunto de datos (data.frame() o tibbles())
+
+nrow(Paises)
+nrow(SaberPro)
+
+# Cantidad de variables del conjunto de datos (data.frame() o tibbles())
+
+ncol(Paises)
+ncol(SaberPro)
+
+# Dimensión (filas y columnas) del conjunto de datos
+
+dim(Paises)
+dim(SaberPro)
+
+# Primeros 5 registros del conjunto de datos
+
+head(Paises)
+head(SaberPro)
+```
+
+---
+# Exploración inicial de bases de datos - parte 2
+
+```{r, echo=TRUE, eval=FALSE}
+
+# Últimos 5 registros del conjunto de datos
+
+tail(Paises)
+tail(SaberPro)
+
+# Descripción general del conjunto de datos
+
+str(Paises)
+str(SaberPro)
+
+# Panorámica descriptiva por variables del conjunto de datos
+
+summary(Paises)
+summary(SaberPro)
+
+# Mostrar contenido del conjunto de datos de manera tabular
+
+View(Paises)
+View(SaberPro)
+
+# Mostrar los nombres de las variables del conjunto de datos
+
+names(Paises)
+names(SaberPro)
+```
+
+---
+class: center, middle
+
+# `r emo::ji("bus")` <br> Exportar bases de datos a Excel desde R
+
+---
+## Exportar datos a Excel desde R 
+
+##### Paso 1: Instalar/descargar paquete writexl.
+```{r, echo=TRUE, eval=FALSE}
+# Instrucción para descargar/instalar el paquete writexl 
+install.packages("writexl", dependencies = TRUE)
+```
+
+
+##### Paso 2: invocar/cargar librería writexl en el script/código de trabajo.
+
+```{r, echo=TRUE, eval=FALSE}
+# Cargar el paquete writexl en el entorno de trabajo  
+library(writexl)
+```
+
+##### Paso 3: Exportar bases de datos de R (data.farme() o tibbles()) a Excel.
+
+```{r, echo=TRUE, eval=FALSE}
+# Exportar a excel, haciendo uso de la función write_xlsx, las bases deseadas.
+# La función write_xlsx requiere, en principio, dos argumentos: 
+# nombre de la base de datos a exportar y 
+# ruta/lugar en donde se desea almacenar el archivo exportado.
+
+# Exportar base de datos de países
+write_xlsx(Paises, "C:/Users/Alberto/Documents/Personales/Enfermeria/Sesion2/PaisesE.xlsx")
+```
+
+---
+# .center[¡Vamos a un receso!]
+
+```{r, echo=FALSE}
+countdown(minutes = 15, seconds = 0, 
+          left = 0, right = 0, top = 0.5,
+          padding = "50px",
+          margin = "5%",
+          font_size = "6em")
+
+```
+
+---
+class: center, middle
+
+# `r emo::ji("hammer_and_wrench")` <br> Transformación/manipulación de bases de <br> datos con R
+
+---
+# .center[El paquete dplyr]
+
+## ¿Qué es el paquete dplyr?
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Dplyr.jpg") 
+```
+
+El paquete [dplyr](https://dplyr.tidyverse.org/) es un paquete de `R` proporciona una gramática moderna para la gestión y transformación de datos contenidos en *data.frame()* o *tibbles*. 
+
+## ¿Cómo instalar el paquete dplyr?
+
+El paquete `dplyr` puede ser instalado desde CRAN  a través del siguiente comando.
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("dplyr", dependencies = TRUE) 
+```
+
+---
+# .center[Seleccionar Variables]
+
+.panelset[
+  
+  .panel[.panel-name[Función select]
+La función <u><b>select</b></u> permite seleccionar de manera rápida variables contenidas en un *data.frame()* o en un *tibble()*.
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Select.png") 
+```
+  ]
+  
+  .panel[.panel-name[Ejemplo 1]
+  
+- Crear un nuevo conjunto de datos llamado **Pais_pob** con las variables ***pais*** y ***pop*** del conjunto de datos *Paises*. Mostrar los resultados del nuevo conjunto de datos en una tabla haciendo uso de la función `View()`.  
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+# Cargar librería dplyr
+library(dplyr)
+
+# Crear conjunto de datos
+Pais_pob <- select(Paises, c(pais, pop))
+
+# Visualizar los resultados en una tabla
+View(Pais_pob)
+```
+  ]
+  
+  .panel[.panel-name[Ejercicio 1]
+
+```{r echo=FALSE}
+countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
+```  
+
+<br>
+
+- Crear, a partir del conjunto de datos SaberPro, un nuevo conjunto de datos llamado **saber_1** con las variables ***COD_DEP_NAC***, ***DEP_NAC***, ***COD_CIU_NAC*** y ***CIU_NAC***. Mostrar los resultados del nuevo conjunto de datos a través de la función `View()`.
+
+- Crear, a partir del conjunto de datos SaberPro, un nuevo conjunto de datos llamado **saber_2** con las variables ***YEAR***, ***PUNTAJE_GLOBAL***, ***PUNT_COMU_ESCR***, ***PUNT_INGLES***, ***PUNT_LECT_CRIT*** y ***PUNT_RAZO_CUANT***. Mostrar los resultados del nuevo conjunto de datos a través de la función `View()`.
+
+- Crear, a partir del conjunto de datos SaberPro, un nuevo conjunto de datos llamado **saber_3** con las variables ***YEAR***, ***EDAD***, ***SEXO*** y **PUNTAJE_GLOBAL**. Mostrar los resultados del nuevo conjunto de datos a través de la función `View()`.
+
+- Crear, a partir del conjunto de datos Paises, un nuevo conjunto de datos llamado **pais_1** con todas las variables excepto la variable ***gdpPercap*** . Mostrar los resultados del nuevo conjunto de datos a través de la función `View()`.
+
+  ]
+  .panel[.panel-name[Funciones Auxiliares]
+
+La función ***select()***, que permite seleccionar de manera rápida variables de un **data.frame()** o **tibble()**, puede estar acompañada de funciones auxiliares que permiten seleccionar de manera rápida subconjuntos de variables a partir de patrónes o regularidades presentes en los nombres de estas. A continuación, se presenta el listado de funciones auxiliares que pueden ser usadas en conjunto con la función ***select()***.
+
+### Lista de variables auxiliares de la función select()
+
+```{r, echo=TRUE, eval=FALSE}
+starts_with() # Las variables inician con
+ends_with() # Las variables finalizan con
+contains() # Las variables contienen
+matches() # Selección de variables con expresiones regulares
+any_of() # Selección de variables a partir de un vector con nombres de variables
+num_range() # Selección de varibles por un patrón
+everything() # Seleccionar todas las variables de un conjunto de datos
+```  
+  
+  ]
+  .panel[.panel-name[Ejemplo 2]
+
+- Crear, a partir del conjunto de datos SaberPro, un nuevo conjunto de datos llamado **saber_4** con las variables que inician con la palabra ***PUNT_***. Mostrar los resultados del nuevo conjunto de datos a través de la función `View()`.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+#Crear conjunto de datos y visualizar resultados
+saber_4 <- select(SaberPro, starts_with("PUNT_"))
+View(saber_4)
+```
+
+- Crear, a partir del conjunto de datos SaberPro, un nuevo conjunto de datos llamado **saber_5** con las variables que finalizan con la palabra ***NAC***. Mostrar el nuevo conjunto de datos en una tabla haciendo uso de la función View().
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+#Crear conjunto de datos y visualizar resultados
+saber_5 <- select(SaberPro, ends_with("NAC"))
+View(saber_5)
+```
+  ]
+  
+  .panel[.panel-name[Ejercicio 2]
+
+```{r echo=FALSE}
+countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
+```  
+
+<br>
+<br>
+
+- Crear, a partir del conjunto de datos SaberPro, un nuevo conjunto de datos llamado **saber_5** con las variables que inician con la palabra ***COD_***. Mostrar el nuevo conjunto de datos en una tabla haciendo uso de la función `View()`.  
+
+- Crear, a partir del conjunto de datos SaberPro, un nuevo conjunto de datos llamado **saber_6** con las variables que contienen, en cualquier parte de su nombre, el texto ***CIU***. Mostrar el nuevo conjunto de datos en una tabla haciendo uso de la función `View()`.  
+  ]
+  ]
+
+---
+# .center[Renombrar Variables]
+
+.panelset[
+
+  .panel[.panel-name[Función rename]
+  
+La función **rename** permite cambiar el nombre de manera rápida de las variables contenidas en un *data.frame()* o en un *tibble()*
+<br> 
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Rename.png") 
+```  
+  ]
+  .panel[.panel-name[Ejemplo 1]
+
+- Cambiar los nombres de las variables **DEP_NAC** y **CIU_NAC** del conjunto de datos SaberPro por los nombres **Departamento** y **Municipio**. Guardar la base resultante en un objeto llamado **Saber_Nom_1**. Mostrar los resultados del nuevo conjunto de datos haciendo uso de la función `View()`.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+#Crear conjunto de datos con nuevos nombres en las variables y visualizar resultados
+
+Saber_Nom_1 <- rename(SaberPro, Departamento = DEP_NAC, Municipio = CIU_NAC)
+View(Saber_Nom_1)
+```  
+
+  ]
+  .panel[.panel-name[Ejercicio 1]
+  
+```{r echo=FALSE}
+countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
+```  
+
+<br>
+<br>
+
+- Cambiar los nombres de las variables **PUNTAJE_GLOBAL**, **PUNT_COMU_ESCR**, **PUNT_INGLES**,
+**PUNT_LECT_CRIT** y **PUNT_RAZO_CUANT** del conjunto de datos SaberPro por los nombres **Global**, **Escritura**, **Ingles**, **Lectura** y **Matematicas**, respectivamente. Guardar la base resultante en un objeto llamado **Saber_Nom_2**. Mostrar los resultados del nuevo conjunto de datos haciendo uso de la función `View()`. 
+
+- Cambiar los nombres de las variables **lifeExp**, **pop** y **gdpPercap** del conjunto de datos Paises por los nombres **Evida**, **Poblacion** y **PIBpercapita**, respectivamente. Guardar la base resultante en un objeto llamado **Pais_Nom_1**. Mostrar los resultados del nuevo conjunto de datos haciendo uso de la función `View()`. 
+]
+]
+
+---
+# .center[Reubicar Variables]
+
+.panelset[
+
+  .panel[.panel-name[Función relocate]
+  
+La función <u><b>relocate</b></u> permite cambiar el orden de ubicación de las variables que conforman un *data.frame()* o un *tibble().* 
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Relocate.png") 
+``` 
+
+<font size=2><i><b>Fuente de la imágen:</b> @allison_horst. <br>
+<b>Disponible en: </b><a href=https://github.com/allisonhorst/stats-illustrations>https://github.com/allisonhorst/stats-illustrations</a></i></font>
+
+  ]
+  .panel[.panel-name[Ejemplo 1]
+  
+ - Reubicar, a las primeras posiciones, las variables **gdpPercap** y **pop** del conjunto de datos Paises. Guardar la base resultante en un objeto llamado **Pais_rel_1**. Mostrar los resultados del nuevo conjunto de datos haciendo uso de la función `View()`.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+#Crear conjunto de datos con reubicación de variables
+Pais_rel_1 <- relocate(Paises, c(gdpPercap, pop))
+View(Pais_rel_1)
+```   
+
+ - Reubicar, antes de la variable **continente**, las variables **gdpPercap** y **pop** del conjunto de datos Paises. Guardar la base resultante en un objeto llamado **Pais_rel_2**. Mostrar los resultados del nuevo conjunto de datos haciendo uso de la función `View()`.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+#Crear conjunto de datos con reubicación de variables
+Pais_rel_2 <- relocate(Paises, c(gdpPercap, pop), .before = continente)
+View(Pais_rel_1)
+```   
+
+  ]
+  .panel[.panel-name[Ejercicio 1]
+
+```{r echo=FALSE}
+countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
+```  
+
+<br>
+<br>  
+<br>
+ - Reubicar, despues de la variable **PUNT_RAZO_CUANT**, las variables **SEXO**, **COLEGIO**, **ESTRATO** y **EDAD** del conjunto de datos SaberPro. Guardar la base resultante en un objeto llamado **Saber_rel_1**. Mostrar los resultados del nuevo conjunto de datos haciendo uso de la función `View()`.  
+ 
+ <br>
+ <br>
+ 
+ [Nota]()
+ 
+Para reubicar variables de un data.frame() o tibble() después de una variable dada, debemos hacer uso del argumento **.before**
+ 
+ 
+  
+  ]
+]
+
+---
+exclude: true
+# .center[Ordenar Variables]
+
+.panelset[
+
+  .panel[.panel-name[Función arrange]
+  
+La función <u><b>arrange</b></u>  permite el ordenamiento de individuos de un *data.frame()* o de un *tibble()* de acuerdo a uno o más atributos existentes en  algunas de las variables  de interés.
+
+<br>
+<br>
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Arrange.png") 
+```    
+  
+  ]
+  .panel[.panel-name[Ejemplo 1]]
+  .panel[.panel-name[Ejercicio 1]]
+]
+
+
+---
+exclude: true
+# .center[Adicionar/mutar Variables]
+
+.panelset[
+
+  .panel[.panel-name[Función mutate]
+
+La función <u><b>mutate</b></u> permite crear nuevas variables o modificar las existentes en un *data.frame()* o en un *tibble()*. 
+
+  
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Mutate.png") 
+```  
+
+<font size=2><i><b>Fuente de la imágen:</b> @allison_horst. <br>
+<b>Disponible en: </b><a href=https://github.com/allisonhorst/stats-illustrations>https://github.com/allisonhorst/stats-illustrations</a></i></font>
+
+  ]
+  .panel[.panel-name[Ejemplo 1]]
+  .panel[.panel-name[Ejercicio 1]]
+]
+
+---
+exclude: true
+# .center[Filtrar Variables]
+
+.panelset[
+
+  .panel[.panel-name[Función filter]
+ 
+La función <u><b>filter</b></u> permite la selección de individuos de un *data.frame()* o de un *tibble()* de acuerdo a los atributos existentes en  algunas de las variables que conforman el conjunto de datos
+ 
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Filter.jpg") 
+``` 
+
+<font size=2><i><b>Fuente de la imágen:</b> @allison_horst. <br>
+<b>Disponible en: </b><a href=https://github.com/allisonhorst/stats-illustrations>https://github.com/allisonhorst/stats-illustrations</a></i></font>  
+  
+  ]
+  .panel[.panel-name[Operadores]
+
+Para seleccionar subconjuntos de datos contenidos en un *data.frame()* o un *tibble* se requiere el uso de operadores **relacionales o lógicos**.
+
+#### Operadores Relacionales
+
+```{r, echo=TRUE, eval=FALSE}
+< # Menor que
+> # Mayor que
+<= # Menor o igual que
+>= # Mayor o igual que
+== # Igual a
+!= #  No es igual a (diferente)
+```
+
+
+#### Operadores Lógicos
+
+```{r, echo=TRUE, eval=FALSE}
+& # Y lógico
+| # O lógico
+! # No lógico
+```
+
+
+  ]
+  .panel[.panel-name[Ejp Oper Relacionales]]
+  .panel[.panel-name[Ejp Oper Lógicos]]
+  .panel[.panel-name[Ejercicios]]
+]
+
+
+
+
 
 
 
