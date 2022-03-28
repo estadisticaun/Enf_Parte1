@@ -1108,6 +1108,49 @@ install.packages("dplyr", dependencies = TRUE)
 ```
 
 ---
+# .center[Actividades Asociadas a la Transformación de Datos]
+
+En el ámbito de la investigación cuantitativa, el ejercicio de la gestión y transformación de datos implica una alta dedicación la cual, en palabras de algunos analistas, puede superar el 60% del tiempo dedicado al componente analítico de dichos procesos. En principio, el ejercicio de transformación de datos de naturaleza cuantitativa implica enfrentarnos, *como mínimo*, a una de las <u>siguientes 8 acciones</u>:
+
+
+1. Selección de variables
+--
+
+<br>
+
+2. Cambios de nombres en variables
+--
+
+<br>
+
+3. Reubicación de variables
+--
+
+<br>
+
+4. Ordenar variables
+--
+
+<br>
+
+5. Crear nuevas varibles o mutar/transformar las variables originales
+--
+
+<br>
+
+6. Filtrar/seleccionar subconjuntos de individuos de acuerdo al comportamiento de una o más variables
+--
+
+<br>
+
+7. Generar resúmenes estadísticos de variables de manera general y según el comportamiento de otras variables (por agrupamientos).
+--
+
+<br>
+
+8. Concatenar varios ejercicios/códigos de transformación de datos.
+
+---
 # .center[Seleccionar Variables]
 
 .panelset[
@@ -1310,7 +1353,7 @@ countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
  
  [Nota]()
  
-Para reubicar variables de un data.frame() o tibble() después de una variable dada, debemos hacer uso del argumento **.before**
+Para reubicar variables de un data.frame() o tibble(), después de una variable dada, debemos hacer uso del argumento **.before**
  
  
   
@@ -1318,14 +1361,14 @@ Para reubicar variables de un data.frame() o tibble() después de una variable d
 ]
 
 ---
-exclude: true
+exclude: false
 # .center[Ordenar Variables]
 
 .panelset[
 
   .panel[.panel-name[Función arrange]
   
-La función <u><b>arrange</b></u>  permite el ordenamiento de individuos de un *data.frame()* o de un *tibble()* de acuerdo a uno o más atributos existentes en  algunas de las variables  de interés.
+La función <u><b>arrange()</b></u>  permite el ordenamiento de individuos de un *data.frame()* o de un *tibble()* de acuerdo a uno o más atributos existentes en  algunas de las variables  de interés.
 
 <br>
 <br>
@@ -1335,14 +1378,90 @@ knitr::include_graphics("imagenes/Arrange.png")
 ```    
   
   ]
-  .panel[.panel-name[Ejemplo 1]]
-  .panel[.panel-name[Ejercicio 1]]
+  .panel[.panel-name[Ejp - Var numéricas]
+  
+  - Ordenar, de manera ascendente, los individuos del conjunto de datos Paises de acuerdo a la cantidad de habitantes de los países (**pop**). Guardar la base resultante en un objeto llamado **Pais_ord_1**. Mostrar los resultados haciendo uso de la función `View()`.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+Pais_ord_1 <- arrange(Paises, c(pop))
+View(Pais_ord_1)
+```   
+
+  - Ordenar, de manera descendente, los individuos del conjunto de datos *SaberPro* de acuerdo a los puntajes promedio obtenidos en la prueba SaberPro (**PUNTAJE_GLOBAL**). Guardar la base resultante en un objeto llamado **Saber_ord_1**. Mostrar los resultados haciendo uso de la función `View()`.  
+ 
+ [Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+Saber_ord_1 <- arrange(SaberPro, desc(PUNTAJE_GLOBAL))
+View(Saber_ord_1)
+```   
+  ]
+  
+ .panel[.panel-name[Ejp - Var categóricas]
+ 
+  - Ordenar, de manera ascendente (a-z), los individuos del conjunto de datos *SaberPro* de acuerdo a los nombres de los municipios/ciudades de nacimiento (**CIU_NAC**). Guardar la base resultante en un objeto llamado **Saber_ord_2**. Mostrar los resultados haciendo uso de la función `View()`.
+ 
+ [Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+Saber_ord_2 <- arrange(SaberPro, CIU_NAC)
+View(Saber_ord_2)
+```   
+ 
+ <br>
+ <br>
+ 
+ [Nota]()
+ 
+La función **arrange()**, para el caso de variables categóricas / nominales, ordena los elementos de la **a** a la **z**: primero la a, luego la b y así, sucesivamente. En presencia de letras mayúsculas, la letra minúscula es mayor que la mayúscula: (a > A, b > B, c > C, etc.). Si se desea invertir el ordenamiento (de la **z** a la **a**), hacer uso de la función auxiliar **desc**.
+ 
+ 
+ ]
+ .panel[.panel-name[Ejercicios 1]
+ 
+```{r echo=FALSE}
+countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
+```  
+
+<br>
+<br>  
+
+ - Ordenar, de manera descendente, la información histórica de la base de datos de **Paises** de acuerdo a la esperanza de vida observada en estos **lifeExp**. Guardar los resultadoos en una nueva base de datos llamada **Evida_1** y visualizar los resultados desde el *Environment* de *Rstudio*.
+ 
+<br>
+<br>  
+
+- Ordenar, de manera ascendente (default), la información de la base de datos **SaberPro** de acuerdo al departamento de nacimiento **DEP_NAC** de los estudiantes.
+
+  ]
+  
+.panel[.panel-name[Ejercicios 2]
+
+```{r echo=FALSE}
+countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
+```  
+
+<br>
+
+[Nota]()
+ 
+La función **arrange()** puede ser utilizada para ordenar conjuntos de datos de acuerdo al comportamiento de dos o más variables contenidas en estos. Para ello, basta con adicionar al interior de la variable arrange, las variables por las cuales se desea ordenar el conjunto de datos. La estructura de ordenamiento de un conjunto de datos con dos o más variables es la siguiente. <br>
+`arrange(datos, c(variables))`
+
+<br>  
+
+[Ejercicio]()
+
+ - Ordenar, de manera descendente, los resultados obtenidos en la prueba de razonamiento cuantitativo **PUNT_RAZO_CUANT** contenida en el conjunto de datos **SaberPro**, según el sexo (**SEXO**) de los estudiantes evaluados.
+
+]
 ]
 
-
 ---
-exclude: true
-# .center[Adicionar/mutar Variables]
+exclude: false
+# .center[Adicionar / Mutar Variables]
 
 .panelset[
 
@@ -1359,17 +1478,161 @@ knitr::include_graphics("imagenes/Mutate.png")
 <b>Disponible en: </b><a href=https://github.com/allisonhorst/stats-illustrations>https://github.com/allisonhorst/stats-illustrations</a></i></font>
 
   ]
-  .panel[.panel-name[Ejemplo 1]]
-  .panel[.panel-name[Ejercicio 1]]
+  .panel[.panel-name[Ejp Nuevas Variables 1]
+  
+La función `mutate()` permite crear nuevas variables a partir del comportamiento observado en las variables existentes en nuestros conjuntos/bases de datos.  
+
+[Ejemplo]()
+
+* Crear, partir de la información contenida en el conjunto de datos **Paises**, un nueva variable llamada **EVida2** la cual contiene la esperanza de vida **lifeExp** elevada al cuadrado. Guardar los resultados en un nuevo conjunto de datos llamado **Epaises** y visualizar los resultados a través de la función `View()`.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+Epaises <- mutate(Paises, EVida2 = lifeExp ^ 2)
+View(Epaises)
+```  
+<br>
+<font size=3><i><b>Operadores Matemáticos:</b> otros operadores aritméticos disponibles en R son: suma(+), resta(-), multiplicación(*) y división (/).
+
+  ]
+  .panel[.panel-name[Ejercicios]
+  
+```{r echo=FALSE}
+countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
+``` 
+
+<br>
+<br>
+
+
+- Adicionar, al conjunto de datos **SaberPro**, una nueva variable llamada **Sum_LyM** la cual contiene la suma de los resultados obtenidos en las pruebas de Lectura Crítica (PUNT_LECT_CRIT) y Razonamiento Cuantitativo (PUNT_RAZO_CUANT). Guardar el nuevo conjunto de datos en una base llamada **Saber_Sum** y visualizar los resultados. 
+
+
+- Adicionar, al conjunto de datos creado en el ejercicio anterior **Saber_Sum**, una nueva variable llamada **Mean_LyM** la cual contiene el promedio de los resultados obtenidos en las pruebas de Lectura Crítica (PUNT_LECT_CRIT) y Razonamiento Cuantitativo (PUNT_RAZO_CUANT). Visualizar los resultados con las dos nuevas variables. 
+    ]
+  
+  .panel[.panel-name[Ejp Mismas Variables]
+ 
+La función `mutate()`, además de permitir crear nuevas variables a partir de variables existentes en una base de datos, permite recodificar o modificar una o más variable existentes (sin crear/adicionar nuevas variables). 
+ 
+[Ejemplo]()
+
+* Crear, a partir del conjunto de datos **SaberPro**, un nuevo conjunto de datos llamado **RSaberPro** con la variable **PUNTAJE_GLOBAL** estandarizada. Para que esta variable esté estandarizada (puntuaciones Z), debemos restar a cada uno de los valores el promedio general (178.184) y dividir este resultado por la desviación estándar (21.01574).
+
+$$Puntuaciones\ z = \frac{x-\overline{x}}{s}  = \frac{\verb|PUNTAJE_GLOBAL|  - 178.184}{21.01574}$$
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+RSaberPro <- mutate(SaberPro, PUNTAJE_GLOBAL = (PUNTAJE_GLOBAL - 178.184)/21.01574)
+View(RSaberPro)
+```  
+
+
+  ]
+  .panel[.panel-name[Ejercicios]
+
+```{r echo=FALSE}
+countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
+``` 
+
+<br>
+<br>
+<br>
+
+* Crear, a partir del conjunto de datos **SaberPro**, un nuevo conjunto de datos llamado **ESaberPro** con la raiz cuadrada de cada una de las edades de los estudiantes evaluados (variable EDAD).   
+ 
+ <font size=3><i>Nota: La función <b>sqrt()</b> de R retorna la raiz cuadrada de un número. Por ejemplo, <b>sqrt(25)</b> nos retorna el valor 5.</i></font>
+ 
+<br>
+
+* Crear, a partir del conjunto de datos **Paises**, un nuevo conjunto de datos llamado **EPaises**, con las variables **gdpPercap** multiplicada por 2 y **pop** dividido entre 1.000.000.
+  
+  ]
 ]
 
 ---
-exclude: true
+exclude: false
+# .center[Adicionar / Mutar Variables - Función case_when()]
+
+.panelset[
+
+  .panel[.panel-name[Función case_when()]
+
+La función auxiliar `case_when()` permite la creación de nuevas variables a partir de variables numéricas o categóricas/nominales, así como la mutación de variables actuales de tipo numérico o categórico/nominal.
+
+  
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Case_when.png") 
+```  
+
+<font size=2><i><b>Fuente de la imágen:</b> @allison_horst. <br>
+<b>Disponible en: </b><a href=https://github.com/allisonhorst/stats-illustrations>https://github.com/allisonhorst/stats-illustrations</a></i></font>
+  
+  ]
+  
+  .panel[.panel-name[Ejemplos]
+
+<br>
+
+[Ejemplo]()
+
+  * Crear un nuevo conjunto de datos llamado **SaberProTex** el cual contiene una nueva variable llamada **SEDEC** conformada por las siguientes reglas:
+  
+  1. Si el estudiante pertenece a Bogotá, usar la respuesta Bogotá.
+  2. Si el estudiante pertenece a Medellín, usar la respuesta Medellín.
+  3. En los demás casos, usar la opción Otras Sedes.
+  
+[Solución]()
+  
+```{r, echo=TRUE, eval=FALSE}
+SaberProTex <- mutate(SaberPro, SEDEC = case_when(SEDE == "Bogotá" ~ "Bogotá",
+                                                  SEDE == "Medellín" ~ "Medellín", 
+                                                  TRUE ~ "Otras Sedes" ))
+View(SaberProTex)
+```  
+  ]
+ 
+  .panel[.panel-name[Ejercicios]
+  
+```{r echo=FALSE}
+countdown(minutes = 4, top = 0, padding = "15px", font_size = "1em")
+``` 
+
+<br>
+<br>
+<br>
+
+  * Adicionar, al conjunto de datos **SaberPRO**, una nueva variable llamada **DEP_NAC1** la cual cumple con los siguientes requisitos:
+  
+  1. Si el estudiante pertenece al departamento `BOGOTÁ, D. C.`, usar la respuesta *Bogotá*.
+  2. Si el estudiante pertenece al departamento `ANTIOQUIA`, usar la respuesta *Antioquia*.
+  3. Si el estudiante pertenece al departamento `CALDAS`, usar la respuesta *Caldas*.
+  4. Si el estudiante pertenece al departamento `VALLE DEL CAUCA`, usar la respuesta *Valle del Cauca*.
+  5. En los demás casos, usar la opción *Otros Departamentos*.
+
+]
+  ]
+
+---
+# .center[¡Vamos a un receso!]
+
+```{r, echo=FALSE}
+countdown(minutes = 15, seconds = 0, 
+          left = 0, right = 0, top = 0.5,
+          padding = "50px",
+          margin = "5%",
+          font_size = "6em")
+
+```
+
+---
+exclude: false
 # .center[Filtrar Variables]
 
 .panelset[
 
-  .panel[.panel-name[Función filter]
+  .panel[.panel-name[Función filter()]
  
 La función <u><b>filter</b></u> permite la selección de individuos de un *data.frame()* o de un *tibble()* de acuerdo a los atributos existentes en  algunas de las variables que conforman el conjunto de datos
  
@@ -1407,13 +1670,243 @@ Para seleccionar subconjuntos de datos contenidos en un *data.frame()* o un *tib
 
 
   ]
-  .panel[.panel-name[Ejp Oper Relacionales]]
-  .panel[.panel-name[Ejp Oper Lógicos]]
-  .panel[.panel-name[Ejercicios]]
+  .panel[.panel-name[Ejp Oper Relacionales]
+  
+[Ejemplo 1]() 
+ 
+* Seleccionar, del conjunto de datos **Paises**, un subconjunto de datos (nueva base de datos) llamado **Colombia**, el cual contiene la información histórica disponible de nuestro país (*Colombia*). Mostrar los resultados a través de la función `View`.
+
+[Solución]()  
+
+```{r, echo=TRUE, eval=FALSE}
+Colombia <- filter(Paises, pais == "Colombia")
+View(Colombia)
+```
+
+[Ejemplo 2]() 
+
+* Crear, a partir del conjunto de datos **SaberPro**, un subcontunto de datos llamado **BogFem** con la totalidad de estudiantes *mujeres* nacidas en el departamento/ciudad `BOGOTÁ, D. C.`
+
+[Solución]()  
+
+```{r, echo=TRUE, eval=FALSE}
+BogFem <- filter(SaberPro, SEXO == "Mujeres", DEP_NAC == 'BOGOTÁ, D. C.')
+```
+
+  ]
+  .panel[.panel-name[Ejp Oper Lógicos]
+  
+  [Ejemplo 1]() 
+
+* Crear, a partir del conjunto de datos **SaberPro**, un subcontunto de datos llamado **BogFemY** con las estudiantes que son *mujeres* y **(&)** nacieron en el departamento/ciudad `BOGOTÁ, D. C.`. Mostrar los resultados a través del Environment de **Rstudio**.
+
+[Solución]()  
+
+```{r, echo=TRUE, eval=FALSE}
+BogFemY <- filter(SaberPro, SEXO == "Mujeres" & DEP_NAC == 'BOGOTÁ, D. C.')
+```
+ 
+ [Ejemplo 2]() 
+
+* Crear, a partir del conjunto de datos **SaberPro**, un subcontunto de datos llamado **BogFemO** con las estudiantes que son *mujeres* O **(|)** con los estudiantes que nacieron en el departamento/ciudad `BOGOTÁ, D. C.` 
+  
+[Solución]()  
+
+```{r, echo=TRUE, eval=FALSE}
+BogFemO <- filter(SaberPro, SEXO == "Mujeres" | DEP_NAC == 'BOGOTÁ, D. C.')
+```
+
+  ]
+  .panel[.panel-name[Ejercicios]
+  
+```{r echo=FALSE}
+countdown(minutes = 4, top = 0, padding = "15px", font_size = "1em")
+```  
+
+<br>
+<br>
+
+* Crear, a partir del conjunto de datos *Paises*, un nuevo subconjunto de datos llamado **Asur** con las información de los principales países de América del Sur (variable **pais**): Brazil, Colombia, Argentina, Peru, Venezuela, Chile, Ecuador, Bolivia, Paraguay y Uruguay.  
+
+* Crear, a partir del conjunto de datos *Paises*, un nuevo conjunto/subconjunto de datos llamado **Saber_EdadPunt** el cual contine los estudiantes que obtuvieron un puntaje global **(PUNTAJE_GLOBAL)** mayor o igual *(>=)* a 200 y que pertenecen al área del conocimiento **(AREAC_SNIES)** de 	
+*Ciencias de la salud*.
+  ]
 ]
 
+---
+exclude: false
+# .center[Filtrar Variables - Operador %in%]
 
 
+.panelset[
+
+  .panel[.panel-name[Operador %in%)]
+
+El operador/función `%in%` permite, a la hora de filtrar individuos a partir de una variable *usualmente categórica/nominal*, una forma de selección que evita la redundancia en los códigos creados y facilita su comprensión en los ejercicios de transformación de datos.
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/in_operator.png") 
+```
+
+]
+
+.panel[.panel-name[Ejemplo]
+
+[Ejemplo]()
+
+* Crear, haciendo uso del operador **%in%** y del conjunto de datos *Paises*, un nuevo subconjunto de datos llamado **AsurP** con las información de los principales países de América del Sur (variable **pais**): Brazil, Colombia, Argentina, Peru, Venezuela, Chile, Ecuador, Bolivia, Paraguay y Uruguay. Mostrar los resultados del nuevo conjunto de datos a través de la función `View()`.  
+
+[Nota]()
+Este ejercicio, como se puede corroborar, es equivalente al implementado en la diapositiva anterior.
+
+<br>
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+AsurP <- filter(Paises, pais %in% c("Brazil", "Colombia", "Argentina", 
+                                    "Peru", "Venezuela", "Chile", 
+                                    "Ecuador", "Bolivia", "Paraguay", "Uruguay"))
+```
+
+]
+.panel[.panel-name[Ejercicio]
+
+```{r echo=FALSE}
+countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
+``` 
+<br>
+<br>
+<br>
+
+* Crear, haciendo uso del operador **%in%** y del conjunto de datos *SaberPro*, un nuevo subconjunto de datos llamado **Saber_Mun** con la información de los estudiantes nacidos en los siguientes municipios de Colombia(variable **CIU_NAC**): IBAGUÉ, LÍBANO, IPIALES, ZIPAQUIRÁ, SOACHA y CERETÉ.
+Mostrar los resultados del nuevo conjunto de datos a través del **Environment** de **Rstudio**.  
+
+]
+
+]
+
+---
+exclude: false
+# .center[Crear resúmenes a partir de variables]
+
+.panelset[
+
+  .panel[.panel-name[Función summarise()]
+ 
+ La función **`summarise()`** permite calcular/generar resúmes estadísticos de naturaleza descriptiva de aquellas variables que hacen parte de los conjuntos/set de datos asociados a las investigaciones de naturaleza cuantitativa.
+
+<br>
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Summarise.png") 
+``` 
+  ]
+  
+  .panel[.panel-name[Funciones auxiliares]
+
+A continuación, se presentan algunas funciones de **R** útiles para dar inicio al proceso de caracterización de variables contenidas en nuestras investigaciones (estadística descriptiva). Estas, pueden ser utilizadas según los tipos de variables que conforman un conjunto de datos: numéricas o categóricas.
+ 
+##### Funciones para resúmenes de variables numéricas/continuas.
+  
+  * Función `sum()`: retorna la suma de todos los valores de una variable.
+  * Función `max()`: retorna el valor máximo de una variable.
+  * Función `min()`: retorna el valor mínimo de una variable.
+  * Función `mean()`: retorna el promedio (media) de una variable.
+  * Función `median()`: retorna la mediana de una variable.
+  * Función `var()`: retorna la varianza muestral de una variable.
+  * Función `sd()`: retorna la desviación estándar muestral de una variable.
+
+##### Funciones para resúmenes de variables nominales/categóricas.
+
+  * Función `n()`: función propia del paquete **dplyr** que nos permite generar conteos de las modalidades de una variable categórica.
+  
+ ] 
+  .panel[.panel-name[Var. numéricas]
+  
+[Ejemplo 1]() 
+
+* Calcular el valor promedio (media) de la esperanza de vida (variable **lifeExp**) de los habitantes de los países que hacen parte del conjunto de datos **Paises**. Guardar los ersultados en un objeto/variable de R llamado **Mean_EV_Paises**.
+
+[Solución]() 
+
+```{r, echo=TRUE, eval=FALSE}   
+Mean_EV_Paises <- summarise(Paises, mean(lifeExp))
+```   
+  
+[Ejemplo 2]() 
+
+* Calcular el valor maximo de la esperanza de vida (variable **lifeExp**) de los habitantes de los países que hacen parte del conjunto de datos **Paises**. Visualizar los resultados a través de la función View().  
+
+[Solución]() 
+
+```{r, echo=TRUE, eval=FALSE}   
+View(summarise(Paises, max(lifeExp)))
+```     
+  ]
+  
+  .panel[.panel-name[Var. categóricas]
+
+[Ejemplo]() 
+
+* Calcular, haciendo uso de la función `summarise()`, la cantidad de individuos que conforman el conjunto de datos **SaberPro**. Guardar los resultados en un objeto llamado **n_saber** y visualizar los resultados a través de la función `View()`.
+
+
+[solución]() 
+
+```{r, echo=TRUE, eval=FALSE}   
+n_saber <- summarise(SaberPro, n())
+View(n_saber)
+```   
+  ]
+  
+  .panel[.panel-name[Ejercicios]
+  
+```{r echo=FALSE}
+countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
+``` 
+<br>
+<br>
+
+1. Calcular, haciendo uso de la función `summarise()`, la cantidad de individuos que conforman el conjunto de datos **Paises**. Guardar los resultados en un objeto llamado **n_paises** y visualizar estos a través de la función `View()`.
+
+2. Calcular la varianza muestral de los puntajes obtenidos por los estudiantes en la prueba de comunicación escrita (variable **PUNT_COMU_ESCR**) del conjunto de datos **SaberPro**. Guardar los resultados en un objeto llamado **Var_Saber** y visualizar estos a través de la función `View()`.
+
+[Nota Ejercicio 2]()
+
+La mayoría de las funciones de R, que permiten el cálculo de resúmenes descriptivos, exige la ausencia de datos faltantes; es decir, no puede existir información faltante en uno o más individuos de la variable a resumir.
+Para calcular resúmenes de variables en presencia de datos faltantes adicionar, dentro de la función de interés y separado por una coma, el argumento  `na.rm = TRUE`
+
+  ]
+  ]
+  
+---
+exclude: false
+# .center[Agrupar variables]
+
+.panelset[
+
+  .panel[.panel-name[Función group_by()]
+  
+La función **`group_by()`** permite, como su nombre lo sugiere, agrupar/crear resultados de acuerdo al comportamiento de una o más variables disponibles en un conjunto de datos.
+
+<br> 
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Group_by.png") 
+```  
+  
+  ]
+  
+  .panel[.panel-name[Ejemplos]]
+  
+  .panel[.panel-name[Función group_by() + summarise()]]
+  
+  .panel[.panel-name[ejemplo]]
+  
+  .panel[.panel-name[ejercicio]]
+  
+  ]  
 
 
 
