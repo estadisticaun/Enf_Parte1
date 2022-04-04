@@ -666,7 +666,7 @@ Var_num1 <- c(3.25, 3.0, 4.5, 6.27, 3.15)
 Var_ent1 <- c(15L, 19L, 45L, 30L, 60L)
 Var_tex1 <- c("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo")
 
-# Identificar los tipos de varaibles 
+# Identificar los tipos de variables 
 
 class(Var_log1)
 class(Var_num1)
@@ -1898,18 +1898,125 @@ knitr::include_graphics("imagenes/Group_by.png")
   
   ]
   
-  .panel[.panel-name[Ejemplos]]
+  .panel[.panel-name[Ejemplos]
+ 
+ [Ejemplo]() 
+ 
+ * Crear, a partir del conjunto de datos **SaberPro**, un nuevo conjunto de datos llamado **Saber_Gb** el cual contiene los datos agrupados por la variable **YEAR**. Evaluar, haciendo uso de la función `class()`, el tipo de objeto que es la base de datos agrupada **Saber_Gb**.
+ 
+[Solución]()  
+
+```{r, echo=TRUE, eval=FALSE}   
+Saber_Gb <- group_by(SaberPro, YEAR)
+class(Saber_Gb)
+```   
+
+  ]
   
-  .panel[.panel-name[Función group_by() + summarise()]]
+  .panel[.panel-name[Función group_by() + summarise()]
+ 
+ <br>
+ <br>
+ 
+La función `group_by()` por si sola no tiene sentido. Esta, en la practica, está es útil acompañada de la función que  permite realizar resúmenes estadísticos (`summarise()`).
+
+  ]
   
-  .panel[.panel-name[ejemplo]]
+  .panel[.panel-name[ejemplo]
   
-  .panel[.panel-name[ejercicio]]
+[Ejemplo]() 
+  
+* Calcular el promedio de los puntajes obtenidos por los estudiantes, según el **sexo**, en la prueba de razonamiento cuantitativo (variable **PUNT_RAZO_CUANT**) del conjunto de datos **SaberPro**. Guardar los resultados en un objeto llamado **Mean_Saber_Sexo** y visualizar estos a través de la función `View()`.
+
+[Solución]()   
+  
+```{r, echo=TRUE, eval=FALSE}   
+# paso 1
+Saber_Mat_Gb <- group_by(SaberPro, SEXO)
+# paso 2
+Mean_Saber_Sexo <- summarise(Saber_Mat_Gb, Promedio = mean(PUNT_RAZO_CUANT))
+View(Mean_Saber_Sexo)
+```   
+  
+  ]
+  
+  .panel[.panel-name[ejercicios]
+ 
+```{r echo=FALSE}
+countdown(minutes = 5, top = 0, padding = "15px", font_size = "1em")
+``` 
+<br>
+<br> 
+
+1. Calcular el promedio de los puntajes obtenidos por los estudiantes, según el **sexo**, en la prueba de Lectura Crítica (variable **PUNT_LECT_CRIT**) del conjunto de datos **SaberPro**. Guardar los resultados en un objeto llamado **Mean_Lectura_Sexo** y visualizar estos a través de la función `View()`.
+
+2. Calcular la cantidad de estudiantes que presentaron la prueba **SaberPro** según el estrato de los estudiantes.
+
+[Nota Ejercicio 2]()
+
+La función *n()*, del paquete de R dplyr, nos permite calcular la cantidad de individuos existentes en un conjunto de datos. Guardar los resultados en un objeto llamado **Saber_estrato** y visualizar los resultados desde el *Environment* de *Rstudio*.
+  
+  
+  ]
   
   ]  
 
+---
+exclude: false
+# .center[El operador Pipe %>% ]
+
+.panelset[
+
+  .panel[.panel-name[El por qué?]
+  
+El operador *pipe* de R fue creado para solucionar de una manera eficiente problemas como el que se presenta a continuación.
+
+1. seleccionar del conjunto de datos **SaberPro** las variables *SEXO*, *SEDE*, *ESTRATO* y aquellas que inician con la palabra *PUNT*. 
+
+2. Filtar, del conjunto de datos con las variables seleccionadas, los hombres de la SEDE *Bogotá*.
+
+3. Extraer la varianza (*var()*) obtenida por los estudiantes filtrados en la prueba de Comunicación Escrita (**PUNT_COMU_ESCR**), para cada uno de los estratos de estos estudiantes.
 
 
+
+]
+  .panel[.panel-name[El operador pipe]
+  
+<br>
+<br>
+
+El operador pipe de R, denotado por el simbolo **%>%**, nos permite unir varias consultas en una única cadena de código.  
+  
+]
+  .panel[.panel-name[Ejemplo]
+  
+ 
+[Ejemplo]() 
+
+* Solucionar el problema planteado en la pestaña 1 de esta presnetación.
+
+[Solución]() 
+ 
+```{r, echo=TRUE, eval=FALSE}
+Resumen <- SaberPro %>% 
+  select(SEXO, SEDE, ESTRATO, starts_with("PUNT")) %>% 
+  filter(SEXO == "Hombres", SEDE == "Bogotá") %>% 
+  group_by(ESTRATO) %>%
+  summarise(Varianza = var(PUNT_COMU_ESCR, na.rm = TRUE))
+```  
+]
+  .panel[.panel-name[Ejercicios]
+  
+```{r echo=FALSE}
+countdown(minutes = 15, top = 0, padding = "15px", font_size = "1em")
+``` 
+<br>
+<br> 
+  
+1. Seleccionar, del conjunto de datos **SaberPro**, las variables SEXO, ESTRATO, COLEGIO Y aquellas que contengan la palabra "GLOBAL". Del conjunto de datos con las variables seleccionadas, filtrar los estudiantes que son mujeres,  de Estrato 3 y son de colegios oficiales (Oficial). DEl conjunto de datos filtrado calcular el promedio obtenido en la prueba global del examen SaberPro (PUNTAJE_GLOBAL). Finalmente, ordenar los resultados de manera descendente según el promedio obtenido por cada uno de los estratos.  
+  
+]
+]
 
 ---
 exclude: true
