@@ -1,0 +1,102 @@
+---
+title: "Trabajos Estadística Aplicada a la Investigación"
+subtitle: "Facultad de Enfermería - UNAL -"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(dplyr)
+library(writexl)
+library(downloadthis)
+library(psych)
+```
+
+
+
+
+## Presentación
+
+Este documento aloja los talleres correspondientes a la asignatura **Estadística Aplicada a la Investigación"**, desarrollado durante el periodo 2022-1 en la Facultad de Enfemería de la Universidad Nacional de Colombia.
+
+<br>
+
+## Taller 1. Transformación de Datos
+
+<br>
+
+A continuación, se presenta el contenido de los 5 puntos que hacen parte del presente taller.
+
+
+1. Crear un *Scrip/Programa* de R llamado **Trabajo1** y guardar allí el desarrollo del presente taller. En el Scrip creado hacer los comentarios que se consideren necesarios con el fin de entender las diferentes secciones del mismo.
+
+
+2. Se desea realizar un análisis descriptivo de las variables que conforman el marco de datos `data.frame` llamado `trees` y que se encuentra disponible en la base^[Que un conjunto de datos se encuentre disponible en la base de R significa que este se instala/carga al momemnto de instalar el software. Es decir, no requiere ser importado pues el mismo ya puede ser usado en nuestro entorno de trabajo] de R . Este marco de datos, como puede ser verificado en la consola de R haciendo uso de la funciones `class(trees)`, `nrow(trees)`, `names(trees)`, `head(trees)`, entre otras, cuenta con información de 31 arboles para los cuales se dispone de tres variables: volumen (Volume), altura (Height) y longitud de su circunferencia (Girth). 
+
+El análisis descriptivo que se desea realizar a este conjunto de datos se potencia a través del uso del paquete **psych**. Teniendo en cuenta esta información, realizar las siguientes actividades.
+
++ Descargar desde el repositorio oficial de [CRAN](https://cran.r-project.org/) el paquete **psych**. 
+
++ Una vez que el paquete **psych** fue descargado, verificar que este se encuentra disponible en la pestaña **Packages** de Rstudio y cargar este al ambiente de trabajo (Environment) a través de la función `library()`.
+
++ Para realizar el análisis descriptivo requerido al `data.frame` **trees**, el paquete **psych**, dispone de la función `pairs.panels`. Hacer uso de esta función de tal manera que se obtenga el siguiente resultado el cual presenta una panorámica rápida del comportamiento de las variables que hacen parte de este set de datos.
+
+```{r, eval=TRUE, echo=FALSE}
+library(psych)
+pairs.panels(trees)
+```
+
+3. Descargar, en nuestros computadores, el conjunto de datos llamado **Matriculados** el cual puede ser descargado al dar clic en el siguiente botón.
+
+```{r echo=FALSE}
+Paises <- read_excel("Datos/Trabajos/Matriculados.xlsx")
+
+Paises %>%
+  download_this(
+    output_name = "Matriculados",
+    output_extension = ".xlsx",
+    button_label = "Descargar archivo excel información matriculados",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save")
+```
+<br>
+Una vez descargado el conjunto de datos de excel en nuestros computadores, realizar las siguientes actividades.
+
++ Importar a R este conjunto de datos y crear allí un objeto (*data.frame o tibble*) llamado **Matriculados**. Guardar y presentar en el script/programa el código de importación.
+
++ Explorar, a través del uso de algunas funciones de R, el contenido del conjunto de datos **Matriculados**. Específicamente, mostrar la clase de objeto, el número de filas, el número de columnas, la dimensión (filas/columnas), los primeros y los últimos registros del conjunto de datos, los nombres de la variables, así como una panorámica descriptiva del conjunto de datos **Matriculados**. Mostrar, en el código de R, las funciones empleadas.
+
+4. A partir del conjunto de datos **Matriculados**, realizar las siguientes transformaciones/modificaciones mostrando en el scrip de R los respectivos códigos.
+
++ Crear un nuevo conjunto de datos llamado **Sel_Mat** con las variables que terminan con la palabra *NAC*, que inician con la palabra *SNIES* y con la variable TIPO_ADM. Mostrar el nuevo conjunto de datos en una tabla haciendo uso de la función `View()`.
+
++ Cambiar los nombres de las variables TIPO_COL, TIPO_DISC y PROGRAMA por los nombres Colegio, Discapacidad y Carrera. Guardar la base resultante en un objeto llamado **Nombre_Mat**. Mostrar los resultados del nuevo conjunto de datos haciendo uso de la función `View()`.
+
++ Reubicar, antes de la variable SEDE_NOMBRE_ADM, las variables FACULTAD	FACULTAD_S, SNIES_PROGRA, PROGRAMA, PROGRAMA_S, AREAC_SNIES, CA_CINE, CD_CINE	 y AREA_CINE. Guardar la base resultante en un objeto llamado **Reub_Mat**.
+
++ Adicionar, al conjunto de datos **Matriculados**, una nueva variable llamada PACIFICO la cual cumple con la siguiente condición: si el estudiantes pertenece a los departamentos de CAUCA, CHOCÓ, NARIÑO o VALLE DEL CAUCA, colocar la opción **Sí**; de lo contrario, colocar la opción **No**. Guardar la base de datos con la nueva variable en un objeto llamado **Muta_Mat** y mostrar los resultados del nuevo conjunto de datos haciendo uso de la función `View()`.
+
++ Crear un subconjunto de datos llamado **Fil_Mat** el cual contiene los estudiantes que pertenenen a Pregrado (variable TIPO_NIVEL), que son hombres (variable SEXO), que tienen una edad de 18 a 20 años (variable CAT_EDAD) y que nacieron en alguno de los siguientes departamentos: ANTIOQUIA, BOGOTÁ, D. C., CALDAS, VALLE DEL CAUCA o TOLIMA (variable DEP_NAC). Mostrar los resultados del nuevo conjunto de datos haciendo uso de la función `View()`.
+
++ ¿Calcular la edad promedio de los estudiantes matriculados (variable EDAD_MOD)?. Guardar los resultados de la edad promedio en un objeto llamado **Mean_Edad** y visualizar los resultados a través de la función `View()`.
+
+5. A partir del conjunto de datos **Matriculados** y haciendo uso del operado *pipe* ` %>% `, implementar una consulta que cumple las siguintes condiciones:
+
+* Seleccionar las variables llamadas TIPO_NIVEL, DEP_NAC, SEXO, AREAC_SNIES y EDAD_MOD.
+* Cambiar los nombres de las variables TIPO_NIVEL, DEP_NAC, EDAD_MOD por los nombres NIVEL, DEPARTAMENTO y EDAD, respectivamente.
+* Seleccionar los individuos que pertenecen a los departamentos de nacimiento **diferentes** a ANTIOQUIA, BOGOTÁ, D. C., CALDAS, VALLE DEL CAUCA o TOLIMA.
+* Calcular, en una variable llamada *Media*, la edad promedio de los estudiantes seleccionados en el paso anterior según el nivel de formación (Variable NIVEL creada previamente) y el sexo biológico de estos (Variable SEXO).
+* Ordenar los valores promedio obtenidos, por los subgrupos definidos previamente, de manera descendente.
+* Guardar los resultados obtenidos de la consulta en un objeto llamado **Pipe_Final** y presentar los mismos haciendo uso de la función `View()`.
+
+Mostar/insertar, en el scrip de R creado para el desarrollo del presente trabajo, el contenido de la anterior consulta.
+
+
+
