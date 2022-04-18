@@ -37,6 +37,8 @@ library(writexl)
 library(dplyr)
 library(readxl)
 library(downloadthis)
+library(datasauRus)
+library(UnalR)
 xaringanExtra::use_tile_view()
 xaringanExtra::use_clipboard()
 xaringanExtra::use_webcam()
@@ -436,6 +438,7 @@ class: center, middle
 
 
 ---
+name: variables
 # .center[Tipos de Variables]
 
 .panelset[
@@ -2019,26 +2022,486 @@ countdown(minutes = 15, top = 0, padding = "15px", font_size = "1em")
 ]
 
 ---
-exclude: true
+class: center, middle
 
-# .big-text[`r emo::ji("scroll")` Agenda!] 
+# `r emo::ji("pencil")` <br> Estadística Descriptiva
 
-* Presentación: docentes y alumnos
+---
+# .center[¿Qué es la estadística descriptiva?]
 
-* Presentación del curso
+La estadística descriptiva es una parte de la estadística encargada, entre otras funciones, de la construcción de tablas o gráficos, así como del cálculo de parámetros básicos sobre los conjuntos de datos y variables contenidas en estos.
 
-* Metodología de desarrollo del curso
+---
+# .center[Visualización de datos]
 
-* Software estadístico
+La visualización de datos es una disciplina cuyo objetivo/propósito es la representación de manera gráfica de los datos y variables contenidas en un conjunto de datos. La visualización estadística, junto con la representación tabular, son parte fundamental para el ejercicio estadístico de alcance descriptivo. 
 
-* Instalación de R y Rstudio
+La visualización de datos, además de emplearse de manera importante a nivel descriptivo, es fundamental en los procesos de comunicación/publicación de resultados derivados de procesos de investigación (comunicación científica)
+
+---
+## ¿Por qué es importante la representación gráfica en la investigación?
+
+.panelset[
+
+  .panel[.panel-name[Un ejemplo]
+
+A continuación, se presentan algunos indicadores de tipo descriptivo (promedios, desviaciones estándar y coeficientes de correlación) relacionados con 13 conjuntos/bases de datos. <br><br>
+<b><p style="color:red;">¿Qué se puede decir a partir del comportamiento de estos indicadores?</p></b>
+
+```{r, echo=FALSE, fig.align="center"}
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarise(across(c(x, y), list(mean = mean, sd = sd)),
+    x_y_cor = cor(x, y)
+  )
+```
+]
+
+.panel[.panel-name[¿Son parecidos estos conjuntos de datos?]
+
+```{r, echo=FALSE, fig.width=12, fig.height=6}
+datasaurus_dozen %>%
+  ggplot(aes(x, y, color = dataset)) +
+  geom_point(show.legend = FALSE) +
+  facet_wrap(~dataset, ncol = 5)
+```
+]
+
+.panel[.panel-name[Conjuntos Circle + Dino]
+
+```{r, echo=FALSE, fig.width=12, fig.height=6}
+datasaurus_dozen %>% filter(
+dataset == "dino" | dataset == "circle") %>% 
+  ggplot(aes(x, y, color = dataset)) +
+  geom_point(show.legend = FALSE, size = 3) +
+  facet_wrap(~dataset, ncol = 2)
+```
+]
+]
+
+---
+## .center[¿Cuáles tipos de gráficos existen y cuándo podemos utilizar cada uno de ellos?]
+
+Existe una gran diversidad de gráficos -quizás cientos- disponibles para la representación cuantitativa de datos. A manera de resumen, estos pueden ser clasificados según la naturaleza de las variables, así como el tipo de propósito para el cuál estos serán utilizados.
+
+### Tipos de gráficos según la naturaleza de las variables
+
+* Variables numéricas
+* Variables categóricas
+* Numéricas y categóricas
+* Mapas
+* Redes
+* Series de tiempo
+
+Así mismo, la representación gráfica de datos depende a su vez de si se desea visualizar/ilustrar una o más variables de naturaleza estadística.
+
+---
+## Representación gráfica según el propósito (estática vs interactiva)
+
+.pull-left[
+
+```{r, echo=FALSE}
+ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, color = Species)) + geom_point(size = 4)
+```
+    ]
+    
+.pull-rigth[
+
+```{r, echo=FALSE, fig_width=8}
+col <- c("#d7191c", "#fdae61", "#ffffbf", "#abd9e9", "#2c7bb6")
+Msj <- "Distribuci\u00f3n de estudiantes graduados en el primer periodo acad\u00e9mico del 2021."
+Txt <- "Distribución de graduados en la UNAL por modalidad de formación"
+Plot.Torta(
+  datos     = ejConsolidadoGrad,
+  categoria = "NIVEL",
+  ano       = 2021,
+  periodo   = 1,
+  colores   = col,
+  titulo    = Txt,
+  label     = "Graduados",
+  libreria  = "highcharter",
+  estilo    = list(
+    LegendTitle = "Nivel de formación:",
+    hc.Tema = 7, hc.Credits = Msj
+  )
+)
+```
+
+]
+
+---
+## ¿Cuál será el alcance de la visualización de datos en este curso?
+
+En este curso, a lo sumo, nos aproximaremos al uso de gráficos para los siguientes tipos de variables. 
+
+
+* Variables numéricas (Máximo dos variables)
+* Variables categóricas
+* Numéricas y categóricas
+
+### Tipos de gráficos a trabajar
+
+* Diagramas de densidad (var numéricas)
+* Histogramas (var numéricas)
+* Diagramas de caja o box plots (var numéricas)
+* Diagramas de barras (var categóricas)
+* Tortas o Pie (var categóricas)
+* Diagramas de dispersión (Var numéricas)
+
+
+[Nota]()
+ 
+En el siguiente sitio web se encuentra disponible una galería con diversos tipos de gráficos que pueden ser construidos para la visualización de datos con **R**.<br>
+[Ir al sitio web](https://r-graph-gallery.com/)
 
 
 ---
-exclude: true
-# Visualización
+# .center[Gráficos con R `r emo::ji("graph")`]
 
-.green[Ir al siguiente enlace: ][Data To Viz](https://www.data-to-viz.com/)
+El software estadístico R, dentro de los softwares estadísticos disponibles en la actualidad, goza de un amplio reconocimiento por su amplia y variada oferta de posibilidades para la visualización de datos de naturaleza cuantitativa. En este lenguaje tenemos disponibles distintos sistemas gráficos, aunque los más comunes son:
+
+
+* **[Sistema gráfico base de R](https://cran.r-project.org/doc/contrib/grafi3.pdf)**
+
+* **[Lattice](https://link.springer.com/book/10.1007/978-0-387-75969-2)**
+
+* **[ggplot2](https://ggplot2.tidyverse.org/)**
+
+* **[Entorno htmlwidges](http://gallery.htmlwidgets.org/)**
+
+<br>
+
+Para propósitos de este curso, haremos uso del paquete estadístico para la visualización de datos conocido como [ggplot2](https://ggplot2.tidyverse.org/).
+
+---
+# .center[Qué es el paquete ggplot2]
+
+El paquete [ggplot2](https://ggplot2.tidyverse.org/) de R fue creado por [Hadley Wickham](https://hadley.nz/), uno de los autores del paquete [dplyr](https://dplyr.tidyverse.org/) que se trabajó en las sesiones de transformación de datos.
+
+Este paquete nos permite construir un sinnúmero de gráficos derivados de datos cuantitativos a partir de un proceso de acumulación de capas o layers. Auque tiene cierto nivel de complejidad, haciendo uso de él se obtienen resultados altamente profesionales.
+
+```{r , echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("imagenes/ggplot2.png")
+```
+
+
+---
+# .center[¿Cómo funciona ggplot2?]
+
+El paquete **ggplot2** funciona a través de un enfóque conocido como la gramática de los gráficos. Este paquete fue construido teniendo en cuenta el trabajo desarrollado por *Leland Wilkinson* y contenido en el libro [The Grammar of Graphics](https://www.amazon.com/-/es/Leland-Wilkinson/dp/0387245448).
+
+Según los autores, un gráfico está compuesto por 7 capas.
+
+.pull-left[
+
+1. Datos(data)
+
+2. Estéticas(aesthetics)
+
+3. Geometrias(geometries)
+
+4. Temas(themes)
+
+5. Estadísticas(statistics)
+
+6. Coordenadas(coordinates)
+
+7. Facetas(facets)
+]
+
+.pull-rigth[
+
+```{r , echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("imagenes/gramatica.png")
+```
+]
+
+---
+# .center[¿Cómo instalar ggplot2?]
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Iggplot2.png") 
+```
+
+<br>
+<br>
+
+El paquete `ggplot2` puede ser instalado desde CRAN  a través del siguiente comando.
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("ggplot2", dependencies = TRUE) 
+```
+
+
+---
+# .center[Véamos un ejemplo]
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+#cargar librería ggplot2
+library(ggplot2)
+
+# construir un gráfico de dispersión
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width , color = Species)) +
+geom_point() +
+theme_bw() + # Comparar con theme_gray() 
+ggtitle("Diagrama de dispersión")  +
+xlab("Largo del Sépalo")+
+ylab("Ancho del Sépalo")
+  
+```
+]
+
+.pull-rigth[
+
+```{r, echo=FALSE, eval=TRUE}
+#cargar librería ggplot2
+library(ggplot2)
+
+# construir un gráfico de dispersión
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width , color = Species)) +
+geom_point(size = 3) +
+theme_bw() + # comparar con theme_gray() 
+ggtitle("Diagrama de dispersión")  +
+xlab("Largo del Sépalo")+
+ylab("Ancho del Sépalo")
+  
+```
+]
+
+---
+# .center[Expliquemos en detalle el código del gráfico anterior]
+
+```{r, echo=TRUE, eval=FALSE}
+#cargar librería ggplot2
+library(ggplot2)
+
+# construir un gráfico de dispersión
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width , color = Species)) +
+geom_point() +
+theme_bw() + # Comparar con theme_gray() 
+ggtitle("Diagrama de dispersión")  +
+xlab("Largo del Sépalo")+
+ylab("Ancho del Sépalo")
+  
+```
+
+#### Capas en este gráfico
+
+* **Datos**: iris
+
+* **Estética**: *x*, *y*, *color*, fill, size, alpha, linetype, labels<br>(variables categóricas) y shape (variables categóricas)
+
+* **geometría**: *geom_bar*. Ver lista de geometrias <br> (tipos de gráficos) en: [geometrias](https://ggplot2.tidyverse.org/reference/index.html)
+
+* **Tema**: *theme_bw()*. Ver más temas disponibles en: <br> [lista de temas](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+
+---
+# .center[¡Vamos a un receso!]
+
+```{r, echo=FALSE}
+countdown(minutes = 15, seconds = 0, 
+          left = 0, right = 0, top = 0.5,
+          padding = "50px",
+          margin = "5%",
+          font_size = "6em")
+
+```
+
+---
+class: center, middle
+
+# `r emo::ji("crayon")` <br> Estadística Descriptiva Aplicada a <br> Variables Cualitativas
+
+---
+# .center[Variables cualitativas]
+
+Las variables cualitativas o categóricas, como se ilustró en la sección de [tipos de variables](#variables), están conformadas por las variables nominales, las variables ordinales y las variables dicotómicas. A continuación, se presenta nuevamente las definiciones asociadas a este tipo de variables.
+
+### Variables nominales
+"Es aquella variable cualitativa cuya categoría no sigue ningún orden, se agrupa sin ninguna jerarquía entre sí." Por ejemplo, Lateralidad (zurdo, diestro), Estado civil (soltero, casado, divorciado, unión libre), etc.
+
+#### Variables ordinales
+"Son aquellas variables categóricas con orden secuencial o progresión natural esperable o jerarquía.". Por ejemplo, Medalla deportiva (oro, plata, bronce), Estrato (Estrato 1, Estrato 2, ...), etc.
+
+#### Variables dicotómicas
+
+"Es aquella variable categórica, la cual puede adoptar solamente dos valores." Por ejemplo, Sexo (masculino, femenino), Posee obesidad (sí, no), etc.
+
+---
+# .center[Tablas a Partir de Variables categóricas]
+
+Como se mencionó previamente, existen dos mecanismos principales para describir el comportamiento de una variable de tipo categórico: uso de tablas y uso de gráficos. A continuación, se presenta la forma como se puede analizar el comportamiento de una variable cualitativa a través de tablas.
+
+.panelset[
+  
+  .panel[.panel-name[Funciones en R]
+  
+En R, existen múltiples posibilidades incluidas en la base del lenguaje o a través de paquetes, que nos permiten resumir a través de tablas el comportamiento de una variable categórica. A continuación, se presentan las dos principales alternativas sugeridas para el cálculo de tablas asociadas a variables categóricas en R.
+
+* **Función table() de R base:** a traves de esta función, incluida dentro de la base del lenguaje, es posible calcular la cantidad de individuos asociados a cada una de las modalidades de una variable categórica/nomina. Esta función, requiere el uso del operador `$`. 
+
+* **Paquete dplyr:** haciendo uso de las funciones aprendidas en el componente de transformación de datos y, en especial, a través del uso de las funciones `group_by()`, `summarise()`, el operado `%>% ` y la función auxiliar `n()`, podemos construir una tabla de frecuencias haciendo uso del paquete **dplyr**.
+  ]
+  .panel[.panel-name[Ejemplo 1]
+  
+Construir una de frecuencias para la variable **SEXO** del conjunto de datos **SaberPro**.
+
+[Solución]()
+
+* Alternativa 1: haciendo uso de la función **table()**.
+
+```{r, echo=TRUE, eval=FALSE}
+table(SaberPro$SEXO)
+```
+
+* Alternativa 2: haciendo uso del paquete **dplyr**.
+
+```{r, echo=TRUE, eval=FALSE}
+SaberPro %>% group_by(SEXO) %>% 
+  summarise(Total = n())
+```
+
+  ]
+  .panel[.panel-name[Ejercicio 1]
+  
+```{r echo=FALSE}
+countdown(minutes = 8, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+1. Construir, a través de la función **table()** y el paquete **dplyr** una tabla de frecuencias para la variable **ESTRATO** del conjunto de datos **SaberPro**. Para el caso de la tabla construida a partir del paquete **dplyr**, ordenar de manera descendente la cantidad de estudiantes según el estrato.  
+
+1. Construir, a través de la función **table()** y el paquete **dplyr** una tabla de frecuencias para la variable **COLEGIO** del conjunto de datos **SaberPro**. Para el caso de la tabla construida a partir del paquete **dplyr**, remombrar el nombre de la variable **ESTRATO** de la tabla de salida por el nombre *Estrato*. 
+  
+  
+  ]
+  .panel[.panel-name[Un caso especial (%)]
+  
+En el marco de los procesos de investigación, es común la construcción de tablas a partir de variables que incluyan, además de las frecuencias absolutas, las frecuencias relativas (porcentajes). Enseguida, se presenta el código que nos permite construir este tipo de tablas desde el paquete **dplyr**.  
+
+[Ejercicio]()
+
+1. Adicionar, a la tabla de frecuencias de la variable **SEXO** del conjunto de datos **SaberPro**, una columna con el porcentaje de individuos por SEXO.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+SaberPro %>% 
+group_by(SEXO) %>% 
+summarise(Total = n()) %>% 
+mutate(Porcentaje = Total /sum(Total),
+       Porcentaje = scales::percent(Porcentaje))
+```                     
+                     
+  ]
+  .panel[.panel-name[Ejercicio 2]
+  
+```{r echo=FALSE}
+countdown(minutes = 10, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> 
+ 
+1. Construir, haciendo uso de las funciones del paquete **dplyr** y a partir del conjunto de datos **SaberPro**, una tabla de frecuencias que incluya el Total de Evaluados y el porcentaje de estos según la sede de la Universidad -Variable **SEDE**-. Ordenar los resultados de esta tabla de mayor a menor según la cantidad de evaluados por sede.  
+  
+  ]
+  
+  ]
+
+---
+## .center[Gráficos a Partir de Variables Categóricas -Diagramas de Barras-]
+
+.panelset[
+  
+  .panel[.panel-name[Gráfico de Barras]
+  
+El diagrama de barras es el tipo de gráfico más utilizado para representar el comportamiento de las modalidades de una variable de naturaleza categórica/nominal. En **ggplot2**, los gráficos de barras se calculan a través de la geometría **geom_bar**.
+
+```{r , echo=FALSE, out.height="80%", fig.align='center'}
+knitr::include_graphics("imagenes/geom_bar.png") 
+```  
+  
+  ]
+  .panel[.panel-name[A Partir de Microdatos]
+  
+La construcción de gráficos de barras para variables cualitativas haciendo uso de la geometría **geom_bar()** del paquete **ggplot2** puede hacerse a partir de los *microdatos* del conjunto de datos o a través de una tabla de frecuencias de la variable a analizar. A continuación, se presenta un ejercicio para la construcción de gráficos de frecuencias a partir de los microdatos del conjunto de datos **SaberPro**
+
+[Ejercicio]()
+
+1. Construir, a partir del conjunto de datos **SaberPro**, un diagrama de barras para la variable Sexo. Haciendo uso de la geometría **geom_tex()**, adicionar sobre cada barra la cantidad de individuos.
+  
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+library(ggplot2)
+ggplot(SaberPro, aes(x = SEXO))+
+  geom_bar(stat = "count") +
+  geom_text(aes(label = ..count..), stat = "count", vjust = -0.8)
+```
+
+  ]
+  .panel[.panel-name[Ejercicio]
+  
+```{r echo=FALSE}
+countdown(minutes = 10, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> 
+ 
+1. Construir, a partir de los microdatos y haciendo uso del paquete **ggplot2** y de la geometría **geom_bar**, un diagrama de barras para la variable *ESTRATO* del conjunto de datos **SaberPro**. Adicionar, con la función *ggtitle* un título al gráfico llamado "Distribución de Evaluados en la Prueba Saber Pro por Sexo"; así mismo, con las funciones *xlab* y *ylab*, cambiar los nombres de los ejes x e y por los nombres "Sexo" y "Total Evaluados en la Prueba", respectivamente.
+
+  ]
+  .panel[.panel-name[A Partir de Tablas]
+
+La segunda alternativa, para la construcción de diagramas de barras asociados a variables categóricas, se da cuando estos deben ser construidos a partir de una tabla de frecuencias. Para ello, se requiere adelantar dos pasos: construir la tabla y, apartir de esta, construir el gráfico.  
+
+[Ejercicio]()
+
+1. Construir, a partir del conjunto de datos **SaberPro** y de una **tabla de frecuencias**, un diagrama de barras para la variable Sexo. Haciendo uso de la geometría **geom_tex()**, adicionar sobre cada barra la cantidad de individuos.  
+  
+  ]
+  .panel[.panel-name[Ejercicio]]
+  
+  ]
+
+
+
+
+
+
+
+
+
+
+
+
+---
+exclude: false
+# Enlaces de interés visualización de datos con R
+
+* .green[Tipos de gráficos según tipología de las variables: ][Data To Viz](https://www.data-to-viz.com/)
+
+* .green[Galería de gráficos en R: ][The R Graph Gallery](https://r-graph-gallery.com/)
+
 
 
 ---
@@ -2058,6 +2521,11 @@ background-size: cover
 .white[Crédito de la imagen:][Jonathan Petersson
 ](https://unsplash.com/photos/a6N685qLsHQ)
 ]
+
+
+
+
+
 
 ---
 
@@ -2100,196 +2568,6 @@ background-size: cover
 .footnote[
 .white[Crédito de la imagen:][John Anvik](https://images.unsplash.com/photo-1617063033111-74cf600531d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80)
 ]
-
----
-exclude: true
-class: center, middle
-
-# xaringan
-
-### /ʃaː.'riŋ.ɡan/
-
----
-class: inverse, center, middle
-exclude: true
-
-# Get Started
-
----
-exclude: true
-
-# .big-text[Hola mundo! `r emo::ji("smile")`] 
-
-```{r eval=FALSE, tidy=FALSE}
-remotes::install_github("yihui/xaringan")
-```
-
----
-background-image: url(`r xaringan:::karl`)
-background-position: 50% 50%
-class: center, bottom, inverse
-exclude: true
-
-# You only live once!
-
----
-exclude: true
-
-# Hello Ninja
-
-As a presentation ninja, you certainly should not be satisfied by the "Hello World" example. You need to understand more about two things:
-
-1. The [remark.js](https://remarkjs.com) library;
-
-1. The **xaringan** package;
-
-Basically **xaringan** injected the chakra of R Markdown (minus Pandoc) into **remark.js**. The slides are rendered by remark.js in the web browser, and the Markdown source needed by remark.js is generated from R Markdown (**knitr**).
-
----
-exclude: true
-
-# remark.js
-
-You can see an introduction of remark.js from [its homepage](https://remarkjs.com). You should read the [remark.js Wiki](https://github.com/gnab/remark/wiki) at least once to know how to
-
-- create a new slide (Markdown syntax<sup>*</sup> and slide properties);
-
-- format a slide (e.g. text alignment);
-
-- configure the slideshow;
-
-- and use the presentation (keyboard shortcuts).
-
-It is important to be familiar with remark.js before you can understand the options in **xaringan**.
-
-.footnote[[*] It is different with Pandoc's Markdown! It is limited but should be enough for presentation purposes. Come on... You do not need a slide for the Table of Contents! Well, the Markdown support in remark.js [may be improved](https://github.com/gnab/remark/issues/142) in the future.]
-
----
-exclude: true
-background-image: url(`r xaringan:::karl`)
-background-size: cover
-class: center, bottom, inverse
-
-# I was so happy to have discovered remark.js!
-
----
-exclude: true
-class: inverse, middle, center
-
-# Using xaringan
-
----
-exclude: true
-# .center[Ejercicio 1]
-
-```{r echo=FALSE}
-countdown(minutes = 5, top = 0, font_size = "3em")
-```
-
-.panelset[
-  
-  .panel[.panel-name[Salida]
-```{r ejer1, echo=FALSE}
-# names of created objects
-c <- c(1:3)
-c
-```
-         
-         
-  ]
-  
-  .panel[.panel-name[Código en R]
-```{r echo=T, eval=FALSE}
-c <- c(1:3)
-c
-```         
-         
-  ]
-  
-]
-
----
-exclude: true
-
-# .center[Ejercicio 2]
-
-```{r echo=FALSE}
-countdown(minutes = 2, top = 0, font_size = "2em")
-```
-
-.panelset[
-  .panel[.panel-name[Salida]
-  
-```{r ejer2-1, echo=FALSE, eval=FALSE}
-# Gráfico en R
-ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
-  geom_density()#<<
-ggsave("ejer2.png") 
-```
-
-
-# Gráfico en R
-
-```{r echo=FALSE, out.width="80%"}
-knitr::include_graphics("ejer2.png")
-```
-       
-]
-    .panel[.panel-name[Código en R]
-
-
-```{r echo=T, eval=FALSE,  fig.width=2, fig.height=4}
-# Código en R base para la generación de un 
-# gráfico de dispersión
-
-ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
-  geom_density()
-```
-
-  ]
-  
-]
-
-
----
-exclude: true
-
-# Gráfico por fuera de tabset
-
-```{r  echo=FALSE, eval=TRUE,  fig.width=2, fig.height=4}
-# Código en R base para la generación de un 
-# gráfico de dispersión
-
-ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
-  geom_density()
-```
-
-
----
-exclude: true
-
-# Descargar archivos
-
-```{r echo=FALSE, eval=TRUE,  fig.width=6, fig.height=4}
-# Código en R base para la generación de un 
-# gráfico de dispersión
-
-ggplot(iris, aes(x = Sepal.Length, fill = Species))+ 
-  geom_density()
-``` 
-
-
-```{r echo=FALSE}
-iris %>%
-  download_this(
-    output_name = "Datos",
-    output_extension = ".xlsx",
-    button_label = "Descargar archivo en Excel",
-    button_type = "warning",
-    has_icon = TRUE,
-    icon = "fa fa-save")
-```
-
 
 
 ```{r}
