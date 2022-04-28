@@ -10,14 +10,23 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
 library(readxl)
 library(dplyr)
 library(writexl)
 library(downloadthis)
 library(psych)
+library(webexercises)
 ```
 
+```{r setup1, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/",
+  out.width = "100%"
+)
+```
 
 
 
@@ -97,6 +106,4 @@ Una vez descargado el conjunto de datos de excel en nuestros computadores, reali
 * Guardar los resultados obtenidos de la consulta en un objeto llamado **Pipe_Final** y presentar los mismos haciendo uso de la función `View()`.
 
 Mostar/insertar, en el scrip de R creado para el desarrollo del presente trabajo, el contenido de la anterior consulta.
-
-
 

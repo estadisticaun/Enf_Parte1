@@ -26,6 +26,7 @@ knitr::opts_chunk$set(collapse = TRUE,
                       fig.align='center')
 library(ggplot2)
 library(downloadthis)
+library(webexercises)
 library(countdown)
 library(emo)
 library(icons)
@@ -2479,13 +2480,63 @@ La segunda alternativa, para la construcción de diagramas de barras asociados a
 1. Construir, a partir del conjunto de datos **SaberPro** y de una **tabla de frecuencias**, un diagrama de barras para la variable Sexo. Haciendo uso de la geometría **geom_tex()**, adicionar sobre cada barra la cantidad de individuos.  
   
   ]
-  .panel[.panel-name[Ejercicio]]
+  .panel[.panel-name[Ejercicio]
   
+`r hide("Ver solución")`
+
+```{r eval = FALSE}
+# fill and axis changes
+ggplot(dat_long, aes(x = rt, fill = language)) +
+  geom_histogram(binwidth = 10) +
+  scale_x_continuous(name = "Reaction time (ms)") +
+  scale_fill_discrete(name = "Group",
+                      labels = c("Monolingual", "Bilingual"))
+# add in dodge
+ggplot(dat_long, aes(x = rt, fill = language)) +
+  geom_histogram(binwidth = 10, position = "dodge") +
+  scale_x_continuous(name = "Reaction time (ms)") +
+  scale_fill_discrete(name = "Group",
+                      labels = c("Monolingual", "Bilingual"))
+```
+
+`r unhide()`
+
+]
   ]
 
 
+---
+# Prueba
 
+`r hide("Click here to see the solution")`
 
+```{r eval = FALSE}
+library(tidyverse)
+```
+
+`r unhide()`
+
+---
+exclude: false
+
+## .center[Características de un tema en ggplot2 - Opción 1]
+
+```{r , echo=FALSE, out.width="75%", fig.align='center'}
+knitr::include_graphics("imagenes/ThemeGgplot2.png") 
+```
+
+*Fuente de la imagen: *[Isabella benabaye - @_isabellamb](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)
+
+---
+exclude: false
+
+## .center[Características de un tema en ggplot2 - Opción 2]
+
+```{r , echo=FALSE, out.width="65%", fig.align='center'}
+knitr::include_graphics("imagenes/ThemeGgplot2V2.png") 
+```
+
+*Fuente de la imagen: *[Henry Wang - @henrywangnl](https://henrywang.nl/ggplot2-theme-elements-demonstration/)
 
 
 
