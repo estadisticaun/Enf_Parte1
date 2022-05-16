@@ -2689,18 +2689,62 @@ countdown(minutes = 10, top = 0, font_size = "2em")
 1. Construir, a partir del conjunto de datos **SaberPro** y haciendo uso de las funciones *group_by* y *summarise*, una tabla de freceuncias paar la variable **SEDE**. Guardar los resultados de la tabla de frecuencias en un objeto/base llamado **Frec_Sede**.
 
 2. Construir, a partir de la tabla previamente creada (Frec_Sede), un diagrama de frecuencias para la variable **SEDE**. Adicionar, con la función *ggtitle* un título al gráfico llamado "Distribución de Evaluados en la Prueba Saber Pro por Sede de la Universidad"; así mismo, con las funciones *xlab* y *ylab*, cambiar los nombres de los ejes x e y por los nombres "Sede" y "Total Evaluados", respectivamente.
-
-
-
 ]
   ]
-
-
 
 ---
 class: center, middle
 
 # `r emo::ji("crayon")` <br> Estadística Descriptiva Aplicada a <br> Variables Cuantitativas
+
+
+
+---
+exclude: false
+
+# .center[Variables Cuantitativas]
+
+Como se ilustró en la diapositiva sobre tipos de [variables](#variables), las variables cuantitativas describen una característica en términos de un valor numérico o cantidad. Pueden ser de dos subtipos: continuas y discretas.
+
+#### Variables Continuas
+
+"Son aquellas características que son medidas dentro de un rango continuo infinito de valores numéricos y se registran con números reales. Pueden presentar cualquier valor dentro de cierto intervalo.
+
+<p style="color:green;">Ejemplos: Estatura (176 cm), peso(55.6 kg), Tamaño de lesión de leishmaniasis (6.07mm), etc.</p>
+
+#### Variables Discretas
+
+"Son también llamadas discontinuas, y están asociadas a conteos o enumeraciones, razón por la cual, solo permiten ser registradas con números enteros (0,1,2,3, etc.)"
+
+<p style="color:green;">Ejemplos: Edad -años cumplidos-(45), Número de hijos en una familia (0, 1, 2), Número de familias residentes en un barrio (200, 250), etc.</p>
+
+[Fuente: Wikipedia](https://es.wikipedia.org/wiki/Variable_estadística#Variables_Numéricas)
+
+
+---
+exclude: false
+
+## .center[Medidas/indicadores descriptivas para variables numéricas]
+
+Las variables cuantitativas, a diferencia de las variables categóricas, dispone de un número importante de medidas/indicadores que nos muestran algunas de las características más relevantes de estas variables. Estas medidas, en principio, pueden ser clasificadas en cuatro grandes categorías.
+
+<br>
+
+* **Medidas de tendencia central:** media aritmética y mediana.
+
+* **Medidas de dispersión:** varianza, sd y rango.
+
+* **Medidas de asimetría y apuntamiento:** asimetría y curtosis.
+
+* **Medidas de posición:** cuartiles, quintiles, deciles y percentiles.
+
+
+---
+exclude: true
+# .center[Visualización de variables cuantitativas]
+
+
+
 
 ---
 exclude: true
