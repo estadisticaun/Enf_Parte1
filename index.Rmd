@@ -2072,6 +2072,11 @@ Para ver detalles sobre el uso de cada una de estas funciones, aplicar la siguie
   ]
   ]
 
+---
+exclude: false
+
+# .center[Repaso sesiones previas]
+
 
 ---
 class: center, middle
