@@ -3,7 +3,7 @@ title: "Trabajos Estadística Aplicada a la Investigación"
 subtitle: "Facultad de Enfermería - UNAL -"
 date: "`r Sys.Date()`"
 output: 
-  html_document:
+  webexercises::webexercises_default:
     toc: true
     toc_float: true
     theme: cerulean
@@ -20,15 +20,13 @@ library(webexercises)
 ```
 
 ```{r setup1, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/",
-  out.width = "100%"
-)
+knitr::opts_chunk$set(echo = TRUE)
+if (!requireNamespace("webexercises")) {
+  stop("You must have the 'webexercises' package installed to knit to HTML.\n   install.packages(\"webexercises\")")
+} else {
+  library("webexercises")
+}
 ```
-
-
 
 ## Presentación
 
@@ -107,3 +105,24 @@ Una vez descargado el conjunto de datos de excel en nuestros computadores, reali
 
 Mostar/insertar, en el scrip de R creado para el desarrollo del presente trabajo, el contenido de la anterior consulta.
 
+## Prueba
+
+`r hide("Dar click para ver la solución")`
+
+```{r eval = FALSE}
+# fill and axis changes
+ggplot(dat_long, aes(x = rt, fill = language)) +
+  geom_histogram(binwidth = 10) +
+  scale_x_continuous(name = "Reaction time (ms)") +
+  scale_fill_discrete(name = "Group",
+                      labels = c("Monolingual", "Bilingual"))
+# add in dodge
+ggplot(dat_long, aes(x = rt, fill = language)) +
+  geom_histogram(binwidth = 10, position = "dodge") +
+  scale_x_continuous(name = "Reaction time (ms)") +
+  scale_fill_discrete(name = "Group",
+                      labels = c("Monolingual", "Bilingual"))
+```
+
+
+`r unhide()`

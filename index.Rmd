@@ -13,6 +13,11 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: 170:100
+  includes:
+    - include/webex.js
+  css:
+    - include/webex.css
+
 
 ---
 class: center, middle
@@ -40,6 +45,10 @@ library(readxl)
 library(downloadthis)
 library(datasauRus)
 library(UnalR)
+library(janitor)
+library(skimr)
+library(DataExplorer)
+library(summarytools)
 xaringanExtra::use_tile_view()
 xaringanExtra::use_clipboard()
 xaringanExtra::use_webcam()
@@ -1997,7 +2006,7 @@ El operador pipe de R, denotado por el simbolo **%>%**, nos permite unir varias 
  
 [Ejemplo]() 
 
-* Solucionar el problema planteado en la pestaña 1 de esta presnetación.
+* Solucionar el problema planteado en la pestaña 1 de esta presentación.
 
 [Solución]() 
  
@@ -2017,10 +2026,52 @@ countdown(minutes = 15, top = 0, padding = "15px", font_size = "1em")
 <br>
 <br> 
   
-1. Seleccionar, del conjunto de datos **SaberPro**, las variables SEXO, ESTRATO, COLEGIO Y aquellas que contengan la palabra "GLOBAL". Del conjunto de datos con las variables seleccionadas, filtrar los estudiantes que son mujeres,  de Estrato 3 y son de colegios oficiales (Oficial). DEl conjunto de datos filtrado calcular el promedio obtenido en la prueba global del examen SaberPro (PUNTAJE_GLOBAL). Finalmente, ordenar los resultados de manera descendente según el promedio obtenido por cada uno de los estratos.  
+1. Seleccionar, del conjunto de datos **SaberPro**, las variables SEXO, ESTRATO, COLEGIO Y aquellas que contengan la palabra "GLOBAL". Del conjunto de datos con las variables seleccionadas, filtrar los estudiantes que son mujeres,  de Estrato 3 y son de colegios oficiales (Oficial). DEl conjunto de datos filtrado calcular el promedio obtenido en la prueba global del examen SaberPro (PUNTAJE_GLOBAL). Finalmente, ordenar los resultados de manera descendente según el promedio obtenido por cada uno de los estratos.  ]
+]
+
+---
+exclude: false
+
+## .center[Otros paquetes útiles para la tranformación de datos <br> -paquete janitor-]
+
+.panelset[
+
+  .panel[.panel-name[janitor]
   
+El paquete `janitor` está conformado por un conjunto de funciones simples que permiten examinar y limpiar conjuntos de datos "sucios".
+
+### ¿Cómo instalar el paquete janitor?
+
+```{r eval=FALSE, echo=TRUE}
+install.packages("janitor")
+``` 
 ]
-]
+
+.panel[.panel-name[Funciones]
+
+El paquete `janitor` está conformado por **`r length(ls("package:janitor"))`** funciones las cuales se presentan a continuación. 
+
+```{r eval=TRUE, echo=FALSE}
+ls("package:janitor")
+``` 
+
+Para ver detalles sobre el uso de cada una de estas funciones, aplicar la siguiente instrucción `help("janitor::nombre_de la_función")`. Por ejemplo, para invocar la ayuda de la función ***remove_empty()***, aplicamos la instrucción `help("janitor::remove_empty()")`.
+  ]
+  
+  .panel[.panel-name[Manuales]  
+ 
+ A continuación, se presentan algunos enlaces para acceder a una lista de manuales disponibles en la web sobre el uso del paquete janitor.
+ 
+  * [Manual de usuario](https://cran.r-project.org/web/packages/janitor/index.html)
+  * [The janitor package](https://garthtarr.github.io/meatR/janitor.html)
+  * [R Tutorial: janitor package](https://rpubs.com/phle/r-tutorial-janitor)
+  * [Data Cleaning in R](https://www.r-bloggers.com/2022/05/data-cleaning-in-r-2-r-packages-to-clean-and-validate-datasets/)
+  * [Overview of janitor functions](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html)
+
+  
+  ]
+  ]
+
 
 ---
 class: center, middle
@@ -2146,7 +2197,6 @@ En este curso, a lo sumo, nos aproximaremos al uso de gráficos para los siguien
 * Histogramas (var numéricas)
 * Diagramas de caja o box plots (var numéricas)
 * Diagramas de barras (var categóricas)
-* Tortas o Pie (var categóricas)
 * Diagramas de dispersión (Var numéricas)
 
 
@@ -2422,6 +2472,85 @@ countdown(minutes = 10, top = 0, font_size = "2em")
   
   ]
 
+
+---
+exclude: false
+
+## .center[Tablas a partir de variables categóricas <br> paquete **summarytools**]
+
+
+.panelset[
+
+  .panel[.panel-name[summarytools]
+  
+El paquete `summarytools` está conformado por un conjunto coherente de funciones centradas en la exploración de datos y la generación de informes simples. En su núcleo residen las siguientes cuatro funciones: **freq(), ctable(), descr() y dfSummary()**.
+
+### ¿Cómo instalar el paquete skimr?
+
+```{r eval=FALSE, echo=TRUE}
+install.packages("summarytools")
+``` 
+]
+
+.panel[.panel-name[Funciones]
+
+El paquete `summarytools` está conformado por **`r length(ls("package:summarytools"))`** funciones. A continuación, se presentan la lista de funciones disponibles en este paquete. 
+
+```{r eval=TRUE, echo=FALSE}
+ls("package:summarytools")
+``` 
+
+Para ver detalles sobre el uso de cada una de estas funciones, aplicar la siguiente instrucción `help("summarytools::nombre_de la_función")`. Por ejemplo, para invocar la ayuda de la función ***freq()***, aplicamos la instrucción `help("summarytools::freq()")`.
+  ]
+  
+  .panel[.panel-name[Ejemplo]
+
+Construir, a partir del conjunto de datos **SaberPro** y haciendo uso de la función *freq()* del paquete **summarytools** una tabla de frecuencias con frecuencias absolutas, frecuencias relativas y frecuencias acumuladas de la variable **ESTRATO**.
+
+[Solución]()
+ 
+```{r eval=FALSE, echo=TRUE}
+freq(SaberPro$ESTRATO, report.nas = FALSE, headings = FALSE)
+```  
+
+```{r eval=TRUE, echo=FALSE}
+freq(SaberPro$ESTRATO, report.nas = FALSE, headings = FALSE)
+```  
+    
+  ]
+  
+  .panel[.panel-name[Ejercicio]
+  
+```{r echo=FALSE}
+countdown(minutes = 5, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> 
+ 
+1. Construir, haciendo uso de la función *freq()* del paquete **summarytools**, una tabla de frecuencias con frecuencias absolutas, frecuencias relativas y frecuencias acumuladas de la variable **SEDE**.
+
+2. Construir, haciendo uso de la función *freq()* del paquete **summarytools**, una tabla de frecuencias con frecuencias absolutas, frecuencias relativas y frecuencias acumuladas de la variable tipo de admisión **(TIPO_ADM)**.
+  
+  ]
+  
+  
+  
+  .panel[.panel-name[Manuales]  
+ 
+ A continuación, se presentan algunos enlaces para acceder a una lista de manuales disponibles en la web sobre el uso del paquete **summarytools**.
+ 
+  * [Introduction to summarytools](https://cran.r-project.org/web/packages/summarytools/vignettes/introduction.html#frequency-tables-freq)
+  
+  ]
+  ]
+
+
+
 ---
 ## .center[Gráficos a Partir de Variables Categóricas -Diagramas de Barras-]
 
@@ -2440,7 +2569,11 @@ knitr::include_graphics("imagenes/geom_bar.png")
   
 La construcción de gráficos de barras para variables cualitativas haciendo uso de la geometría **geom_bar()** del paquete **ggplot2** puede hacerse a partir de los *microdatos* del conjunto de datos o a través de una tabla de frecuencias de la variable a analizar. A continuación, se presenta un ejercicio para la construcción de gráficos de frecuencias a partir de los microdatos del conjunto de datos **SaberPro**
 
-[Ejercicio]()
+]
+
+  .panel[.panel-name[Ejemplo]
+  
+[Ejemplo]()
 
 1. Construir, a partir del conjunto de datos **SaberPro**, un diagrama de barras para la variable Sexo. Haciendo uso de la geometría **geom_tex()**, adicionar sobre cada barra la cantidad de individuos.
   
@@ -2453,8 +2586,20 @@ ggplot(SaberPro, aes(x = SEXO))+
   geom_bar(stat = "count") +
   geom_text(aes(label = ..count..), stat = "count", vjust = -0.8)
 ```
-
   ]
+
+
+.panel[.panel-name[Gráfico barras]
+
+```{r, echo=FALSE, eval=TRUE, out.height = "450px"}
+library(ggplot2)
+ggplot(SaberPro, aes(x = SEXO))+
+  geom_bar(stat = "count") +
+  geom_text(aes(label = ..count..), stat = "count", vjust = -0.8)
+```
+
+]
+  
   .panel[.panel-name[Ejercicio]
   
 ```{r echo=FALSE}
@@ -2471,53 +2616,89 @@ countdown(minutes = 10, top = 0, font_size = "2em")
 1. Construir, a partir de los microdatos y haciendo uso del paquete **ggplot2** y de la geometría **geom_bar**, un diagrama de barras para la variable *ESTRATO* del conjunto de datos **SaberPro**. Adicionar, con la función *ggtitle* un título al gráfico llamado "Distribución de Evaluados en la Prueba Saber Pro por Sexo"; así mismo, con las funciones *xlab* y *ylab*, cambiar los nombres de los ejes x e y por los nombres "Sexo" y "Total Evaluados en la Prueba", respectivamente.
 
   ]
-  .panel[.panel-name[A Partir de Tablas]
+  ]
+  
+---
+## .center[Gráficos a Partir de Variables Categóricas -Diagramas de Barras-]
+
+.panelset[
+  
+  .panel[.panel-name[Gráfico de Barras]
+  
+El diagrama de barras es el tipo de gráfico más utilizado para representar el comportamiento de las modalidades de una variable de naturaleza categórica/nominal. En **ggplot2**, los gráficos de barras se calculan a través de la geometría **geom_bar**.
+
+```{r , echo=FALSE, out.height="80%", fig.align='center'}
+knitr::include_graphics("imagenes/geom_bar.png") 
+```  
+  
+  ]
+ .panel[.panel-name[A Partir de Tablas]
 
 La segunda alternativa, para la construcción de diagramas de barras asociados a variables categóricas, se da cuando estos deben ser construidos a partir de una tabla de frecuencias. Para ello, se requiere adelantar dos pasos: construir la tabla y, apartir de esta, construir el gráfico.  
 
-[Ejercicio]()
+]
+ .panel[.panel-name[Ejemplo]
+
+[Ejemplo]()
 
 1. Construir, a partir del conjunto de datos **SaberPro** y de una **tabla de frecuencias**, un diagrama de barras para la variable Sexo. Haciendo uso de la geometría **geom_tex()**, adicionar sobre cada barra la cantidad de individuos.  
-  
-  ]
-  .panel[.panel-name[Ejercicio]
-  
-`r hide("Ver solución")`
+ 
+[Solución]()
+ 
+```{r, echo=TRUE, eval=FALSE}
 
-```{r eval = FALSE}
-# fill and axis changes
-ggplot(dat_long, aes(x = rt, fill = language)) +
-  geom_histogram(binwidth = 10) +
-  scale_x_continuous(name = "Reaction time (ms)") +
-  scale_fill_discrete(name = "Group",
-                      labels = c("Monolingual", "Bilingual"))
-# add in dodge
-ggplot(dat_long, aes(x = rt, fill = language)) +
-  geom_histogram(binwidth = 10, position = "dodge") +
-  scale_x_continuous(name = "Reaction time (ms)") +
-  scale_fill_discrete(name = "Group",
-                      labels = c("Monolingual", "Bilingual"))
+SaberPro %>% group_by(SEXO) %>% 
+  summarise(Total = n()) %>% 
+  ggplot(aes(x = SEXO, y = Total))+
+  geom_bar(stat = "identity" )+
+  geom_text(aes(label = Total), vjust = -0.8)
+```
+ 
+  ]
+  
+ .panel[.panel-name[Gráfico barras]
+  
+```{r, echo=FALSE, eval=TRUE, out.height = "450px"}
+
+SaberPro %>% group_by(SEXO) %>% 
+  summarise(Total = n()) %>% 
+  ggplot(aes(x = SEXO, y = Total))+
+  geom_bar(stat = "identity" )+
+  geom_text(aes(label = Total), vjust = -0.8)
 ```
 
-`r unhide()`
+]
+  .panel[.panel-name[Ejercicio]
+
+```{r echo=FALSE}
+countdown(minutes = 10, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> 
+ 
+1. Construir, a partir del conjunto de datos **SaberPro** y haciendo uso de las funciones *group_by* y *summarise*, una tabla de freceuncias paar la variable **SEDE**. Guardar los resultados de la tabla de frecuencias en un objeto/base llamado **Frec_Sede**.
+
+2. Construir, a partir de la tabla previamente creada (Frec_Sede), un diagrama de frecuencias para la variable **SEDE**. Adicionar, con la función *ggtitle* un título al gráfico llamado "Distribución de Evaluados en la Prueba Saber Pro por Sede de la Universidad"; así mismo, con las funciones *xlab* y *ylab*, cambiar los nombres de los ejes x e y por los nombres "Sede" y "Total Evaluados", respectivamente.
+
+
 
 ]
   ]
 
 
----
-# Prueba
-
-`r hide("Click here to see the solution")`
-
-```{r eval = FALSE}
-library(tidyverse)
-```
-
-`r unhide()`
 
 ---
-exclude: false
+class: center, middle
+
+# `r emo::ji("crayon")` <br> Estadística Descriptiva Aplicada a <br> Variables Cuantitativas
+
+---
+exclude: true
 
 ## .center[Características de un tema en ggplot2 - Opción 1]
 
@@ -2528,7 +2709,7 @@ knitr::include_graphics("imagenes/ThemeGgplot2.png")
 *Fuente de la imagen: *[Isabella benabaye - @_isabellamb](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)
 
 ---
-exclude: false
+exclude: true
 
 ## .center[Características de un tema en ggplot2 - Opción 2]
 
@@ -2546,14 +2727,130 @@ knitr::include_graphics("imagenes/ThemeGgplot2V2.png")
 
 
 ---
-exclude: false
+exclude: true
 # Enlaces de interés visualización de datos con R
 
 * .green[Tipos de gráficos según tipología de las variables: ][Data To Viz](https://www.data-to-viz.com/)
 
 * .green[Galería de gráficos en R: ][The R Graph Gallery](https://r-graph-gallery.com/)
 
+---
+exclude: true
 
+## .center[Paquetes para el análisis descritivo <br> paquete **skimr**]
+
+
+.panelset[
+
+  .panel[.panel-name[skimr]
+  
+El paquete `skimr` está diseñado para proporcionar estadísticas resumidas sobre variables en marcos de datos, tibbles, tablas de datos y vectores.
+
+### ¿Cómo instalar el paquete skimr?
+
+```{r eval=FALSE, echo=TRUE}
+install.packages("skimr")
+``` 
+]
+
+.panel[.panel-name[Funciones]
+
+El paquete `skimr` está conformado por **`r length(ls("package:skimr"))`** funciones. A continuación, se presentan las primeras 20 funciones de este paquete. 
+
+```{r eval=TRUE, echo=FALSE}
+ls("package:skimr")[1:20]
+``` 
+
+Para ver detalles sobre el uso de cada una de estas funciones, aplicar la siguiente instrucción `help("skimr::nombre_de la_función")`. Por ejemplo, para invocar la ayuda de la función ***skim()***, aplicamos la instrucción `help("skim::skim()")`.
+  ]
+  
+  .panel[.panel-name[ejemplo]
+ 
+```{r eval=TRUE, echo=TRUE}
+iris %>%
+  skim() %>%
+  yank("numeric")
+```  
+  
+  ]
+  .panel[.panel-name[Manuales]  
+ 
+ A continuación, se presentan algunos enlaces para acceder a una lista de manuales disponibles en la web sobre el uso del paquete skim.
+ 
+  * [Using Skimr](https://cran.r-project.org/web/packages/skimr/vignettes/skimr.html)
+  
+  ]
+  ]
+
+
+---
+exclude: true
+
+## .center[Paquetes para el análisis descritivo <br> paquete **DataExplorer**]
+
+
+.panelset[
+
+  .panel[.panel-name[DataExplorer]
+  
+El paquete `DataExplorer` tiene como objetivo automatizar la mayor parte del manejo y la visualización de datos exploratorios, para que los usuarios puedan concentrarse en estudiar los datos y extraer información..
+
+### ¿Cómo instalar el paquete DataExplorer?
+
+```{r eval=FALSE, echo=TRUE}
+# Opción 1
+install.packages("DataExplorer")
+
+# Opción 2
+devtools::install_github("boxuancui/DataExplorer")
+``` 
+]
+
+.panel[.panel-name[Funciones]
+
+El paquete `DataExplorer` está conformado por **`r length(ls("package:DataExplorer"))`** funciones. A continuación, se presentan las primeras 20 funciones de este paquete. 
+
+```{r eval=TRUE, echo=FALSE}
+ls("package:DataExplorer")[1:20]
+``` 
+
+Para ver detalles sobre el uso de cada una de estas funciones, aplicar la siguiente instrucción `help("DataExplorer::nombre_de la_función")`. Por ejemplo, para invocar la ayuda de la función ***introduce()***, aplicamos la instrucción `help("DataExplorer::introduce()")`.
+  ]
+  
+  .panel[.panel-name[ejemplo]
+ 
+```{r eval=TRUE, echo=TRUE}
+t(introduce(SaberPro))
+
+```  
+  
+  ]
+  .panel[.panel-name[Manuales]  
+ 
+ A continuación, se presentan algunos enlaces para acceder a una lista de manuales disponibles en la web sobre el uso del paquete skim.
+ 
+  * [Página wen paquete DataExplorer](https://boxuancui.github.io/DataExplorer/)
+  
+  ]
+  ]
+
+
+
+---
+exclude: true
+
+## .center[Paquetes para el análisis descritivo <br> paquete **dlookr**]
+
+
+.panelset[
+
+  .panel[.panel-name[dlookr]
+
+[dlookr](https://choonghyunryu.github.io/dlookr/index.html
+)
+
+]
+]
 
 ---
 name: modulo2
