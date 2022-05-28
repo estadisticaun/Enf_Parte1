@@ -3118,24 +3118,81 @@ knitr::include_graphics("imagenes/Mediana.png")
   
   .panel[.panel-name[La moda]
   
-La **moda** es una **medida de tendencia central** que ...
+La **moda** es una **medida de tendencia central** que representa el valor que más se repite dentro de las observaciones asociadas a una variable de tipo numérico.
 
 ```{r , echo=FALSE, fig.align='center',  out.height="80%"}
 knitr::include_graphics("imagenes/Moda.png") 
 ```
+
+**Cálculo de la moda en R**
+
+En R, dado el poco uso y utilidad de la **moda** como medida de tendencia central, no existe una función dentro de la base del lenguaje para el cálculo de esta medida estadística. Para ser calculada, se requiere diseñar una función propia o, en su defecto, usar algún paquete que la tenga implementada. 
   
   ]
   
  .panel[.panel-name[Ejemplos 1]
-  
+ 
+ [Ejemplos Media]()
+ 
+ 1. Calcular la media de las observaciones contenidas en el siguiente vector/conjunto de datos c(1, 2, 3, 4).
+ 
+ 2. Calcular la media de las observaciones contenidas en el siguiente vector/conjunto de datos c(1:20, 30, NA, 25).
+ 
+[Solución]()
+
+```{r, echo=TRUE, eval=TRUE}
+# Ejercicio 1
+mean(c(1, 2, 3, 4))
+
+# Ejercicio 2
+v1 <- c(1:20, 30, NA, 25) 
+Media <- mean(v1)
+Media
+```
   ]
   
  .panel[.panel-name[Ejemplos 2]
-  
+ 
+  [Ejemplos Mediana]()
+
+1. Calcular la mediana de las observaciones contenidas en el siguiente vector/conjunto de datos c(1, 4, 2, 15, 10).
+ 
+2. Calcular la mediana de las observaciones contenidas en el siguiente vector/conjunto de datos c(1:10, 3, 7, 25, 18:25, 12).
+ 
+[Solución]()
+
+```{r, echo=TRUE, eval=TRUE}
+# Ejercicio 1
+median(c(1, 4, 2, 15, 10))
+
+# Ejercicio 2
+m1 <- c(1:10, 3, 7, 25, 18:25, 12) 
+Mediana <- median(m1)
+Mediana
+```
   ]
   
  .panel[.panel-name[Ejercicios]
-  
+
+```{r echo=FALSE}
+countdown(minutes = 10, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br> 
+<br> 
+
+ 1. Calcular, a partir del conjunto de datos **SaberPro**, el promedio/media obtenido por los estudiantes en la prueba de razonamiento cuantitativo *(PUNT_RAZO_CUANT)*.
+ 
+ 2. Calcular, a partir del conjunto de datos **SaberPro**, la mediana obtenida por los estudiantes en la prueba de razonamiento cuantitativo *(PUNT_RAZO_CUANT)*.
+ 
+ 3. Calcular, a partir del conjunto de datos **SaberPro**, la mediana obtenida por los hombres y por las mujeres en la prueba de razonamiento cuantitativo *(PUNT_RAZO_CUANT)*.
+ 
+ Nota: 
+(1) En R, para extraer el contenido de una variable contenida en un marco de datos (data.frame), se debe utilizar el operador pesos. Por ejemplo, para extraer el contenido de la variable *PUNT_RAZO_CUANT*, del conjunto de datos *SaberPro*, debemos emplear el comando SaberPro$PUNT_RAZO_CUANT. <br>
+(2) El ejercicio 3 requiere el uso de dos de las funciones aprendidas en dplyr.
   ]
   ]
 
