@@ -145,8 +145,8 @@ class: center, middle
 
 1. [Módulo: Comunicación de Resultados (1 sesión)](#modulo4)
 
----
 
+---
 # Enfoque del Curso
 
 ![](imagenes/EnfCurso.png)
@@ -162,6 +162,17 @@ class: center, middle
 # Módulo 2: Probabilidad e Inferencia Estadística
 
 ![](imagenes/Modulo2.png)
+
+---
+exclude: true
+# Enfoque del curso
+
+```{r , echo=FALSE, out.height="90%", fig.align='center'}
+knitr::include_graphics("imagenes/Ciencia_Datos.png") 
+```
+
+Fuente: [Exploring data with elucidate](https://craig.rbind.io/post/2020-12-07-asgr-3-0-exploring-data-with-elucidate/#describe_all-columns-in-a-data-frame)
+
 
 ---
 
@@ -2056,6 +2067,8 @@ ls("package:janitor")
 ``` 
 
 Para ver detalles sobre el uso de cada una de estas funciones, aplicar la siguiente instrucción `help("janitor::nombre_de la_función")`. Por ejemplo, para invocar la ayuda de la función ***remove_empty()***, aplicamos la instrucción `help("janitor::remove_empty()")`.
+
+Otra función interesante es [get_dupes](http://sfirke.github.io/janitor/reference/get_dupes.html)
   ]
   
   .panel[.panel-name[Manuales]  
@@ -2073,6 +2086,15 @@ Para ver detalles sobre el uso de cada una de estas funciones, aplicar la siguie
   ]
 
 ---
+exclude: true
+# Limpieza de datos
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Limpieza_Datos.jpeg") 
+```
+Fuente: [Rosana Ferrero](https://twitter.com/RosanaFerrero)
+
+---
 exclude: false
 
 # .center[Repaso sesiones previas]
@@ -2081,7 +2103,7 @@ exclude: false
 ---
 class: center, middle
 
-# `r emo::ji("pencil")` <br> Estadística Descriptiva
+# `r emo::ji("pencil")` <br> Estadística Descriptiva y Exploratoria
 
 ---
 # .center[¿Qué es la estadística descriptiva?]
@@ -2207,9 +2229,10 @@ En este curso, a lo sumo, nos aproximaremos al uso de gráficos para los siguien
 
 [Nota]()
  
-En el siguiente sitio web se encuentra disponible una galería con diversos tipos de gráficos que pueden ser construidos para la visualización de datos con **R**.<br>
-[Ir al sitio web](https://r-graph-gallery.com/)
+En los siguientes sitios web encuentran disponibles galerías con diversos tipos de gráficos que pueden ser construidos para la visualización de datos con **R**.<br>
 
+* [The R Graph Gallery](https://r-graph-gallery.com/)
+* [From Data To Viz](https://www.data-to-viz.com/)
 
 ---
 # .center[Gráficos con R `r emo::ji("graph")`]
@@ -2244,7 +2267,7 @@ knitr::include_graphics("imagenes/ggplot2.png")
 ---
 # .center[¿Cómo funciona ggplot2?]
 
-El paquete **ggplot2** funciona a través de un enfóque conocido como la gramática de los gráficos. Este paquete fue construido teniendo en cuenta el trabajo desarrollado por *Leland Wilkinson* y contenido en el libro [The Grammar of Graphics](https://www.amazon.com/-/es/Leland-Wilkinson/dp/0387245448).
+El paquete [**ggplot2**](https://ggplot2-book.org/) funciona a través de un enfóque conocido como la gramática de los gráficos. Este paquete fue construido teniendo en cuenta el trabajo desarrollado por *Leland Wilkinson* y contenido en el libro [The Grammar of Graphics](https://www.amazon.com/-/es/Leland-Wilkinson/dp/0387245448).
 
 Según los autores, un gráfico está compuesto por 7 capas.
 
@@ -2542,10 +2565,7 @@ countdown(minutes = 5, top = 0, font_size = "2em")
 2. Construir, haciendo uso de la función *freq()* del paquete **summarytools**, una tabla de frecuencias con frecuencias absolutas, frecuencias relativas y frecuencias acumuladas de la variable tipo de admisión **(TIPO_ADM)**.
   
   ]
-  
-  
-  
-  .panel[.panel-name[Manuales]  
+    .panel[.panel-name[Manuales]  
  
  A continuación, se presentan algunos enlaces para acceder a una lista de manuales disponibles en la web sobre el uso del paquete **summarytools**.
  
@@ -2723,16 +2743,325 @@ Como se ilustró en la diapositiva sobre tipos de [variables](#variables), las v
 
 ---
 exclude: false
+# .center[Gráficos a partir de variables cuantitativas/numéricas]
+
+En R, a través de la base del lenguaje o de diversos paquetes como ggplot2, existe la posibilidad de representar de manera gráfica el comportamiento/distribución de una variable de tipo continuo/cuantitativa/numérica. A continuación, se presenta una pequeña lista de estos.
+
+* [Densidad](https://r-graph-gallery.com/density-plot)
+
+* [Histogramas](https://www.data-to-viz.com/graph/histogram.html)
+
+* [Box Plots](https://r-graph-gallery.com/boxplot.html)
+
+* [Diagramas de Violin](https://r-graph-gallery.com/violin)
+
+En este curso, se hará una exploración/presentación general de los gráficos de densidad, histogramas y de los diagramas de cajas o box plots.
+
+
+---
+## .center[Gráficos a Partir de Variables Numéricas -Gráfico de densidad-]
+
+.panelset[
+  
+  .panel[.panel-name[Gráfico de densidad]
+
+Un gráfico de densidad muestra la distribución de una variable numérica; es decir, sólo acepta variables con valores numéricos como entrada.
+
+
+### Gráficos de densidad con ggplot2
+
+Para construir un gráfico de densidad asociado a una variable numérica en R a través del paquete **[ggplot2](https://ggplot2.tidyverse.org/)**, debemos hacer uso de la geométria **[geom_density()](https://ggplot2.tidyverse.org/reference/geom_density.html)**.
+]
+
+  .panel[.panel-name[Ejemplo 1]
+
+[Ejemplo]()
+
+1. Construir, a partir del conjunto de datos **Paises**, un diagrama de densidad para representar la distribución de la variable esperanza de vida *(lifeExp)*. Para construir este gráfico a partir del paquete *ggplot2*, hacer uso de la geometría **geom_density()**.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+ggplot(Paises, aes(x = lifeExp))+
+  geom_density()
+```
+]
+
+ .panel[.panel-name[Gráfico 1]
+
+```{r, echo=FALSE, eval=TRUE, out.height = "450px"}
+ggplot(Paises, aes(x = lifeExp))+
+  geom_density()
+```
+]
+
+  .panel[.panel-name[Ejemplo 2]
+
+[Ejemplo]()
+
+1. Construir, a partir del conjunto de datos **Paises**, un diagrama de densidad para representar la distribución de la variable total de habitantes de los países *(pop)*. Construir este gráfico a partir del paquete *ggplot2* y hacer uso de la geometría **geom_density()**, así mismo, haciendo uso de las funciones **ggtitle()**, **xlab()** y **ylab()**, insertar un título al gráfico con contenido "Gráfico de densidad para total de habitantes" y nombres a los ejes x e y "Total de habitantes" y "Densidad", respectivamente.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+ggplot(Paises, aes(x = pop))+
+  geom_density(fill="#69b3a2", color="red")+
+  ggtitle("Gráfico de densidad para total de habitantes")  +
+  xlab("Total de habitantes")+
+  ylab("Densidad")
+```
+]
+
+ .panel[.panel-name[Gráfico 2]
+
+```{r, echo=FALSE, eval=TRUE, out.height = "450px"}
+ggplot(Paises, aes(x = pop))+
+  geom_density(fill="#69b3a2", color="red")+
+  ggtitle("Gráfico de densidad para total de habitantes")  +
+  xlab("Total de habitantes")+
+  ylab("Densidad")
+```
+]
+
+  .panel[.panel-name[Ejercicios]
+  
+```{r echo=FALSE}
+countdown(minutes = 10, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> 
+
+1. Construir, a partir del conjunto de datos **SaberPro**, un gráfico de densidad para representar la distribución del puntaje obtenido por los estudiantes en la prueba de razonamiento cuantitativo *(PUNT_RAZO_CUANT)*. 
+
+2. Construir, a partir del conjunto de datos **Paises**, un diagrama de densidad para representar la distribución de la variable total de habitantes de los países *(pop)* que hacen parte de Europa **continente == "Europe"**. Rellenar el diagrama de densidad con el color *#addd8e* y la línea de densidad con el color azul (blue). Insertar, a partir de las funciones   **ggtitle(), xlab() y ylab()**, respectivamente, los textos "Densidad total de habitantes de Europa", "Total de habitantes" y "Densidad".
+
+]
+]
+
+---
+## .center[Gráficos a Partir de Variables Numéricas -Histogramas-]
+
+.panelset[
+  
+  .panel[.panel-name[Histogramas]
+  
+  " ... un histograma es una representación gráfica de una variable en forma de barras, donde la superficie de cada barra es proporcional a la frecuencia de los valores representados."
+  
+Fuente:[Wikipedia](https://es.wikipedia.org/wiki/Histograma)
+
+### Histogramas con ggplot2
+
+Para construir un histograma asociado a una variable numérica en R a través del paquete **[ggplot2](https://ggplot2.tidyverse.org/)**, debemos hacer uso de la geométria **[geom_histogram()](https://ggplot2.tidyverse.org/reference/geom_histogram.html)**.
+]
+
+  .panel[.panel-name[Ejemplo 1]
+
+[Ejemplo]()
+
+1. Construir, a partir del conjunto de datos **Paises**, un histograma para representar la distribución de la variable esperanza de vida *(lifeExp)*. Para construir este gráfico a partir del paquete *ggplot2*, hacer uso de la geometría **geom_histogram()**.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+ggplot(Paises, aes(x = lifeExp))+
+  geom_histogram()
+```
+]
+
+  .panel[.panel-name[Gráfico 1]
+  
+```{r, echo=FALSE, eval=TRUE, out.height = "450px", message=FALSE, warning=FALSE}
+ggplot(Paises, aes(x = lifeExp))+
+  geom_histogram()
+```
+
+]
+
+  .panel[.panel-name[Ejemplo 2]
+  
+[Ejemplo]()
+
+1. Construir, a partir del conjunto de datos **Paises**, un histograma para representar la distribución de la variable total de habitantes de los países *(pop)*. Haciendo uso del argumento **bins**, elevar a 50 el número de barras del hsitograma. Finalmente, haciendo uso de las funciones **ggtitle()**, **xlab()** y **ylab()**, insertar un título al gráfico con contenido "Histograma para total de habitantes" y nombres a los ejes x e y "Total de habitantes (millones)" y "Cantidad", respectivamente.
+
+**Nota: Buscar una alternativa que elimine la notación científica del eje x.**
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+ggplot(Paises, aes(x = pop))+
+  geom_histogram(bins = 50)+
+  ggtitle("Histograma para total de habitantes")+
+  xlab("Total de habitantes (millones)")+
+  ylab("Cantidad")+
+  scale_x_continuous(labels = function(x){ format(x, scientific = FALSE)})
+```
+
+]
+
+  .panel[.panel-name[Gráfico 2]
+
+```{r, echo=FALSE, eval=TRUE, out.height = "450px", message=FALSE, warning=FALSE}
+ggplot(Paises, aes(x = pop))+
+  geom_histogram(bins = 50)+
+  ggtitle("Histograma para total de habitantes")+
+  xlab("Total de habitantes (millones)")+
+  ylab("Cantidad")+
+  scale_x_continuous(labels = function(x) format(x, scientific = FALSE))
+```
+]
+  .panel[.panel-name[Ejercicios]
+ 
+```{r echo=FALSE}
+countdown(minutes = 10, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> 
+
+1. Construir, a partir del conjunto de datos **SaberPro**, un histograma para representar la distribución del puntaje obtenido por los estudiantes en la prueba de razonamiento cuantitativo *(PUNT_RAZO_CUANT)*. Haciendo uso, dentro de la geometría *geom_histogram()*, de los argumentos *fill, color y alpha*, cambiar el relleno de las barras al color #2ca25f, el color de las líneas de las barras por rojo (red) y asignar una trasparencia de 0.5 al color de cada una de las barras del histograma.  
+
+2. Construir, a partir del conjunto de datos **Paises**, un histograma para representar la distribución de la variable total de habitantes de los países *(pop)* que hacen parte de Europa y Africa **continente == "Europe" y continente == "Africa"**. Rellenar las barras del histograma con el color *#addd8e* y la línea de las barras con el color azul (blue). Insertar, a partir de las funciones   **ggtitle(), xlab() y ylab()**, respectivamente, los textos "Histogra total de habitantes de Europa y Africa", "Total de habitantes" y "Cantidad".
+
+]
+]
+
+
+---
+## .center[Gráficos a Partir de Variables Numéricas -Box Plots-]
+
+.panelset[
+  
+  .panel[.panel-name[Box Plots]
+  
+ "Un diagrama de caja (también, diagrama de caja y bigotes o box plot) es un método estandarizado para representar gráficamente una serie de datos numéricos a través de sus cuartiles. De esta manera, se muestran a simple vista la mediana y los cuartiles de los datos, y también pueden representarse sus valores atípicos."
+ 
+ **Fuente:[Wikipedia](https://es.wikipedia.org/wiki/Diagrama_de_caja)**
+ 
+### Construcción de Box Plots con ggplot2
+
+Para construir un box plot asociado a una variable numérica en R a través del paquete **[ggplot2](https://ggplot2.tidyverse.org/)**, debemos hacer uso de la geométria **[geom_boxplot()](https://ggplot2.tidyverse.org/reference/geom_boxplot.html)**.
+ ]
+
+  .panel[.panel-name[Leer un Box Plot]
+
+#### ¿Cómo leer/interpretar un Box Plot?
+
+```{r , echo=FALSE, out.height="100%", fig.align='center'}
+knitr::include_graphics("imagenes/Explica_BoxPlot.png") 
+```
+
+]
+
+  .panel[.panel-name[Ejemplo 1]
+
+[Ejemplo]()
+
+1. Construir, a partir del conjunto de datos **Paises**, un diagrama de cajas (box plot) para representar la distribución de la variable esperanza de vida *(lifeExp)*. Para construir este gráfico a partir del paquete *ggplot2*, hacer uso de la geometría **geom_boxplot()**.
+Haciendo uso de la función **labs** asignar un título y un valor al eje y del gráfico. Finalmente, rellenar el boxplot con el color hexadecimal "#66c2a4".
+
+[Solución]()
+
+```{r, echo=TRUE, eval=FALSE}
+ggplot(Paises, aes(y = lifeExp))+
+  geom_boxplot(fill = "#66c2a4")+
+  scale_x_discrete()+
+  labs(title = "Box plot distribución esperanza de vida por países",
+       y = "Esperanza de vida\n")
+```
+
+]
+
+  .panel[.panel-name[Gráfico 1]
+
+```{r, echo=FALSE, eval=TRUE, out.height = "450px"}
+ggplot(Paises, aes(y = lifeExp))+
+  geom_boxplot(fill = "#66c2a4")+
+  scale_x_discrete()+
+  labs(title = "Box plot distribución esperanza de vida por países",
+       y = "Esperanza de vida\n")
+```
+
+]
+
+  .panel[.panel-name[Ejemplo 2]
+
+[Ejemplo]()
+
+1. Construir, a partir del conjunto de datos **Paises**, un box plot para representar la distribución de la variable total de habitantes de los países *(pop)*. Haciendo uso de la función **labs** insertar un título al gráfico con el contenido "Box Plot para total de habitantes" y rotular/nombrar el eje y como "Total de habitantes (en millones)". 
+
+**Nota: Buscar alternativas que eliminen la notación científica del eje y y para que no aparezca ningún texto en el eje x**
+
+```{r, echo=TRUE, eval=FALSE}
+ggplot(Paises, aes(y = pop))+
+  geom_boxplot()+
+  scale_x_discrete()+
+  labs(title = "Box Plot para total de habitantes",
+       y = "Total de habitantes (en millones)\n")+
+  # ylim(0, 15000000)+
+  scale_y_continuous(labels = function(x){ format(x, scientific = FALSE)})
+```
+]
+
+.panel[.panel-name[Gráfico 2]
+
+```{r, echo=FALSE, eval=TRUE, out.height = "450px"}
+ggplot(Paises, aes(y = pop))+
+  geom_boxplot()+
+  scale_x_discrete()+
+  labs(title = "Box Plot para total de habitantes",
+       y = "Total de habitantes (en millones)\n")+
+  # ylim(0, 15000000)+
+scale_y_continuous(labels = function(x){ format(x, scientific = FALSE)})
+```
+
+]
+
+  .panel[.panel-name[Ejercicios]
+
+```{r echo=FALSE}
+countdown(minutes = 10, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> 
+
+1. Construir, a partir del conjunto de datos **SaberPro**, un boxplot para representar la distribución del puntaje obtenido por los estudiantes en la prueba de razonamiento cuantitativo *(PUNT_RAZO_CUANT)*. Haciendo uso, dentro de la geometría *geom_boxplot()*, de los argumentos *fill y color*, cambiar el relleno de la caja por el color hexadecimal "#2ca25f" y asignar a las lineas externas de la caja el color rojo (red). Asignar un título adecuado para este gráfico, así como un texto al eje y.
+
+
+*Nota 1: Buscar una alternativa para que no aparezca texto en el eje x.*
+
+
+*Nota 2: Indagar, en la ayuda de la función geom_boxplot() y a través del uso del comando help("geom_boxplot") en la consola de R, cómo cambiar el color de los outliers y asignar a estos el color azul en el gráfico.*
+
+]
+]
+
+
+---
+exclude: false
 
 ## .center[Medidas/indicadores descriptivas para variables numéricas]
 
-Las variables cuantitativas, a diferencia de las variables categóricas, dispone de un número importante de medidas/indicadores que nos muestran algunas de las características más relevantes de estas variables. Estas medidas, en principio, pueden ser clasificadas en cuatro grandes categorías.
+Las variables cuantitativas, a diferencia de las variables categóricas, dispone de un número importante de medidas/indicadores que nos muestran algunas de las características más relevantes de estas variables. Estas medidas, en principio y como se presenta a continuación, pueden ser clasificadas en cuatro grandes categorías dentro de las cuales, a su vez, existen diversos tipos de medidas.
 
 <br>
 
-* **Medidas de tendencia central:** media aritmética y mediana.
+* **Medidas de tendencia central:** media aritmética, mediana y moda.
 
-* **Medidas de dispersión:** varianza, sd y rango.
+* **Medidas de dispersión:** varianza, desviación estándar y rango.
 
 * **Medidas de asimetría y apuntamiento:** asimetría y curtosis.
 
@@ -2740,52 +3069,87 @@ Las variables cuantitativas, a diferencia de las variables categóricas, dispone
 
 
 ---
-exclude: true
-# .center[Visualización de variables cuantitativas]
+## .center[Medidas de Tendencia Central]
+
+.panelset[
+  
+  .panel[.panel-name[Medidas]
+  
+Las medidas de **tendencia central** son cifras/indicadores que resumen, en un **único valor**, el centro en torno al cual se ubican los datos que conforman una variable numérica. Las medidas de tendencia central más utilizadas son: *la media, la mediana y la moda*.
+ 
+```{r , echo=FALSE, fig.align='center'}
+knitr::include_graphics("imagenes/Tendencia_Central.png") 
+```
+ 
+  
+  ]
+  
+   .panel[.panel-name[La media]
+   
+La **media o promedio** es una **medida de tendencia central** que se calcula sumando todos los valores contenidos en una variable numérica y dividiendo esta suma entre el número total de valores **no faltantes** de la variable bajo estudio.
+
+```{r , echo=FALSE, fig.align='center',  out.height="80%"}
+knitr::include_graphics("imagenes/Media.png") 
+```
+ 
+
+**Fórmula de la media**
+
+ 
+ $$\bar{x} = \frac{1}{n}\sum_{i=1}^{n}x_{i}$$
+ 
+  ]
+  
+  .panel[.panel-name[La mediana]
+  
+La **mediana** es una **medida de tendencia central** que representa el valor intermedio de un conjunto de observaciones asociadas a una variable numérica: la mitad de las observaciones (50%) son superiores a la mediana y la restante mitad (50%) tienen valores inferiores a la mediana.
 
 
-
-
----
-exclude: true
-
-## .center[Características de un tema en ggplot2 - Opción 1]
-
-```{r , echo=FALSE, out.width="75%", fig.align='center'}
-knitr::include_graphics("imagenes/ThemeGgplot2.png") 
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Mediana.png") 
 ```
 
-*Fuente de la imagen: *[Isabella benabaye - @_isabellamb](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)
+**Pasos para el cálculo de la mediana**
 
----
-exclude: true
+* Ordenamos las observaciones de la variable de menor a mayor.
+* Si la serie ordenada tiene un número impar de observacioens, la mediana es la puntuación central de la misma (n+1)/2.
+* Si la serie ordenada tiene un número par de observaciones la mediana es la media entre las dos puntuaciones centrales (promedio entre los valores ubicados en las posiciones n/2 y (n/2) +1.
+  ]
+  
+  .panel[.panel-name[La moda]
+  
+La **moda** es una **medida de tendencia central** que ...
 
-## .center[Características de un tema en ggplot2 - Opción 2]
-
-```{r , echo=FALSE, out.width="65%", fig.align='center'}
-knitr::include_graphics("imagenes/ThemeGgplot2V2.png") 
+```{r , echo=FALSE, fig.align='center',  out.height="80%"}
+knitr::include_graphics("imagenes/Moda.png") 
 ```
-
-*Fuente de la imagen: *[Henry Wang - @henrywangnl](https://henrywang.nl/ggplot2-theme-elements-demonstration/)
-
-
-
-
-
+  
+  ]
+  
+ .panel[.panel-name[Ejemplos 1]
+  
+  ]
+  
+ .panel[.panel-name[Ejemplos 2]
+  
+  ]
+  
+ .panel[.panel-name[Ejercicios]
+  
+  ]
+  ]
 
 
 
 ---
 exclude: true
-# Enlaces de interés visualización de datos con R
+class: center, middle
 
-* .green[Tipos de gráficos según tipología de las variables: ][Data To Viz](https://www.data-to-viz.com/)
+# `r emo::ji("pencil")` <br> Paquetes de R Para Estadística <br> Descriptiva y Exploratoria
 
-* .green[Galería de gráficos en R: ][The R Graph Gallery](https://r-graph-gallery.com/)
 
 ---
 exclude: true
-
 ## .center[Paquetes para el análisis descritivo <br> paquete **skimr**]
 
 
@@ -2834,7 +3198,6 @@ iris %>%
 
 ---
 exclude: true
-
 ## .center[Paquetes para el análisis descritivo <br> paquete **DataExplorer**]
 
 
@@ -2883,8 +3246,6 @@ t(introduce(SaberPro))
   ]
   ]
 
-
-
 ---
 exclude: true
 
@@ -2900,6 +3261,24 @@ exclude: true
 
 ]
 ]
+
+---
+exclude: true
+## .center[Paquetes para el análisis descritivo <br> paquete **elucidate**]
+
+.panelset[
+
+  .panel[.panel-name[elucidate]
+
+[Manuales]()
+
+* [Manual Paquete](https://bcgov.github.io/elucidate/)
+
+* [exploring data with elucidate](https://craig.rbind.io/post/2020-12-07-asgr-3-0-exploring-data-with-elucidate/#describe_all-columns-in-a-data-frame)
+
+]
+]
+
 
 ---
 name: modulo2
@@ -2919,11 +3298,6 @@ background-size: cover
 ](https://unsplash.com/photos/a6N685qLsHQ)
 ]
 
-
-
-
-
-
 ---
 
 name: modulo3
@@ -2941,11 +3315,9 @@ background-size: cover
 .white[Crédito de la imagen:][Greg Rakozy](https://unsplash.com/photos/oMpAz-DN-9I)
 ]
 
-
 ---
 name: modulo4
 exclude: true
-
 
 class: title-slide, hide-count, hide-logo
 
@@ -2966,11 +3338,39 @@ background-size: cover
 .white[Crédito de la imagen:][John Anvik](https://images.unsplash.com/photo-1617063033111-74cf600531d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80)
 ]
 
+---
+exclude: true
+class: center, middle
 
-```{r}
-# FUENTES DE INVESTIGACIÓN
-# ASOCIACIÓN Y COMPARACIÓN
-# https://www.maximaformacion.es/blog-dat/guia-para-encontrar-tu-prueba-estadistica/
+# `r emo::ji("graph")` <br> Personalizar la apariencia de un gráfico <br> en Ggplot2
+
+
+---
+exclude: true
+
+## .center[Características de un tema en ggplot2 - Opción 1]
+
+```{r , echo=FALSE, out.width="75%", fig.align='center'}
+knitr::include_graphics("imagenes/ThemeGgplot2.png") 
 ```
 
+*Fuente de la imagen: *[Isabella benabaye - @_isabellamb](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)
 
+---
+exclude: true
+
+## .center[Características de un tema en ggplot2 - Opción 2]
+
+```{r , echo=FALSE, out.width="65%", fig.align='center'}
+knitr::include_graphics("imagenes/ThemeGgplot2V2.png") 
+```
+
+*Fuente de la imagen: *[Henry Wang - @henrywangnl](https://henrywang.nl/ggplot2-theme-elements-demonstration/)
+
+---
+exclude: true
+# Enlaces de interés visualización de datos con R
+
+* .green[Tipos de gráficos según tipología de las variables: ][Data To Viz](https://www.data-to-viz.com/)
+
+* .green[Galería de gráficos en R: ][The R Graph Gallery](https://r-graph-gallery.com/)
