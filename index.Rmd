@@ -49,6 +49,7 @@ library(janitor)
 library(skimr)
 library(DataExplorer)
 library(summarytools)
+library(moments)
 xaringanExtra::use_tile_view()
 xaringanExtra::use_clipboard()
 xaringanExtra::use_webcam()
@@ -2086,13 +2087,25 @@ Otra función interesante es [get_dupes](http://sfirke.github.io/janitor/referen
   ]
 
 ---
-exclude: true
+exclude: false
 # Limpieza de datos
 
 ```{r , echo=FALSE, out.height="100%", fig.align='center'}
 knitr::include_graphics("imagenes/Limpieza_Datos.jpeg") 
 ```
 Fuente: [Rosana Ferrero](https://twitter.com/RosanaFerrero)
+
+---
+exclude: false
+# Tratamientos de Datos Faltantes
+
+### Exploración Gestión de datos faltantes
+
+Para gestionar/manipular/ tratar con datos faltantes en nuestros conjuntos de datos, recomendamos el [capítulo 20](https://r4ds.hadley.nz/missing-values.html) del libro [R for Data Science (2e)](https://r4ds.hadley.nz/)
+
+### Imputación de datos faltantes
+
+Para tener un mayor conocimiento sobre los procesos de imputación de datos faltantes, recomendamos explorar el sitio web [Missing Value Imputation](https://statisticsglobe.com/missing-data-imputation-statistics/).
 
 ---
 exclude: false
@@ -2350,6 +2363,7 @@ ylab("Ancho del Sépalo")
 ]
 
 ---
+exclude: false
 # .center[Expliquemos en detalle el código del gráfico anterior]
 
 ```{r, echo=TRUE, eval=FALSE}
@@ -2375,6 +2389,100 @@ ylab("Ancho del Sépalo")
 * **geometría**: *geom_bar*. Ver lista de geometrias <br> (tipos de gráficos) en: [geometrias](https://ggplot2.tidyverse.org/reference/index.html)
 
 * **Tema**: *theme_bw()*. Ver más temas disponibles en: <br> [lista de temas](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+
+
+---
+exclude: true
+# Facetas en ggplot2
+
+Para trabajar con facetas (varias parcelas dentro de un mismo entorno gráfico) en ggplot2, lo hacemos a través de las funciones  [facet_grid](https://ggplot2.tidyverse.org/reference/facet_grid.html) y [facet_wrap](). La documentación de estas funciones y algunos ejemplos sobre el uso de estas funciones los encontramos disponibles dando clic en los siguientes enlaces:
+
+* [Enlace 1](http://www.sthda.com/english/wiki/ggplot2-facet-split-a-plot-into-a-matrix-of-panels)
+* [Enlace 2](https://statisticsglobe.com/difference-between-facet_grid-and-facet_wrap-ggplot2-r)
+* [Enlace 3](https://ggplot2.tidyverse.org/reference/facet_grid.html)
+* [Enlace 4](https://ggplot2.tidyverse.org/reference/facet_wrap.html)
+* [Enlace 5](`http://www.cookbook-r.com/Graphs/Facets_(ggplot2)`). El enlace 5 correcto es:
+http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/
+
+## Paquetes paar gestionar facetas en ggplot2
+
+Para manipular/crear distintan facetas en el paquete ggplot2, existe el paquete [patchwork](https://patchwork.data-imaginist.com/index.html). En el siguiente [enlace](https://statisticsglobe.com/patchwork-r-package), se presenta una introducción al uso de este paquete.
+
+---
+exclude: true
+# Colores en ggplot2
+
+En ggplot 2, existe una bateria de colores por defecto y algunos paquetes/paletas adicionales que facilitan una gestión moderna de dichos colores.
+
+### Paletas de colores en R
+
+* [Enlace 1](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf)
+* [Enlace 2](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+
+### Colores por defecto en ggplot2
+
+[Enlace 1](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/). Enlace en http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
+
+### Paquetes y otras posibilidades de colores en ggplot2
+
+* [Enlace 1](https://www.datanovia.com/en/blog/ggplot-colors-best-tricks-you-will-love/)
+* [Enlace 2](https://r-graph-gallery.com/ggplot2-color.html)
+
+---
+exclude: true
+class: center, middle
+
+# `r emo::ji("graph")` <br> Personalizar la apariencia de un gráfico <br> en Ggplot2 - Temas
+
+
+---
+exclude: true
+
+## .center[Características de un tema en ggplot2 - Opción 1]
+
+```{r , echo=FALSE, out.width="75%", fig.align='center'}
+knitr::include_graphics("imagenes/ThemeGgplot2.png") 
+```
+
+*Fuente de la imagen: *[Isabella benabaye - @_isabellamb](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)
+
+---
+exclude: true
+
+## .center[Características de un tema en ggplot2 - Opción 2]
+
+```{r , echo=FALSE, out.width="65%", fig.align='center'}
+knitr::include_graphics("imagenes/ThemeGgplot2V2.png") 
+```
+
+*Fuente de la imagen: *[Henry Wang - @henrywangnl](https://henrywang.nl/ggplot2-theme-elements-demonstration/)
+
+---
+exclude: true
+
+# Más información sobre temas en ggplot2
+
+A continuación, se presentan algunos enlaces de interés para la exploración de diversas posibilidades de temas existentes, así como la creación de temas propios.
+
+* [Enlace 1](https://r-charts.com/es/ggplot2/temas/)
+
+---
+exclude: false
+# Enlaces de interés visualización de datos - Énfasis en R.
+
+* .green[Tipos de gráficos según tipología de las variables: ][Data To Viz](https://www.data-to-viz.com/)
+
+* .green[Galería de gráficos en R: ][The R Graph Gallery](https://r-graph-gallery.com/)
+
+* .green[Galeria de posibilidades con ggplot2: ][R CHARTS](https://r-charts.com/es/ggplot2/)
+
+* .green[R Graphics Cookbook, 2nd edition: ][R Graphics Cookbook, 2nd edition](https://r-graphics.org/)
+
+* .green[Data Visualization with R: ][Data Visualization with R](https://rkabacoff.github.io/datavis/)
+
+* .green[Fundamentals of Data Visualization: ][Fundamentals of Data Visualization](https://clauswilke.com/dataviz/)
+
+* .green[The Visualization Universe: ][The Visualization Universe](http://visualizationuniverse.com/)
 
 ---
 # .center[¡Vamos a un receso!]
@@ -3028,7 +3136,7 @@ scale_y_continuous(labels = function(x){ format(x, scientific = FALSE)})
   .panel[.panel-name[Ejercicios]
 
 ```{r echo=FALSE}
-countdown(minutes = 10, top = 0, font_size = "2em")
+countdown(minutes = 5, top = 0, font_size = "2em")
 ```  
 
 <br>
@@ -3196,6 +3304,329 @@ countdown(minutes = 10, top = 0, font_size = "2em")
   ]
   ]
 
+---
+## .center[Medidas de Dispersión/Variabilidad]
+
+.panelset[
+  
+  .panel[.panel-name[Medidas]
+
+Las medidas/indicadores de **dispersión o variabilidad** son cifras que resumen, en un único valor, el grado en que una distribución asociada a un conjunto de datos se estira/dispersa o comprime (qué tan cercanos o lejanos están los datos unos de otros). Las medidas de dispersión más utilizadas son: *la varianza, la desviación estándar y el rango*.
+
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Dispersion.png") 
+```
+  .green[Fuente: ][wikipedia](https://es.m.wikipedia.org/wiki/Archivo:Normal_Distribution_PDF.svg)
+]
+  
+  .panel[.panel-name[La varianza]
+ 
+ La **varianza muestral** es una **medida/indicador de dispersión** que nos permite representar la variabilidad existente en un conjunto de datos respecto de su valor medio (media). 
+
+<br>
+<br>
+
+### Fórmula de la Varianza Muestral 
+ 
+$$
+s^{2}={\frac{{\displaystyle \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}}{n-1}}
+$$
+
+]
+  
+  .panel[.panel-name[La desviación estándar]
+
+La **desviación estándar**, al igual que la varianza, es una **medida/indicador de dispersión** que nos permite representar el grado de variabilidad existente en un conjunto de datos.
+
+<br>
+
+### Fórmula de la Desviación Estándar 
+
+$$
+s = \sqrt{varianza}= \sqrt{s^{2}}
+$$
+
+
+$$
+s = \sqrt{{\frac{{\displaystyle \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}}{n-1}}}
+$$
+
+
+  ]
+  
+ .panel[.panel-name[El rango]
+ 
+El **rango**, al igual que la varianza y la desviación estándar, es una **medida/indicador de dispersión** que permite representar la variabilidad existente en un conjunto de datos.
+
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Rango.png") 
+```  
+ .green[Fuente: ][Disfruta las matemáticas](https://www.disfrutalasmatematicas.com/definiciones/rango-estadistica-.html)
+
+### Fórmula del Rango
+
+El **rango** de un conjunto de datos equivale a la resta/diferencia  entre el valor máximo y minimo existentes en los datos observados. Esta medida de dispersión es poco empleada dado su sensibilidad ante la presencia de observaciones atípicas.
+
+ 
+  ]
+  
+ .panel[.panel-name[Ejemplos 1]
+  
+[Ejemplos Varianza y Desviación Estándar]()
+
+1. Calcular, a partir del conjunto de datos **SaberPro**, la varianza de la edad de los estudiantes que presentaron la prueba SaberPro *(Variable EDAD)*.
+
+
+2. Calcular, a partir del conjunto de datos **SaberPro**, la desviación estándar de la edad de los estudiantes que presentaron la prueba SaberPro *(Variable EDAD)*.
+ 
+[Solución]()
+
+```{r, echo=TRUE, eval=TRUE}
+# Ejercicio 1
+var(SaberPro$EDAD, na.rm = TRUE)
+
+# Ejercicio 2
+sd(SaberPro$EDAD, na.rm = TRUE)
+
+# Corroborar desviación estándar
+
+sqrt(var(SaberPro$EDAD, na.rm = TRUE))
+```
+  
+  
+  ]
+  
+ .panel[.panel-name[Ejercicios]
+
+```{r echo=FALSE}
+countdown(minutes = 10, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+1. Calcular, a partir del conjunto de datos **SaberPro**, la varianza obtenida por los estudiantes en el puntaje global de la prueba *(PUNTAJE_GLOBAL)*.
+ 
+2. Calcular, a partir del conjunto de datos **SaberPro**, la desviación estándar obtenida por los estudiantes en el puntaje global de la prueba *(PUNTAJE_GLOBAL)*. 
+Corroborar los resultados a través del cálculo de la raiz cuadrada de la varianza. Para ello, hacer uso de la función **sqrt()** de la base del lenguaje R.
+ 
+3. Calcular, a partir del conjunto de datos **SaberPro**, la varianza obtenida en el puntaje global de la prueba *(PUNTAJE_GLOBAL)*, según la sede de la Universidad **(SEDE)** en la que los estudiantes cursaron sus estudios.
+  ]
+  
+  ]
+
+---
+## .center[Medidas de asimetria y apuntamiento]
+
+.panelset[
+  
+  .panel[.panel-name[Medidas]
+
+Las medidas/indicadores de **asimetria y apuntamiento** son cifras que resumen, en un único valor, la simetria o asimetriá de una distribución (sesgada a derecha o a izquierda), así como la forma o grado de concentración que presentan los valores de una variable alrededor de la zona central de estos.
+
+  ]
+  
+  .panel[.panel-name[Coeficiente de asimetría]
+
+El coeficiente de asimetria de una distribución asociada a un conjunto de datos es una medida descriptiva estadística que nos permite evaluar la inclinación/sesgo que presentan los datos (simétrica, sesgada a derecha o sesgada a izquierda).
+
+<br>
+<br>
+
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Asimetria.png") 
+```
+.green[Fuente: ][wikiwand](https://www.wikiwand.com/es/Asimetr%C3%ADa_estad%C3%ADstica)
+
+  ]
+  
+  .panel[.panel-name[La curtósis]
+
+El curtosis de una distribución asociada a un conjunto de datos es una medida descriptiva estadística que nos permite la forma o grado de concentración que presentan los valores de una variable alrededor de la zona central de estos. Según la forma de una distribución y, como se obsreva en la figura de abajo, esta puede ser clasificada en: **mesocúrtica, platicúrtica y leptocúrtica**.
+
+<br>
+<br>
+
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Apuntamiento.png") 
+```  
+.green[Fuente: ][lifeder](https://www.lifeder.com/curtosis/)
+
+  ]
+  
+  .panel[.panel-name[Ejemplos 1]
+  
+[Ejemplo Coeficiente de Asimetría]()
+
+1. Calcular, a partir del conjunto de datos **SaberPro**, el coeficiente de asimetría de la edad de los estudiantes que presentaron la prueba SaberPro *(Variable EDAD)*.
+
+
+[Solución]()
+
+```{r, echo=TRUE, eval=TRUE, warning=FALSE}
+# Antes de dar solución al ejercicio
+# Instalar la librería moments
+
+# install.packages("moments")
+
+# Invocar la librería moments
+library(moments)
+```
+
+
+```{r, echo=TRUE, eval=TRUE}
+# Solución Ejercicio 1
+Simetria <- skewness(SaberPro$EDAD, na.rm = TRUE)
+Simetria
+```
+
+  ]
+  
+  .panel[.panel-name[Ejemplos 2]
+  
+ [Ejemplo Curtósis]()
+
+1. Calcular, a partir del conjunto de datos **SaberPro**, la curtósis de la edad de los estudiantes que presentaron la prueba SaberPro *(Variable EDAD)*.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=TRUE}
+# Solución Ejercicio 1
+Curtosis <- kurtosis(SaberPro$EDAD, na.rm = TRUE)
+Curtosis
+```
+
+  ]
+  
+  .panel[.panel-name[Ejercicios]
+  
+```{r echo=FALSE}
+countdown(minutes = 10, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+1. Calcular, a partir del conjunto de datos **SaberPro**, el coeficiente de asimetria obtenido por los estudiantes en el puntaje global de la prueba *(PUNTAJE_GLOBAL)*.
+ 
+2. Calcular, a partir del conjunto de datos **SaberPro**, la curtósis obtenida por los estudiantes en el puntaje global de la prueba *(PUNTAJE_GLOBAL)*. 
+ 
+3. Construir, a partir del conjunto de datos **SaberPro** y haciendo uso de la librería ggplot2, un diagrama de densidad de los puntaje globales obtenidos por los estudiantes que presentaron esta prueba *(PUNTAJE_GLOBAL)*. ¿Qué podemos concluir a partir de la distribución gráfica y los valores obtenidos en el coeficiente de asimetría y la curtósis? 
+
+  ]
+ ]
+ 
+ 
+---
+## .center[Medidas de Posición/Localización]
+
+.panelset[
+  
+  .panel[.panel-name[Medidas]
+  
+Las medidas de localización permiten dividir la distribución asociada a un conjunto de datos en un número de partes iguales. Entre las medidas de localización más coumunes tenemos: **la mediana, los cuartiles, los quintiles, los deciles y los percentiles.**
+
+<br>
+<br>
+
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Localizacion.png") 
+``` 
+
+  ]
+  
+  .panel[.panel-name[Quintiles-Cuartiles]
+ 
+los **quintiles** y los **cuartiles** son aquellas medidas/valores que dividen la distribución de un conjunto de datos **en 5 y 4 partes** iguales, respectivamente.
+
+<br>
+<br>
+
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Localizacion.png") 
+``` 
+
+  ]
+  
+  .panel[.panel-name[Deciles - Percentiles]
+  
+los **deciles** y los **percentiles** son aquellas medidas/valores que dividen la distribución de un conjunto de datos **en 10 y 100 partes** iguales, respectivamente.
+
+<br>
+<br>
+  
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Localizacion.png") 
+``` 
+
+  ]
+  
+  .panel[.panel-name[Ejemplos 1]
+  
+[Ejemplos cuartiles y quintiles]()
+
+1. Calcular, a partir del conjunto de datos **SaberPro**, los cuartiles y los quintiles de la edad de los estudiantes que presentaron la prueba SaberPro *(Variable EDAD)*.
+
+
+[Solución]()
+
+```{r, echo=TRUE, eval=TRUE, warning=FALSE}
+# Cálculo de los cuartiles
+quantile(SaberPro$EDAD, prob=c(0, 0.25, 0.5, 0.75, 1))
+
+# Cálculo de los quintiles
+quantile(SaberPro$EDAD, prob=c(0, 0.2, 0.4, 0.6, 0.8, 1))
+```
+
+  ]
+  
+  .panel[.panel-name[Ejemplos 2]
+  
+  [Ejemplos deciles y percentiles]()
+
+1. Calcular, a partir del conjunto de datos **SaberPro**, los deciles y los percentiles de la edad de los estudiantes que presentaron la prueba SaberPro *(Variable EDAD)*.
+
+[Solución]()
+
+```{r, echo=TRUE, eval=TRUE, warning=FALSE}
+# Cálculo de los deciles
+quantile(SaberPro$EDAD, prob=seq(0, 1, length = 11))
+```
+```{r, echo=TRUE, eval=FALSE, warning=FALSE}
+# Cálculo de los percentiles
+quantile(SaberPro$EDAD, prob=seq(0, 1, length = 101))
+
+# Dada la cantidad de datos, ver la salida en la consola de R.
+```
+  ]
+  
+.panel[.panel-name[Ejercicios]
+
+```{r echo=FALSE}
+countdown(minutes = 10, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+1. Calcular, a partir del conjunto de datos **SaberPro**, los **quintiles** en el puntaje global de la prueba *(PUNTAJE_GLOBAL)* obtenidos por los estudiantes evaluados.
+ 
+2. Calcular, a partir del conjunto de datos **SaberPro**, los **deciles** en el puntaje global de la prueba *(PUNTAJE_GLOBAL)* obtenidos por los estudiantes evaluados.
+ 
+3. Construir, a partir del conjunto de datos **SaberPro** y de algunas de las funciones del paquete **dplyr** de R, una tabla con el percentil 85 de los resultados obtenidos por hombres y mujeres *(SEXO)* en la prueba de razonamiento cuantitativo *(PUNT_RAZO_CUANT)*. ¿Qué podemos concluir a partir de los resultados obtenidos?
+
+Nota ejercicio 3: El percentil 85 de la variable puntaje global se calcula a través del siguiente código en R: *quantile(PUNT_RAZO_CUANT, 0.7)*
+  ]
+ ]
 
 
 ---
@@ -3394,40 +3825,3 @@ background-size: cover
 .footnote[
 .white[Crédito de la imagen:][John Anvik](https://images.unsplash.com/photo-1617063033111-74cf600531d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80)
 ]
-
----
-exclude: true
-class: center, middle
-
-# `r emo::ji("graph")` <br> Personalizar la apariencia de un gráfico <br> en Ggplot2
-
-
----
-exclude: true
-
-## .center[Características de un tema en ggplot2 - Opción 1]
-
-```{r , echo=FALSE, out.width="75%", fig.align='center'}
-knitr::include_graphics("imagenes/ThemeGgplot2.png") 
-```
-
-*Fuente de la imagen: *[Isabella benabaye - @_isabellamb](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)
-
----
-exclude: true
-
-## .center[Características de un tema en ggplot2 - Opción 2]
-
-```{r , echo=FALSE, out.width="65%", fig.align='center'}
-knitr::include_graphics("imagenes/ThemeGgplot2V2.png") 
-```
-
-*Fuente de la imagen: *[Henry Wang - @henrywangnl](https://henrywang.nl/ggplot2-theme-elements-demonstration/)
-
----
-exclude: true
-# Enlaces de interés visualización de datos con R
-
-* .green[Tipos de gráficos según tipología de las variables: ][Data To Viz](https://www.data-to-viz.com/)
-
-* .green[Galería de gráficos en R: ][The R Graph Gallery](https://r-graph-gallery.com/)
