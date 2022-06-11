@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Solita Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jakob Johannesson" />
+    <meta name="date" content="2022-06-09" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link rel="stylesheet" href="css/solita.css" type="text/css" />
+    <link rel="stylesheet" href="css/solita-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+layout: true
+background-color: #282828
+name: right-half-image
+class: padding-right-65
+---
+layout: true
+background-color: #282828
+name: left-half-image
+class: padding-left-60
+.solita-logomark[]
+---
+name: first-slide
+layout: true
+background-color: #DC1E32
+.solita-logomark[]
+
+---
+layout: true
+name: theme-red-white
+class: theme-red-white
+
+---
+background-color: #DC1E32
+.solita-logomark-starter[]
+.solita-text[]
+
+.header-large[Solita Slides]
+
+
+???
+
+Here you can add notes, if you want to access the notes: press "p" during the presentation. Keep in mind, you can add images, links, equations or whatever here. This is markdown aswell!
+
+---
+layout: true
+class: padding-right-12
+background-color: #282828
+.solita-logomark[]
+
+---
+class: padding-right-45
+.profile-pic[![](images/profile.jpeg)]
+
+# Short intro about me
+
+* Jakob Johannesson
+* Data Scientist in the Swedish data unit
+
+&lt;br&gt;
+--
+
+-- --
+
+### Who have used R before?
+
+If you have used R before: Send a ❤️ as a reaction
+
+If you have .solita-red[not] used R before: Send a 👏 as a reaction
+
+---
+background-color: #DC1E32
+
+# Status quo
+
+### Where are we located right now in terms of presentations?
+
+* Powerpoints or Google slides from the branding team
+* Great templates, easy to get started
+* Great support within Solita
+* Great if used just once - Static content
+
+
+--
+
+### Maintaining is hard and dull
+* Small changes to plots implies you need to import the entire plot
+* Numbers tend to change (KPIs etc)
+
+
+???
+
+* You use Powerpoint, downloaded from Google drive and changed to fit your needs.
+* The templates are beautiful and create great slides with little effort from the user
+* It includes lots of pointing and clicking.
+* It is easy to get started and if the presentation is just occurring once, great!
+* However if you need to maintain the presentation, a whole new dimention kicks in. The maintainer of the presentation is expected to deliver a presentation every month on the new numbers that have arrived.
+* Issues arise as the numbers coming in and different plots and lots of different resources needs to get added to the presentation. The maintainer feels frustrated, as a small change, such as changing the title in a plot will mean that the plot needs to get exported again and then added to the presentation, while adjusting the margins and such.
+* The maintainer of the presentation feel that this is dull. It is 2021, how can we not have moved on to a smooth new solution?!
+* I've talked to my college Lukas and he told me a story about a insurance company that had a full time person simply to maintain presentation slides. 
+
+
+---
+class: padding-right-34
+template:theme-red-white
+.solita-logomark-black[]
+
+# .solita-red[Solita Slides equals less maintaining]
+
+* Reproducability
+* Embed interactive materials such as dashboards, maps, videos or even a demo.
+
+### .solita-red[Other pros of using Solita Slides]
+
+* If you are using Rstudio in your project, it is easy to get started with a new presentation
+* Outstanding if you already know how to use rmarkdown or css
+* Support for parameters, more on this on the next slide.
+* Export your slides to PDF
+* Wide support for different programming languages
+* Great presenter mode
+* Support for fun effects such as snow and confetti
+
+.solita-hex[![](images/solita-hex.png)]
+
+???
+
+Reproducability: Content is attached to the code, if you have new code or new data it is just a click away. No more copy paste.
+
+You don't need to use R in order to use Rmarkdown!
+
+
+---
+
+# Parameters
+
+A great way to gain heavy leverage in slide creation is to use parameters. This way you use your database in a super efficient way. Simple uses for this might be to change the color on all slides or change the logo on all the slides. Or adding a boolean for including some slides and excluding others.
+
+### Infinite moonreader
+
+Allows you to write code and the results will show instantly in the viewer panel. GIF on next slide.
+---
+.cropped[![](https://user-images.githubusercontent.com/163582/53144527-35f7a500-3562-11e9-862e-892d3fd7036d.gif)]
+.solita-logomark-black[]
+
+---
+class: padding-right-25
+# Save your slides to PDF
+
+* You can simply add it to the final slide and it will save your slides every time.
+* If have lots of slides you can disable it and only run it when you need it.
+
+Example:
+
+
+```bash
+`npm bin`/decktape remark file:///Users/input.html output.pdf 
+--chrome-arg=--disable-web-security --size 1600x900
+```
+
+### What you need
+
+* Node.js
+* Decktape (github)
+* Change the command above to your project
+---
+
+# Wide support for different programmering languages
+
+* R
+* Python
+* CSS
+* Javascript
+* SQL
+* Bash
+* etc
+
+---
+
+# Presenter mode
+
+If you want to access the notes, press "P".
+
+If you want to get a external browser of your slides, press "C", use this with the presenter mode to present just like Google slides or Powerpoint.
+
+
+
+???
+
+Here are your secret notes! You can include anything in here, such as images, gifs, videos, shinyapps, secret equations or just simple and _great notes_.
+
+The secret to creating slides is to use the R-package Xaringan. In Xaringan there is a function called Infinite Moonreader and you can use this to create slides with your output showing up as you write it!
+
+Infinite moonreader does not work if you have parameter elements.
+
+---
+
+# Support for fun effects!
+
+Add snow, confetti or some other effect to your slides, as a way to engage your audiance!
+
+If you are waiting for someone, add a javascript that lets snow fall down and gives the slides more life. Create a toggle so you can turn it on and off with ease!
+
+If you are celebrating someone, send some confetti to the slides as a way to truly celebrate. TADA!
+
+Use "T" to activate snow and press "R" to disable it.
+
+Does not work with pdf.
+
+
+
+---
+# Powerpoint vs Solita Slides
+
+Some differences between using Powerpoint (left) and using Solita Slides (right):
+
+.pull-left[
+### Powerpoint
+
+1. Use a template from Google drive
+
+1. Find slides that fit your needs
+
+1. Use modify the presentation
+
+1. Manually change pictures, update numbers
+
+1. Lots of copy and paste for plots that need updates
+
+1. Keeping track of versions is hard
+]
+
+.pull-right[
+### Solita Slides
+
+1. Start with an R Markdown document
+
+1. R Markdown (can embed R/other code chunks)
+
+1. Use the slides that interest you and fit your needs
+
+1. Use CSS to create beautiful slides
+
+1. Code is within the slides, copy and paste is not needed.
+
+1. Keeping track of versions is easy
+]
+
+---
+background-color: #DC1E32
+class: padding-right-45
+
+
+
+
+.digraph[![](images/digraph.svg)]
+
+## How did we get here?
+
+* Remark.js is the orgin, with the complex javascripts running in the backend.
+* Xaringan is a R-package that allows you to create slides with Remark. Includes a basic template that can be used for slides.
+* Solita Slides - a modified Xaringan template. This time using the colors, fonts, images and logos of Solita. Includes examples.
+
+
+---
+
+# How to get started
+
+* Download the package
+
+### Run this in Rstudio
+
+
+
+```r
+# install.packages("devtools")  # If you don't have devtools
+devtools::install_github("Solita-Jakob/solitaslides")
+```
+
+
+* A new template will appear under "file&gt;new file&gt;Rmarkdown...&gt;New template&gt;Solita Slides", give it a name and run it.
+* Change the slides to your needs
+
+### More on the topic
+
+Check out the github to read more about getting started with the package and [watch the info session for a demo on the topic](https://web.microsoftstream.com/video/d9abfb67-3296-4d77-b680-1d19ac941403).
+
+
+---
+.full-size-image[![](images/Logo.jpg)]
+---
+template: left-half-image
+.left-half-image[![](images/Forest.jpg)]
+
+
+# Image on the left hand side
+
+1. You can add images on different sides of the slides
+1. This template is called "left-half-image" and you need to use it with the "left-half-image"-class in order to add a picture to the side.
+1. As the text is on the right hand side, the logomark is not a issue
+
+---
+template: theme-red-white
+class: padding-right-60
+.right-half-image[![](images/Flying_Fly.jpg)] 
+.solita-logomark[]
+
+
+### .solita-red[Slides work similar to how layers work in Photoshop]
+
+Templates are always layer one. Images are above this template layer and can cause the logomark to be covered since the logomark is behind the image. In this case you will need to add another logo.
+
+---
+template: left-half-image
+class: padding-left-70
+.solita-logomark[]
+
+.wood[]
+.middle-bar[]
+.top-number[1.]
+.middle-number[2.]
+.bottom-number[3.]
+
+Using this presentation template, you can create great slides with low effort. Test it!
+
+&lt;br&gt;
+
+Since the template for most pictures and setups are already done, you can just copy one.
+
+&lt;br&gt;
+&lt;br&gt;
+
+Test it yourself!
+
+
+---
+class: padding-left-62
+.fireflies[![](images/Resting_Fly.jpg)]
+
+
+### Sample slide
+
+This slide was just to nice to be removed.
+
+
+
+
+---
+background-color: #E6E6E6
+class: solita-black, ggplot-text
+.solita-logomark-black[]
+
+
+
+.ggplot-figure[]
+
+&lt;br&gt;
+
+* The code will run everytime the slides are rendered.
+* This example is rendering the image, saving it to the disk and then loading it in order to easier formating in it the presentation. It is possible to add picture directly aswell, however formating it might be tougher.
+
+---
+background-color: #E6E6E6
+class: padding-right-55, theme-red-white
+
+
+.globe[![](images/Globe.jpg)]
+.solita-logomark[]
+.red-bar[]
+.white-bar1[]
+.white-bar2[]
+.white-bar3[]
+
+
+
+.title-bar1[2244.6]
+.text-bar1[OMXS30: 09:39:40]
+.title-bar2[5176.7]
+.text-bar2-alt[[Finnish market](https://www.avanza.se/index/om-indexet.html/53295/omx-helsinki-25)]
+.title-bar3[1.22]
+.text-bar3-alt[EUR/USD]
+.title-bar4[10.13]
+.text-bar4[EUR/SEK]
+.header-large2[Dynamic numbers in the presentation]
+
+
+* Lets say you have a few KPI:s
+* You want to know what the [Swedish stock market index](https://www.avanza.se/index/om-indexet.html/19002/omx-stockholm-30) is trading at right now.
+* We can scrape a website in order to gain this insight, currently the market is trading at: 2244.6 and this number was updated at 09:39:40. 15 min delay.
+* The Finnish market (OMXH25?) might be of interest aswell!
+
+---
+
+# Shiny apps can be included 🔥
+
+&lt;iframe id="example1" src="https://gallery.shinyapps.io/goog-trend-index/" style="border: none; width: 100%; height: 500px" frameborder="0"&gt;
+&lt;/iframe&gt;
+
+---
+
+# Videos can be embedded 🔥
+
+&lt;iframe width="100%" height="500px" src="https://www.youtube.com/embed/p2zWaCa_haA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+---
+
+# Resources used
+
+* [W3school/CSS](https://www.w3schools.com/cssref)
+* [Rmarkdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/html-css.html)
+* [Infinite Moon Reader](https://yihui.org/en/2019/02/ultimate-inf-mr/)
+* [Good video on Xaringan and CSS](https://www.rstudio.com/resources/rstudioglobal-2021/xaringan-playground-using-xaringan-to-learn-web-development/)
+* [Remark Formating](https://github.com/gnab/remark/wiki/Formatting)
+
+
+
+
+
+---
+exclude: true
+
+# This slide simply prints the presentation - and is excluded from the presentation
+
+* It is using decktape to print it, you will need it first in order to use this code chunks
+* It will be screaming with errors since you have html iFrames that cannot be printed to html, therefore we will need to use error=TRUE. Eval is set to FALSE since it is heavy for the computer to run this.
+
+
+```bash
+`npm bin`/decktape remark &lt;PATH TO YOUR HTML PRESENTATION&gt; output.pdf --chrome-arg=--disable-web-security --size 3840x2160
+
+# Example
+`npm bin`/decktape remark file:////Users/Presentation/skeleton/skeleton.html solitaslides.pdf --chrome-arg=--disable-web-security --size 3840x2160
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="js/snow.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

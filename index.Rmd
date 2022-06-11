@@ -7,17 +7,48 @@ date: "Última Actualización: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
+    # css: ["include/webex.css", "barra.css"]
     seal: false
     nature:
       highlightStyle: solarized-light
       highlightLines: true
       countIncrementalSlides: false
+      # ratio: "16:9"
       ratio: 170:100
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>`
   includes:
     - include/webex.js
   css:
-    - include/webex.css
+    - include/webex.css]
 
+---
+<style>
+/* Progress bar */
+/* https://github.com/yihui/xaringan/wiki/Progressbar */
+
+.remark-slide-number {
+  position: inherit;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  top: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: red;
+}
+
+</style>
 
 ---
 class: center, middle
@@ -50,6 +81,7 @@ library(skimr)
 library(DataExplorer)
 library(summarytools)
 library(moments)
+library(gridExtra)
 xaringanExtra::use_tile_view()
 xaringanExtra::use_clipboard()
 xaringanExtra::use_webcam()
@@ -2087,7 +2119,7 @@ Otra función interesante es [get_dupes](http://sfirke.github.io/janitor/referen
   ]
 
 ---
-exclude: false
+exclude: true
 # Limpieza de datos
 
 ```{r , echo=FALSE, out.height="100%", fig.align='center'}
@@ -2096,7 +2128,7 @@ knitr::include_graphics("imagenes/Limpieza_Datos.jpeg")
 Fuente: [Rosana Ferrero](https://twitter.com/RosanaFerrero)
 
 ---
-exclude: false
+exclude: true
 # Tratamientos de Datos Faltantes
 
 ### Exploración Gestión de datos faltantes
@@ -2469,6 +2501,8 @@ A continuación, se presentan algunos enlaces de interés para la exploración d
 ---
 exclude: false
 # Enlaces de interés visualización de datos - Énfasis en R.
+
+* .green[Libro del paquete ggplot2: ][ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
 
 * .green[Tipos de gráficos según tipología de las variables: ][Data To Viz](https://www.data-to-viz.com/)
 
@@ -3328,9 +3362,7 @@ knitr::include_graphics("imagenes/Dispersion.png")
 
 ### Fórmula de la Varianza Muestral 
  
-$$
-s^{2}={\frac{{\displaystyle \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}}{n-1}}
-$$
+$$s^{2}={\frac{{\displaystyle \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}}{n-1}}$$
 
 ]
   
@@ -3347,9 +3379,7 @@ s = \sqrt{varianza}= \sqrt{s^{2}}
 $$
 
 
-$$
-s = \sqrt{{\frac{{\displaystyle \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}}{n-1}}}
-$$
+$$s = \sqrt{{\frac{{\displaystyle \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}}{n-1}}}$$
 
 
   ]
@@ -3767,7 +3797,644 @@ exclude: true
 ]
 ]
 
+---
+class: center, middle
 
+# `r emo::ji("question")` <br> Hipótesis y pruebas estadísticas
+
+---
+## Hipótesis y pruebas estadísticas
+
+.panelset[
+
+  .panel[.panel-name[Hipótesis]
+ 
+ ### ¿Qué es una hipótesis?
+ 
+ "Una hipótesis  es un **enunciado no verificado**, que se intenta confirmar o refutar. Si es confirmada, la hipótesis se denomina enunciado verificado. La hipótesis es una conjetura que **requiere una contrastación con la experiencia**. Para ella no son suficientes los argumentos persuasivos, por más elaborados que sean." 
+ 
+En términos científicios, "una hipótesis científica es una **proposición aceptable** que ha sido formulada a través de la *recolección de información y datos*, aunque no esté confirmada, sirve para responder de forma alternativa y con base científica a un problema.
+
+[Fuente: Wikipedia](https://es.wikipedia.org/wiki/Hip%C3%B3tesis_(m%C3%A9todo_cient%C3%ADfico)
+   ]
+  .panel[.panel-name[Hipótesis Estadísticas]
+  
+ ### ¿Qué es una hipótesis Estadística?
+ 
+ Según G. Canavos, *levemente modificada por este autor*, "Una hipótesis estadística es **una afirmación** con respecto a alguna característica desconocida de una o más poblaciones de interés. La **escencia de probar una hipótesis** estadística es decidir si la información se **encuentra apoyada por la evidencia empírica (datos)** que se obtiene a través de un estudio o investigación.
+
+]
+
+.panel[.panel-name[Hipótesis Nula y Alternativa]
+
+ ### Hipótesis Nula vs Alternativa
+ 
+ **Hipótesis Nula $(H_0)$:** la hipótesis nula es una afirmación/hipótesis que el investigador trata de rechazar, refutar o anular. Es decir, la hipótesis "... nula puede interpretarse como aquella que normalmente sería aceptada mientras los datos no indiquen otra cosa." 
+ 
+**Hipótesis Alternativa $(H_1\;o\;H_A)$:** la hipótesis alternativa es una afirmación/hipótesis que el investigador, con base en la información empírica hisponible, trata de aceptar y, este sentido, explicar una posible "causa" de un fenómeno de interés.
+  
+  ]
+
+  .panel[.panel-name[Significancia y P valor]
+  
+ ### Significancia
+ 
+ La *significancia* estadística hace referencia a la **probabilidad** de **rechazar la hipótesis nula** cuando esta es **cierta/verdadera**.  Este valor, denotado mediante la letra griega $\alpha$, típicamente es bajo definiendose valores de 5% o 1% para tal probabilidad.
+ 
+ ### Valor P (p valor)
+
+Se define el valor P, "como un indicador de la **discrepancia** entre una hipótesis nula y los datos muestrales. Cuanto más cercano sea a **cero**, **más evidencia** tenemos en **contra de la hipótesis nula**; hasta el punto que cuando el **valor p es inferior al nivel de significancia fijado de antemano** (por ejemplo el 5%), directamente se **rechaza la hipótesis nula** (se ha superado el umbral de los que se había fijado de antemano como una “duda razonable a favor de que no hay efecto”)". <br>
+[Ir a fuente](https://www.bioestadistica.uma.es/apuntesMaster/contrastes-de-hipotesis.html#nivel-de-significacion)
+  ]
+ 
+  .panel[.panel-name[Interpretación de una prueba de hipótesis] 
+  
+  ### Interpretación
+  
+Hay dos posibles resultados al evaluar una prueba de hipótesis estadística:
+
+* Si el p valor *(p -value)* es **menor que** $\alpha$, entonces **se rechaza** la hipótesis nula $H_0$ en favor de $H_1$.
+
+* Si el p valor *(p -value)* es **mayor o igual que** $\alpha$, entonces **no existe evidencia suficiente**  para rechazar la hipótesis nula $H_0$ en favor de $H_1$.
+  
+  ]
+  .panel[.panel-name[Prueba Estadística]
+  
+  ### ¿Qué es una prueba de hipótesis estadística?
+  
+Según *G. Canavos*, "Una prueba de hipótesis estadística con respecto a alguna característica desconocida de una población de interés es **cualquier regla** que permita decidir si se rechaza la *hipótesis nula* con base en una muestra extraída de manera **aleatoria** de la población." 
+    ]
+   ]
+
+---
+class: center, middle
+
+# `r emo::ji("graph")` <br> La distribución normal
+
+
+---
+### La distribución normal
+
+.panelset[
+
+  .panel[.panel-name[Distribución normal]
+  
+La distribución normal, distribución de Gauss, distribución gaussiana o distribución de Laplace-Gauss, es una de las distribuciones que aparece con más frecuencia en la estadística y en la teoría de probabilidades. Su respresentación gráfica y matemática, se ilustran a continuación.
+
+#### Representación gráfica
+
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Dnormal.png") 
+```  
+  
+#### Fórmula de la distribución normal
+
+
+$$f(x) = \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{1}{2}\left( \frac{x-\mu}{\sigma} \right)^2}$$ 
+   ]
+   
+ .panel[.panel-name[Varianza y Media]  
+ 
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Ejpnormal.png") 
+```  
+ [Ir a la fuente](https://bookdown.org/a_shaker/STM1001_Topic_3/4-the-normal-distribution.html)
+   ]
+   
+.panel[.panel-name[Propiedades]  
+
+La distribución de probabilidad normal, como se mencionó previamente, es la distribución más famosa de la estadística por sus propiedades entre las cuales se tiene:
+
+ * La media, la mediana y la moda son iguales.
+ * Es simétrica; es decir, el coeficiente de simetria es igual a 0.
+ * Existe una concentración normal de los valores en torno a su promedio/media (comportamiento mesocúrtico); es decir, el coeficiente de curtosis de esta distribución es igual a 3.
+ * El área acumulada bajo su curva es igual a 1.
+ 
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/NormalMMM.png") 
+```
+    [Ir a la fuente](https://bookdown.org/dietrichson/metodos-cuantitativos/propiedades-de-la-curva-normal.html)
+   ]
+   
+  .panel[.panel-name[Una característica más] 
+  
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/NormalSD.png") 
+```  
+[Ir a la fuente](https://bookdown.org/dietrichson/metodos-cuantitativos/propiedades-de-la-curva-normal.html)
+   ]
+   ]
+
+---
+### La distribución normal - Prueba de Shapiro-Wilks
+
+.panelset[
+
+.panel[.panel-name[Test de Shapiro-Wilks]
+
+En el ámbito de la estadística aplicada a la investigación científica, la prueba de de Shapiro–Wilk se usa para contrastar/evaluar la presencia de normalidad en las variables numéricas asociadas a un conjunto de datos. A continuación, se presenta las hipótesis estadísticas que evalúa esta prueba.
+  
+  ### Hipótesis estadística
+  
+  $H_0$: La distribución es normal<br>
+  $H_1$: La distribución no es normal,
+  
+  o formalmente como:
+  
+  $H_0: X \sim \mathcal{N}(\mu,\sigma^2)$ <br>
+  $H_1: X \nsim \mathcal{N}(\mu,\sigma^2)$
+   ]
+ 
+.panel[.panel-name[Ejemplo]
+
+1. Crear una base de datos *(data.frame)* con una única variable x la cual está conformada por 5000 valores generados de manera aleatoria a partir de una distribución normal estándar con media 50 y dersviación estándar (s) 10. 
+2. Explorar, de manera gráfica, si la variable x presenta indicios/evidencia de un comportamiento normal.
+3. Aplicar la prueba de Shapiro-Wilks para evaluar si la variable x, con una significancia del 5%, presenta o no un comportamiento normal.
+
+[Creación del marco de datos]()
+
+```{r, echo=TRUE, eval=FALSE}
+set.seed(1)
+Normal <- data.frame(x = rnorm(5000, mean=50, sd=10))
+# Primeras 5 filas
+head(Normal)
+```
+```{r, echo=FALSE, eval=TRUE}
+set.seed(1)
+Normal <- data.frame(x = rnorm(5000, mean=50, sd=10))
+# Primeras 5 filas
+head(Normal)
+```
+
+]
+
+.panel[.panel-name[Códigos]
+```{r, echo=TRUE, eval=FALSE}
+# Función de densidad de x
+
+densidad <- ggplot(Normal, aes(x = x)) + geom_density()+
+  labs(title = "Distribución de densidad de la muestra",
+       x = "Observaciones en la muestra",
+       y = "Densidad")
+
+# QQplot variable x
+
+qqfig1 <- ggplot(Normal, aes(sample = x)) +  
+  stat_qq() +
+  stat_qq_line(col = "red")+
+  labs(title = "Gráfico de Cuantil Cuantil (qqplot",
+       x = "Cuantiles distribución normal teórica",
+       y = "cuantiles de la muestra")
+
+# hacer uso del paquete gridExtra
+# Una fila y dos columnas para los gráficos
+grid.arrange(densidad, qqfig1, nrow = 1)
+```
+]
+
+.panel[.panel-name[Gráficos]
+
+A continuación, se presentan dos gráficos que nos permiten explorarar si la variable x bajo estudio puede ajustarse al comportamiento de una distribución normal. Los dos tipos de gráficos seleccionados son: gráfico de densidad **(panel izquierdo)** y gráfico de cuantil cuantil **(panel derecho)**.
+
+```{r, echo=FALSE, eval=TRUE, fig.width = 11, fig.height = 5}
+set.seed(1)
+Normal <- data.frame(x = rnorm(5000, mean=50, sd=10))
+
+# Función de densidad de x
+
+densidad <- ggplot(Normal, aes(x = x)) + geom_density()+
+  labs(title = "Distribución de densidad de la muestra",
+       x = "Observaciones en la muestra",
+       y = "Densidad")
+
+# QQplot variable x
+
+qqfig1 <- ggplot(Normal, aes(sample = x)) +  
+  stat_qq() +
+  stat_qq_line(col = "red")+
+  labs(title = "Gráfico de Cuantil Cuantil (qqplot",
+       x = "Cuantiles distribución normal teórica",
+       y = "cuantiles de la muestra")
+
+grid.arrange(densidad, qqfig1, nrow = 1)
+```
+]
+.panel[.panel-name[Test de normalidad]
+
+### Hipótesis estadística
+
+$H_0: x \sim \mathcal{N}(50,100)$ <br>
+$H_1: x \nsim \mathcal{N}(50,100)$
+
+### Resultado de la prueba
+
+```{r, echo=TRUE, eval=TRUE}
+# Comando prueba Shapiro en R
+shapiro.test(Normal$x)
+```
+
+### ¿Cuál es la conclusión?
+]
+.panel[.panel-name[Ejercicio]
+
+```{r echo=FALSE}
+countdown(minutes = 30, top = 0, font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+
+1. Evaluar, haciendo uso de la prueba de Shapiro-Wilks, si las variables puntaje en la prueba de comunicación escrita (PUNT_COMU_ESCR), puntaje en la prueba de inglés (PUNT_INGLES), puntaje en la prueba de lectura crítica (PUNT_LECT_CRIT), puntaje en la prueba de razonamiento cuantitativo(PUNT_RAZO_CUANT) y puntaje global (PUNTAJE_GLOBAL), del conjunto de datos SaberPro, presentan un comportamiento normal. Para ello, seguir los siguientes pasos.
+
+* Calcular, para cada una de estas variables, la media, la mediana, el coeficiente de asimetria y la curtosis. ¿Qué podemos decir, a partir de los valores obtenidos en estos indicadores, sobre un posible comportamiento normal de estas variables?
+* Visualizar, a través de gráficos de densidad y cuantil cuantil (qqplots), el comportamiento de estas variables. ¿hay sospechas de normalidad?
+* Aplicar la prueba de Shapiro-Wilks para evaluar las pruebas de hipótesis de normalidad de estas variables. ¿Qué conclusiones, sobre un comportamiento normal de estas variables, podemos extraer a partir de la aplicación de estas pruebas.
+* Haciendo uso de la función **grid.arrange()** del paquete **[gridExtra](https://r-graph-gallery.com/261-multiple-graphs-on-same-page.html)** de **R**, construir un gráfico de 2 filas y 3 columnas para agregar los gráficos de qqplots y densidad de las 5 variables bajo estudio.
+
+
+
+]
+
+]
+   
+
+---
+class: center, middle
+
+# `r emo::ji("hold")` <br> Asociación y correlación estadística
+
+
+---
+## Asociación y correlación
+
+.panelset[
+
+  .panel[.panel-name[Asociación y correlación]
+  
+  Aunque los conceptos de asociación y correlación estadística son de alto interés para los investigadores, no existe una definición precisa y consensuada sobre estos términos. Enseguida, se presentan algunas aproximaciones a estas definiciones las cuales fueron extraídas de diversas fuentes de internet.
+
+* La correlación/asociación mide la dependencia entre una variable y otra.
+
+* La correlación/asociación mide la magnitud con la que dos fenómenos se relacional.
+
+* La correlación/asociación mide el grado de relación entre dos variables y la intensidad de esta asociación. 
+
+* La correlación/asociación mide la fuerza de la relación lineal existente entre dos variables.
+
+* La correlación/asociación mide la conexión entre dos cosas. 
+
+
+   ]
+   
+ .panel[.panel-name[Correlación lineal]
+ 
+ [Una breve explicación ..... ]()
+  
+   ]
+  .panel[.panel-name[Tipos de correlación lineal]
+  
+El grado de correlación lineal existente entre dos variables de tipo numérico puede ser de "tres" tipos: **positiva, nula o negativa.**
+
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/Tcorelacion.jpg") 
+```  
+   ]
+   
+ .panel[.panel-name[Medidas]
+ 
+Para evaluar el **valor y la intensidad** de la correlación existente entre dos variables de tipo numérico existen diversas aproximaciones entre los cuales, los más destacados y que trabajaremos en este curso, son:
+ 
+ * El Coeficiente de **Correlación de Pearson** (alternativa paramétrica).
+ 
+ * El coeficiente de **Correlación de Spearman** (alternativa noparamétrica).
+    ]
+    ]
+
+---
+### Correlación lineal entre dos variables numéricas - Coeficiente de Pearson
+
+.panelset[
+
+  .panel[.panel-name[Coeficiente de Pearson]
+ 
+ #### Fórmula del Coeficiente de Correlación de Pearson
+ 
+El coeficiente de correlación de Pearson (r) se calcula a través de la siguiente fórmula:
+  
+  $$r={n\Sigma{xy}-\Sigma{x}\Sigma{y}\over{\sqrt{\{n\Sigma{x^2}-(\Sigma{x})^2\}\times\{n\Sigma{y^2}-(\Sigma{y})^2\} }}}$$
+
+ #### Posibles resultados del Coeficiente de Correlación de Pearson
+
+El coeficiente de Correlación de Pearson oscila entre -1 y 1 y, dependiendo del valor obtenido, podemos extraer las siguientes conclusiones:
+
+* si $r$ es igual o muy **cercano a 1**, existe una correlación lineal y positiva entre las variables. 
+* si $r$ es igual o muy **cercano a 0**, no existe evidencia sobre una correlación lineal entre las variables. 
+* si $r$ es igual o muy **cercano a -1**, existe una correlación lineal y negativa entre las variables. 
+   ]
+   
+   .panel[.panel-name[Supuestos]
+   
+El Coeficiente de Correlación de Pearson, para que evalúe/mida de manera precisa (sin sesgos), el grado de relación lineal existente entre dos variables numéricas, requiere que:
+
+* Las distribuciones de las poblaciones de las cuales fueron extraídas las observaciones (variables) de interés son de **tipo normal**.
+* La relación existente entre las variables de interés debe ser de **tipo lineal**.
+   ]
+   
+   .panel[.panel-name[Ejemplo]
+  
+  [Ejemplo]() 
+  
+1. Calcular el grado de correlación existente entre el largo (cm) de la huella del pie izquierdo de una persona y la altura para una población de **1020 indios tamiles varones adultos** que hicieron parte de una investigación.  
+
+[Datos]()
+
+En el boton siguiente, en formato Excel, pueden ser descargados los individuos que hacen parte de la muestra bajo estudio. Descargar este archivo e importarlo a nuestro entorno de trabajo **Rstudio**.
+
+```{r echo=FALSE}
+
+foot_height <- read.table("Datos/Sesion2/india_foot_height.txt", header=FALSE)
+names(foot_height) <- c("foot","height")
+
+foot_height %>%
+  download_this(
+    output_name = "Pies",
+    output_extension = ".xlsx",
+    button_label = "Descargar archivo Excel pies y alturas",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save")
+```
+<br> [Ver fuente de datos](https://users.stat.ufl.edu/~winner/data/india_foot_height.dat)
+   ]
+   
+   .panel[.panel-name[Cod. Dispersión]
+   
+El primer paso, al evaluar el grado de asociación existente entre dos variables de tipo numérico, es la representación gráfica de estas a través de las cuales podemos explorar la existencia o no, por ejemplo, del supuesto de linealidad entre las observaciones de las variables bajo estudio. Para ello y como se ilustra en el código siguiente, haremos uso de un diagrama de dispersión acudiendo para ello a la geometria **geom_point()** del paquete **ggplot2**.
+
+```{r, eval=TRUE, echo=FALSE}
+# Importar archivo de Excel pies
+Pies <- read_excel("Datos/Sesion2/Pies.xlsx")
+```
+ 
+```{r Pearson, eval=FALSE, echo=TRUE}
+ggplot(Pies, mapping = aes(x = foot, y = height)) + 
+geom_point(size =1.8, col = "#2ca25f") +
+labs(title = "Gráfico de dispersión altura vs longitud huella del pie izquierdo",
+subtitle = "Fuente: muestra conformada por 1020 indios tamiles varones adultos",
+x = "Longitud huella del pie izquierdo - en centímetros",
+y = "Altura de la persona - en centímetros\n ")
+```
+   
+   
+   ]
+   
+   .panel[.panel-name[Graf. Dispersión]
+   
+```{r ref.label="Pearson", echo=FALSE, , fig.width = 8, fig.height = 6}
+```
+
+   ]
+   
+   .panel[.panel-name[Normalidad - QQplots]
+   
+```{r, echo=FALSE, eval=TRUE, fig.width = 11, fig.height = 5}
+
+# Función de densidad de x
+
+# QQplot longitud huella pie izquierdo
+
+qqpie <- ggplot(Pies, aes(sample = foot)) +  
+  stat_qq() +
+  stat_qq_line(col = "red")+
+  labs(title = "Gráfico de Cuantil Cuantil (qqplot) - longitud huella pie",
+       x = "Cuantiles distribución normal teórica",
+       y = "cuantiles longitud huella pie izquierdo")
+
+# QQplot altura de las personas
+
+qqaltura <- ggplot(Pies, aes(sample = height)) +  
+  stat_qq() +
+  stat_qq_line(col = "green")+
+  labs(title = "Gráfico de Cuantil Cuantil (qqplot) - altura de las personas",
+       x = "Cuantiles distribución normal teórica",
+       y = "cuantiles altura de las personas")
+
+grid.arrange(qqpie, qqaltura, nrow = 1)
+```
+
+   ]
+   
+ .panel[.panel-name[Normalidad - P. Shapiro-Wilks]
+ 
+### Prueba Normalidad Shapiro-Wilks - longitud pies izquierdos y alturas de las personas
+
+```{r, echo=TRUE, eval=TRUE}
+# Prueba de normalidad longitud pies izquierdos
+shapiro.test(Pies$foot)
+
+# Prueba de normalidad alturas de las personas
+shapiro.test(Pies$height)
+```
+   ]
+   
+   
+   .panel[.panel-name[C. Coeficiente]
+
+Una vez hemos evaluado el supuesto de normalidad de las variables numéricas bajo estudio y aceptado que estas presentan tal comportamiento, el paso a segur consiste en calcular el coeficiente de correlación de Pearson. A continuación, se presentan los resultados del cálculo de este coeficiente.
+   
+```{r, echo=TRUE, eval=TRUE}
+# Cálculo del coeficiente de correlación de Pearson 
+
+cor(x=Pies$foot, y=Pies$height, method="pearson")
+
+```
+   
+
+ 
+   ]
+   
+   .panel[.panel-name[Ejercicio]
+   
+```{r echo=FALSE}
+countdown(minutes = 15, right = "0%", top = "12%", font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+1. Evaluar, haciendo uso del **Coeficiente de correlación de Pearson**, la correlación existente entre la eficiencia del combustible y el peso (por cada 1000 libras) de los 32 autos que conforman el conjunto de datos **mtcars** y que hace parte de la base del lenguaje R *(no requieren ser importantos a nuestro entorno de trabajo)*. En el desarrollo del ejercicio, seguir los siguientes pasos.
+
+* *Paso 1.* Construir un gráfico de dispersión para las variables de interés. Asignar título y nombres adecuados para los ejes x e y .
+* *Paso 2.* Construir qqplots (cuantil cuantil) para explorar gráficamente el comportamiento normal de las variables analizadas.
+* *Paso 3.* Aplicar la prueba de Shapiro-Wilks para evaluar la normalidad de las variables analizadas.
+* *Paso 3.* Calcular el Coeficiente de Correlación de Pearson.
+ 
+
+   ]
+     ]
+    
+---
+### Correlación lineal entre dos variables numéricas - Coeficiente de Spearman
+
+
+.panelset[
+
+  .panel[.panel-name[Coeficiente de Sperman]
+  
+El Coeficiente de correlación de Spearman, denotado mediante la letra griega $\rho$, se calcula a través de la siguiente fórmula.
+   
+   $$\rho = 1-{6\sum{d^2}\over{n(n^2-1)}}$$
+ 
+En donde $d$ es la diferencia de los rangos de los pares de elementos ubicados en las $n$-esimas posiciones y $n$ es el tamaño de la muestra o total de individuos analizados. 
+   ]
+   
+  .panel[.panel-name[Supuestos]
+  
+  El coeficiente de correlación de **Spearman**, a diferencia del de correlación de **Pearson**, únicamente requiere la existencia de una *relación lineal* entre los pares de variables numéricas analizadas.
+  
+   ]
+   
+   .panel[.panel-name[Ejemplo]
+   
+   [Ejemplo]()
+   
+   * Evaluar el nivel de correlación existente entre los resultados obtenidos por los estudiantes en la prueba de comunicación escrita (PUNT_COMU_ESCR) y en la prueba de lectura crírica (PUNT_LECT_CRIT). **En teoría, se puede esperar que una estudiantes que tiene una alta competencia en comunicar resultados de manera escrita, tenga a su vez una alta competencia al leer documentos de manera crítica y, visceversa (correlación positiva). **
+   ]
+   
+   .panel[.panel-name[Cod. Dispersión]
+   
+Al igual que los pasos seguidos en el cálculo del Coeficiente de Correlación de Pearson, el primer paso, al evaluar el grado de asociación existente entre dos variables de tipo numérico, es la representación gráfica de estas a través de las cuales podemos explorar la existencia o no, por ejemplo, del supuesto de linealidad entre las observaciones de las variables bajo estudio. Para ello y como se ilustra en el código siguiente, haremos uso de un diagrama de dispersión acudiendo para ello a la geometria **geom_point()** del paquete **ggplot2**.
+
+```{r spearman, eval=FALSE, echo=TRUE}
+ggplot(SaberPro, mapping = aes(x = PUNT_COMU_ESCR, y = PUNT_LECT_CRIT)) + 
+geom_point(size =1.8, col = "blue") +
+labs(title = "Dispersión resultados prueba Saber Pro \n comunicación escrita vs lectura crítica",
+x = "Puntaje prueba comunicación escrita",
+y = "Puntaje prueba lectura crítica\n ")
+```
+   
+   
+   ]
+   
+   .panel[.panel-name[Graf. Dispersión]
+   
+```{r ref.label="spearman", echo=FALSE, warning=FALSE, fig.width = 8, fig.height = 6}
+```
+
+   ]
+   
+   .panel[.panel-name[Normalidad - QQplots]
+   
+```{r, echo=FALSE, eval=TRUE, warning=FALSE, xfig.width = 16, fig.height = 5}
+
+# QQplot resultados prueba comunicación escrita
+
+qq_cescrita <- ggplot(SaberPro, aes(sample = PUNT_COMU_ESCR)) +  
+  stat_qq() +
+  stat_qq_line(col = "red")+
+  labs(title = "Gráfico de Cuantil Cuantil (qqplot) \nprueba comunicación escrita",
+       x = "Cuantiles distribución normal teórica",
+       y = "cuantiles resultados comunicación escrita")
+
+# QQplot resultados prueba lectura crítica
+
+qq_lcritica <- ggplot(SaberPro, aes(sample = PUNT_LECT_CRIT)) +  
+  stat_qq() +
+  stat_qq_line(col = "red")+
+  labs(title = "Gráfico de Cuantil Cuantil (qqplot) \nprueba lectura crítica",
+       x = "Cuantiles distribución normal teórica",
+       y = "cuantiles resultados lectura crítica")
+
+grid.arrange(qq_cescrita, qq_lcritica, nrow = 1)
+```
+
+   ]
+   
+ .panel[.panel-name[Normalidad - P. Shapiro-Wilks]
+ 
+### Prueba Normalidad Shapiro-Wilks - resultados pruebas comunicación escrita y lectura crítica
+
+```{r, echo=TRUE, eval=TRUE}
+# Prueba de normalidad puntajes prueba comunicación escrita
+shapiro.test(SaberPro$PUNT_COMU_ESCR)
+
+# Prueba de normalidad puntajes prueba lectura crítica
+shapiro.test(SaberPro$PUNT_LECT_CRIT)
+```
+   ]
+
+   .panel[.panel-name[C. Coeficiente]
+
+Una vez hemos evaluado el supuesto de normalidad de las variables numéricas bajo estudio y **rechazado** que estas presenten un comportamiento normal, el paso a segur consiste en calcular el coeficiente de correlación de Spearman. A continuación, se presentan los resultados del cálculo de este coeficiente.
+
+```{r, eval=TRUE, echo=TRUE}
+# Cáculo del coeficiente de correlación de Spearman
+cor(x = SaberPro$PUNT_COMU_ESCR, 
+    y = SaberPro$PUNT_LECT_CRIT, 
+    use = "complete.obs", 
+    method = "spearman")
+```
+   
+   ]
+   
+   .panel[.panel-name[Ejercicio]
+ 
+```{r echo=FALSE}
+countdown(minutes = 15, right = "0%", top = "12%", font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+1. Evaluar, haciendo uso del **Coeficiente de correlación de Sperman**, la correlación existente entre los resultados obtenidos en la prueba de **razonamiento cuantitativo** (PUNT_RAZO_CUANT) y el **puntaje global** (PUNTAJE_GLOBAL) del conjunto de datos **SaberPro**. En el desarrollo del ejercicio, tener en cuenta los siguientes pasos.
+
+* *Paso 1.* Construir un gráfico de dispersión para las variables de interés. Asignar título y nombres adecuados para los ejes x e y .
+* *Paso 2.* Construir qqplots para explorar gráficamente el comportamiento normal de las variables analizadas.
+* *Paso 3.* Aplicar la prueba de Shapiro-Wilks para evaluar la normalidad de las variables analizadas.
+* *Paso 3.* Calcular el coeficiente de correlación de Spearman.
+
+   ]
+  
+  ]
+
+
+---
+exclude: true
+### Inferencia estadística: coeficientes de correlación de Pearson y Spearman.
+
+
+
+---
+exclude: true
+### ¿Son intercambiables los coeficientes de correlación de Pearson y Spearman?
+
+
+
+---
+exclude: true
+
+## Asociación entre dos variables categóricas
+
+.panelset[
+
+  .panel[.panel-name[Asociación]
+  
+  ]
+  .panel[.panel-name[Prueba ji cuadrado]
+  
+  ]
+  ]
+  
 ---
 name: modulo2
 exclude: true
@@ -3824,4 +4491,67 @@ background-size: cover
 
 .footnote[
 .white[Crédito de la imagen:][John Anvik](https://images.unsplash.com/photo-1617063033111-74cf600531d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80)
+]
+
+
+---
+exclude: true
+
+# Para tener en cuenta en un nuevo curso
+
+1. [Presentación con el paso 1 a 1 de las diferentes capas de un ggplot2](https://rstudio-conf-2020.github.io/design-ds-classroom/materials/01-curriculum-design/slides/01-curriculum-design.html#1). En la parte final de la presentación se tiene un ejemplo.
+
+2. Revisar cómo se incluye una referencia bibliográfica en una presnetación de xaringan. Ver la referencia de Canavos en la sección de pruebas de hipótesis.
+
+3. Revisar cómo adicionar, si es posible, una nota al pie en un slide de xaringan.
+
+4. Revisar el paquete **[patchwork](https://ggplot2-book.org/arranging-plots.html)** para agregar múltiples gráficos de ggplot2
+
+5. Adicionar el componente de limpieza de datos (antes o después de transformación). Revisar la diapositiva de datos faltantes que se tiene al final del componente de transformación de datos.
+
+---
+exclude: true
+
+.pull-left[
+```{r capa-1, eval=FALSE, echo=TRUE}
+ggplot(data = iris)  #<<
+```
+
+]
+.pull-right[
+```{r ref.label="capa-1", echo=FALSE}
+```
+]
+
+---
+exclude: true
+
+.pull-left[
+```{r capa-2, eval=FALSE, echo=TRUE}
+ggplot(data = iris, 
+  mapping = aes(x = Sepal.Length,  #<<
+                y = Petal.Length))  #<<
+```
+]
+.pull-right[
+```{r ref.label="capa-2", echo=FALSE}
+```
+]
+
+---
+exclude: true
+
+.pull-left[
+.small[
+```{r capa-3, eval=FALSE, echo=TRUE}
+ggplot(data = iris, 
+  mapping = aes(x = Sepal.Length,
+                y = Petal.Length))+ 
+  geom_point()  #<<
+```
+]
+]
+.pull-right[
+```{r ref.label="capa-3", echo=FALSE}
+```
 ]
