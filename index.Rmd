@@ -4113,6 +4113,7 @@ Para evaluar el **valor y la intensidad** de la correlación existente entre dos
     ]
 
 ---
+name: Pearson
 ### Correlación lineal entre dos variables numéricas - Coeficiente de Pearson
 
 .panelset[
@@ -4280,6 +4281,7 @@ countdown(minutes = 15, right = "0%", top = "12%", font_size = "2em")
      ]
     
 ---
+name: Spearman
 ### Correlación lineal entre dos variables numéricas - Coeficiente de Spearman
 
 
@@ -4409,30 +4411,165 @@ countdown(minutes = 15, right = "0%", top = "12%", font_size = "2em")
 
 
 ---
-exclude: true
+exclude: false
 ### Inferencia estadística: coeficientes de correlación de Pearson y Spearman.
 
+.panelset[
 
+ .panel[.panel-name[Hipótesis]
+
+Una vez que hemos calculado los coeficientes de correlación de Pearson y Spearman, según sea el caso (presencia de normalidad o no normalidad), el paso final, para efectos de los procesos de investigación, consiste en evaluar si estos coeficientes son **estadísticamente significativos**. Es decir, **diferentes de cero** con cierto **nivel de certeza (significancia estadística)**. Para ello, debemos aplicar las respectivas pruebas de hipótesis.
+  
+#### Hipótesis Coefciente de Correlación de Pearson
+  
+  $H_0: r = 0$<br>
+  $H_1: r \neq 0$
+  
+#### Hipótesis coeficiente de correlación de Spearman
+  
+  $H_0: \rho = 0$<br>
+  $H_1: \rho \neq 0$
+  
+]
+  .panel[.panel-name[Ejemplo 1]
+ 
+ [Ejemplo Pearson]()
+  
+Evaluar, con una *significancia del 5%*, si el coeficiente de correlación de Pearson $r$ entre el largo de la huella del pie izquierdo y la altura de los 1020 tamiles indios estudiados en el [ejemplo](#Pearson) de aplicación del coeficiente de Pearson, es estadísticamente diferente de cero.
+]
+
+  .panel[.panel-name[Prueba C. Pearson]
+  
+#### Hipótesis
+
+  $H_0: r = 0$<br>
+  $H_1: r \neq 0$
+  
+#### Solución 
+
+```{r, echo=TRUE, eval=TRUE, warning=FALSE}
+# Código para evaluar la hipótesis
+
+cor.test(x=Pies$foot, y=Pies$height, method="pearson")
+```
+]
+
+  .panel[.panel-name[Ejemplo 2]
+
+[Ejemplo Pearson]()
+  
+Evaluar, con una *significancia del 5%*, si el coeficiente de correlación de Spearman $\rho$ entre los resultados obtenidos por los estudiantes en la prueba de comunicación escrita (PUNT_COMU_ESCR) y en la prueba de lectura crírica (PUNT_LECT_CRIT), y que se presentó en el [ejemplo](#Spearman) de aplicación del coeficiente de Spearman, es estadísticamente diferente de cero.
+
+]
+  .panel[.panel-name[Prueba C. Spearman]
+  
+#### Hipótesis
+
+  $H_0: \rho = 0$<br>
+  $H_1: \rho \neq 0$
+  
+#### Solución 
+
+```{r, echo=TRUE, eval=TRUE, warning=FALSE}
+# Código para evaluar la hipótesis
+
+cor.test(x=SaberPro$PUNT_COMU_ESCR, y=SaberPro$PUNT_LECT_CRIT, method="spearman")
+```
+
+]
+
+  .panel[.panel-name[Ejercicio]
+  
+ 
+```{r echo=FALSE}
+countdown(minutes = 15, right = "0%", top = "12%", font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+1. Evaluar, haciendo uso del **Coeficiente de correlación correspondiente**, la correlación existente entre los resultados obtenidos en la prueba de **inglés** (PUNT_INGLES) y el puntaje obtenido en la prueba de lectura crítica (PUNT_LECT_CRIT) del conjunto de datos **SaberPro**. Una vez evaluada esta correlación y aplicando una **prueba de hipótesis pertinente**, evaluar si dicha correlación es estadísticamente diferente de cero (significancia del 5%). 
+
+]
+]
 
 ---
-exclude: true
+exclude: false
 ### ¿Son intercambiables los coeficientes de correlación de Pearson y Spearman?
 
+Esta pregunta, pocas veces se hace en el ámbito de la investigación y su respuesta es sumamente importante a la hora de evaluar *el grado y la intensidad* de la correlación lineal existente entre dos variables de tipo numérico.
 
+En el siguente enlace, se puede acceder a un artículo de los autores Ortiz. J. y Ortiz. A. de la Revista de [Comunicaciones en Estadística](https://revistas.usantotomas.edu.co/index.php/estadistica/) de la Universidad Santo Tomas en Colombia, en donde se explora una posible respuesta a esta inquietud.
+
+[Ver y descargar artículo](https://revistas.usantotomas.edu.co/index.php/estadistica/article/view/6769)
 
 ---
 exclude: true
+name: PruebaJi
 
-## Asociación entre dos variables categóricas
+### Asociación entre dos variables categóricas - Prueba Chi Cuadrado
 
 .panelset[
 
   .panel[.panel-name[Asociación]
   
   ]
-  .panel[.panel-name[Prueba ji cuadrado]
+  
+  .panel[.panel-name[Variables Categóricas]
+  
+Como se mencionó en la sección de [tipos de variables](#variables) de este curso, en las ciencias de la salud es bastante frecuente encontrarse con variables categóricas, como el sexo, la raza, lugar de procedencia, categoría laboral, etc. Las variables categóricas pueden clasificarse en:
+
+#### Variables nominales
+"Es aquella variable cualitativa cuya categoría no sigue ningún orden, se agrupa sin ninguna jerarquía entre sí." Por ejemplo, Lateralidad (zurdo, diestro), Estado civil (soltero, casado, divorciado, unión libre), etc.
+
+#### Variables ordinales
+"Son aquellas variables categóricas con orden secuencial o progresión natural esperable o jerarquía.". Por ejemplo, Medalla deportiva (oro, plata, bronce), Estrato (Estrato 1, Estrato 2, ...), etc.
+
+#### Variables dicotómicas
+
   
   ]
+  .panel[.panel-name[Prueba ji cuadrado]
+    
+ 
+ #### Hipótesis estadísticas
+ 
+ $H_0:\chi^2 = 0$<br>
+ $H_1:\chi^2 \neq 0$
+ 
+ #### Fórmula de la prueba 
+ 
+El coeficiente de correlación de Pearson (r) se calcula a través de la siguiente fórmula:
+  
+  $$\chi^2 = \sum{(O-E)^2\over{E}}$$
+donde:
+
+$O:$ la frecuencia observada.<br>
+$E:$ la frecuencia esperada.
+
+    ]
+    
+  .panel[.panel-name[Ejemplo]
+    ]
+    
+  .panel[.panel-name[Cod. Gráfico]
+    ]
+    
+  .panel[.panel-name[Gráfico]
+    ]
+    
+  .panel[.panel-name[Rep. Tabular]
+    ]
+    
+  .panel[.panel-name[Evaluación Prueba]
+    ]
+  .panel[.panel-name[Ejercicio]
+    ]
   ]
   
 ---
