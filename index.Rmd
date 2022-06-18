@@ -72,6 +72,7 @@ library(gapminder)
 library(UnalData)
 library(writexl)
 library(dplyr)
+library(tidyr)
 library(readxl)
 library(downloadthis)
 library(datasauRus)
@@ -82,9 +83,12 @@ library(DataExplorer)
 library(summarytools)
 library(moments)
 library(gridExtra)
+library(broom)
+library(sjPlot)
 xaringanExtra::use_tile_view()
 xaringanExtra::use_clipboard()
 xaringanExtra::use_webcam()
+xaringanExtra::use_search(show_icon = TRUE)
 # xaringanExtra::use_share_again()
 xaringanExtra::use_fit_screen()
 xaringanExtra::use_panelset()
@@ -93,6 +97,7 @@ xaringanExtra::use_tachyons()
 xaringanExtra::use_extra_styles(hover_code_line = TRUE, mute_unhighlighted_code = TRUE)
 xaringanExtra::use_progress_bar(color = "#0051BA", location = "top", height = "10px")
 xaringanExtra::use_broadcast()
+xaringanExtra::style_search(match_background = "pink")
 ```
 
 ---
@@ -2018,6 +2023,7 @@ La función *n()*, del paquete de R dplyr, nos permite calcular la cantidad de i
   
   ]  
 
+
 ---
 exclude: false
 # .center[El operador Pipe %>% ]
@@ -2045,6 +2051,16 @@ El operador *pipe* de R fue creado para solucionar de una manera eficiente probl
 El operador pipe de R, denotado por el simbolo **%>%**, nos permite unir varias consultas en una única cadena de código.  
   
 ]
+
+  .panel[.panel-name[Representación Gráfica]
+  
+```{r , echo=FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("imagenes/Pipe.gif")
+```
+[Fuente: Arthur Welle](https://twitter.com/i/status/1535429654760284161)
+
+  ]
+
   .panel[.panel-name[Ejemplo]
   
  
@@ -2113,6 +2129,7 @@ Otra función interesante es [get_dupes](http://sfirke.github.io/janitor/referen
   * [R Tutorial: janitor package](https://rpubs.com/phle/r-tutorial-janitor)
   * [Data Cleaning in R](https://www.r-bloggers.com/2022/05/data-cleaning-in-r-2-r-packages-to-clean-and-validate-datasets/)
   * [Overview of janitor functions](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html)
+  *[How to Clean Data: {janitor} Package](https://www.exploringdata.org/post/how-to-clean-data-janitor-package/)
 
   
   ]
@@ -2441,8 +2458,8 @@ http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/
 Para manipular/crear distintan facetas en el paquete ggplot2, existe el paquete [patchwork](https://patchwork.data-imaginist.com/index.html). En el siguiente [enlace](https://statisticsglobe.com/patchwork-r-package), se presenta una introducción al uso de este paquete.
 
 ---
-exclude: true
-# Colores en ggplot2
+exclude: false
+# Colores en ggplot2 - Slide 1
 
 En ggplot 2, existe una bateria de colores por defecto y algunos paquetes/paletas adicionales que facilitan una gestión moderna de dichos colores.
 
@@ -2459,6 +2476,18 @@ En ggplot 2, existe una bateria de colores por defecto y algunos paquetes/paleta
 
 * [Enlace 1](https://www.datanovia.com/en/blog/ggplot-colors-best-tricks-you-will-love/)
 * [Enlace 2](https://r-graph-gallery.com/ggplot2-color.html)
+* [Enlace 3](https://eliocamp.github.io/ggnewscale/)
+
+
+
+---
+exclude: false
+# Colores en ggplot2 - Slide 2
+
+### Paquetes y otras posibilidades de colores en ggplot2
+
+* [Enlace 4](https://stat545.com/colors.html)
+* [Enlace 5](https://www.r-bloggers.com/2022/06/how-to-use-multiple-colour-scales-in-ggplot-with-ggnewscale/)
 
 ---
 exclude: true
@@ -3377,7 +3406,6 @@ La **desviación estándar**, al igual que la varianza, es una **medida/indicado
 $$
 s = \sqrt{varianza}= \sqrt{s^{2}}
 $$
-
 
 $$s = \sqrt{{\frac{{\displaystyle \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}}{n-1}}}$$
 
@@ -4509,20 +4537,24 @@ En el siguente enlace, se puede acceder a un artículo de los autores Ortiz. J. 
 [Ver y descargar artículo](https://revistas.usantotomas.edu.co/index.php/estadistica/article/view/6769)
 
 ---
-exclude: true
+exclude: false
 name: PruebaJi
 
-### Asociación entre dos variables categóricas - Prueba Chi Cuadrado
+### Asociación entre dos variables categóricas - Prueba independencia Chi Cuadrado
 
 .panelset[
 
   .panel[.panel-name[Asociación]
+ 
+ La asociación estadística entre dos variables categóricas hace referencia al grado de **relación existente** que existe entrelas **modalidades** (posibles respuestas) de las variables analizadas.
+ 
+ Para evaluar la presencia o asuencia de relación entre dos variables de tipo categórico, existen pruebas llamadas de *independencia estadística* entre las cuales, una de las más conocidas, es la prueba de independencia **chi-cuadrado**.
   
   ]
   
-  .panel[.panel-name[Variables Categóricas]
+  .panel[.panel-name[Var Categóricas]
   
-Como se mencionó en la sección de [tipos de variables](#variables) de este curso, en las ciencias de la salud es bastante frecuente encontrarse con variables categóricas, como el sexo, la raza, lugar de procedencia, categoría laboral, etc. Las variables categóricas pueden clasificarse en:
+Como se mencionó en la sección de [tipos de variables](#variables), las variables categóricas pueden clasificarse en:
 
 #### Variables nominales
 "Es aquella variable cualitativa cuya categoría no sigue ningún orden, se agrupa sin ninguna jerarquía entre sí." Por ejemplo, Lateralidad (zurdo, diestro), Estado civil (soltero, casado, divorciado, unión libre), etc.
@@ -4552,25 +4584,544 @@ donde:
 $O:$ la frecuencia observada.<br>
 $E:$ la frecuencia esperada.
 
+  ] 
+  
+  .panel[.panel-name[Supuestos]
+  
+  ### Supuestos de la prueba chi-cuadrado
+  
+  Aunque pocos, la prueba de independencia chi-cuadrado para dos variables de tipo categórico exije el cumplimiento de algunos supuestos entre los que se destacan.
+  
+  1. Al menos **el 80%** de las frecuencias esperadas debe ser **igual o superior a 5**.
+  2. Las opciones de respuesta (modalidades o niveles) de las variables involucradas **no debe ser demasiado alto**.
+  3. En muestras demasiado grandes, la prueba es altamente sensitiva en favor de la hipótesis alternativa o del investigador. En estos casos, se sugiere una constrastación/revisión gráfica.
+  
+  ]
+
+  .panel[.panel-name[Ejemplo]
+  
+  [Ejemplo Prueba Chi Cuadrado de Independencia]()
+  
+Evaluar, con una *significancia del 5%* y haciendo uso de la prueba **Chi Cuadrado de Independencia**, si existe **asociación estadística** entre el tipo de colegio (COLEGIO) y el estrato socioeconómico (ESTRATO) del los estudiantes que hacen parte del conjunto de datos **SaberPro** bajo estudio.
     ]
     
-  .panel[.panel-name[Ejemplo]
+  .panel[.panel-name[R. supuestos]
+  
+```{r, echo=TRUE}
+
+# Librería requerida
+#install.packages("janitor")
+#library(janitor)
+
+# Revisar función table() de la base del lenguaje
+```
+
+```{r janitor, echo=TRUE, eval=FALSE}
+# Código Tabla Cruzada - Haciendo uso de librería Janitor
+SaberPro %>%
+  tabyl(COLEGIO, ESTRATO) %>%  
+  adorn_percentages("all") %>%
+  adorn_pct_formatting(digits = 2) %>%
+  adorn_ns()
+```
+
+```{r ref.label="janitor", echo=FALSE} 
+```
     ]
+    
+  .panel[.panel-name[Cod. Tabla]
+
+
+```{r tablaji, echo=TRUE, eval=FALSE}
+
+# Código Transformación de Datos - Para Ajuste de Supuestos.
+
+Saber_Ji_Col <- SaberPro %>% 
+                filter(COLEGIO %in% c("Oficial", "Privado"),
+                                   ESTRATO != "ND/NE") %>% 
+                mutate(ESTRATO_NEW = case_when(ESTRATO == "Estrato 1" ~ "Estrato 1",
+                                               ESTRATO == "Estrato 2" ~ "Estrato 2",
+                                               ESTRATO == "Estrato 3" ~ "Estrato 3",
+                                                   TRUE ~ "Estrato 4 o más"))
+
+#Código Tabla Cruzada - Cumplimiento Supuestos
+
+Saber_Ji_Col %>%
+  tabyl(COLEGIO, ESTRATO_NEW) |> 
+  adorn_percentages("col") %>%
+  adorn_pct_formatting(digits = 2) %>%
+  adorn_ns()
+```
+    ]
+    
+  .panel[.panel-name[Tabla]
+
+### Tabla cruzada - Tipo de Colegio vs Estrato Socieconómico  
+```{r ref.label= "tablaji", echo=FALSE, eval=TRUE}
+```
+    ]
+    
     
   .panel[.panel-name[Cod. Gráfico]
+
+```{r, echo=FALSE}
+Saber_Ji_Col <- SaberPro %>% 
+                filter(COLEGIO %in% c("Oficial", "Privado"),
+                                   ESTRATO != "ND/NE") %>% 
+                mutate(ESTRATO_NEW = case_when(ESTRATO == "Estrato 1" ~ "Estrato 1",
+                                               ESTRATO == "Estrato 2" ~ "Estrato 2",
+                                               ESTRATO == "Estrato 3" ~ "Estrato 3",
+                                                   TRUE ~ "Estrato 4 o más"))
+
+```
+
+#### Inspección Gráfica de Independencia/Dependencia
+
+A continuación, se presneta el código de R haciendo uso del paquete **ggplot2** y la estética **geom_bar()** para barras apiladas.
+
+```{r barchi, echo=TRUE, eval=FALSE}
+
+ggplot(Saber_Ji_Col, aes(x = ESTRATO_NEW, fill = COLEGIO))+
+  geom_bar(position = "fill") + 
+  labs(title = "Diagrama de barras apiladas - Estrato vs Tipo de Colegio",
+       x = " \nEstrato Socioeconómico",
+       y = "Porcentaje")+
+  geom_hline(yintercept=0.5, col = "blue", linetype="dashed", size = 1.3)+
+  scale_y_continuous(limits=c(0, 1), 
+                     breaks = seq(0, 1, .2), 
+                     label = c('0%', '20%', '40%', '60%', '80%', '100%'))
+```
     ]
     
   .panel[.panel-name[Gráfico]
-    ]
-    
-  .panel[.panel-name[Rep. Tabular]
+  
+```{r ref.label="barchi", echo=FALSE, warning=FALSE, fig.width = 8, fig.height = 5.5}
+```
     ]
     
   .panel[.panel-name[Evaluación Prueba]
+
+#### Código para la prueba Chi-cuadrado de Pearson
+
+```{r, echo=TRUE, eval=FALSE}
+# Código para la evaluación de una prueba chi-cuadrado en R
+
+chisq.test(Saber_Ji_Col$ESTRATO_NEW, Saber_Ji_Col$COLEGIO)
+```
+
+#### Resultados prueba Chi-cuadrado de Pearson
+
+```{r, echo=FALSE, eval=TRUE}
+# Código para la evaluación de una prueba chi-cuadrado en R
+chisq.test(Saber_Ji_Col$ESTRATO_NEW, Saber_Ji_Col$COLEGIO)
+```
     ]
   .panel[.panel-name[Ejercicio]
+  
+   
+```{r echo=FALSE}
+countdown(minutes = 15, right = "0%", top = "10%", font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+1. Evaluar, haciendo uso de la **prueba chi-cuadrado**, si existe **asociación estadística** entre el sexo (SEXO) y el puntaje obtenido en la prueba de razonamiento cuantitativo (PUNT_RAZO_CUANT) del conjunto de datos **SaberPro**. En el desarrollo del ejercicio, tener en cuenta los siguientes pasos.
+
+* Crear una nueva variable llamada **RC** la cual cumple los siguientes criterios: **Bajo** si el puntaje obtenido en la prueba de razonamiento cuntitativo (PUNT_RAZO_CUANT) está entre 0 y 170 puntos y **Alto** si el puntaje obtenido en la prueba de razonamiento cuantitativo (PUNT_RAZO_CUANT) es mayor que 170 puntos.
+
+* Teniendo en cuenta la nueva variable creada **RC**, evaluar la asociación de interés siguiendo los pasos tradicionales: revisión tabular, revisión gráfica, verificación y ajuste de supuestos y evaluación de la prueba de hipótesis de interés.
     ]
   ]
+
+
+---
+class: center, middle
+
+# `r emo::ji("oncoming")` <br> Modelamiento Estadístico <br> Regresión Lineal Simple y Múltiple
+
+---
+name: regresions
+exclude: false
+
+### Modelamiento Estadístico - Regresión Lineal Simple
+
+
+.panelset[
+
+  .panel[.panel-name[Regresión Simple]
+  
+La regresión lineal simple es una técnica de modelamiento estadístico para describir/predecir el comportamiento de una **variable numérica** de respuesta, también *llamada dependiente*, en función del comportamiento de una variable numérica independiente, también conocida como *variable predictora*. 
+
+##### Filosofía de un modelo de Regresión Lineal Simple 
+
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/RegresionLineal.jpg") 
+``` 
+  
+  ]
+  
+  .panel[.panel-name[El modelo]
+  
+El modelo de regresión lineal. 
+
+
+  $$Y={\beta_{0}}+{\alpha_{1}X}+{\epsilon}$$
+  
+En donde, 
+
+* $\beta_{0}$ es la intercepción de la recta con el eje $y$, esto es, la altura de la recta cuando $x=0$.
+* $\beta_{1}$ es la pendiente de la recta que nos muestra cuando varia $y$ cuando nos movemos una unidad en el eje $x$ (de x = $x$ a x = $x+1$)
+* $\epsilon_{i}$ son los errores aleatorios del modelo.
+  
+
+#### Estimación Modelo de Regresión Lineal Simple 
+
+$$\hat{Y} = \hat{\beta_{0}} + \hat{\beta_{1}}X$$
+En donde:
+
+$\hat{\beta_{0}}=\bar{y}-\hat{\beta_{1}}\bar{x}$ &nbsp; y &nbsp; $\hat{\beta_{1}}=\frac{S_{xy}}{S_{xx}}$
+  ]
+  
+  .panel[.panel-name[Supuestos]
+ 
+La estimación/evaluación de un modelo de regresión lineal simple exige el cumplimiento de cuatro supuestos: **linealidad, homosedasticidad, normalidad e independencia**
+ 
+ #### Supuestos Modelo de Regresión Lineal Simple
+ 
+ * Debe existir una relación lineal entre la variable independiente (predictora) $x$ y la variable dependiente o de predicción $Y$ *(supuesto de linealidad)*.
+ * Los residuos deben distribuirse de forma homogénea para todos los valores de la variable $Y$ *(supuesto de homosedasticidad)*.
+ * Los residuales deben distribuirse de manera normal *(supuesto de normalidad)*.
+ * los residuos deben distribuirse de manera independientes entre sí; es decir, no debe de existir algún tipo de correlación entre estos *(supuesto de independencia)*.
+  ]
+  
+  .panel[.panel-name[Inferencia Estadística]
+  
+Para evaluar la calidad del ajuste (pertinencia) de un modelo de **regresión lineal simple**, en principio, debemos contrastar las siguientes hipótesis estadísticas sobre los coeficientes/parámetros del modelo propuesto:
+  
+$$\left\{\begin{array}{ll} H_{0}:& \beta_{i} = 0 \\ H_{1}:& \beta_{i} \neq 0, i=0,1\\ \end{array}\right.$$
+
+* En donde se rechaza $H_{0}$, con una confianza de $1-\alpha$, cuando el $p-valor \leq \alpha$.
+
+  ]
+  
+  .panel[.panel-name[Ejemplo]
+
+ [Ejemplo]()
+  
+Explicar/predecir a través de un modelo de **Regresión Lineal Simple**, el comportamiento del salario **(Salario)** de una muestra de 15 individuos a partir de la nota **(Calificacion)** obtenida por estos en sus estudios universitarios. En el desarrollo del ejercicio, estimar los parámetros del modelo, evaluar las hipótesis asociadas a estos, así como verificar los supuestos del modelo de regresión ajustado.
+
+[Descargar Muestra de Datos]()
+
+Para el desarrollo de este ejercicio, en el boton siguiente y en formato Excel, pueden ser descargados los individuos que hacen parte de la muestra bajo estudio. Descargar este archivo e importarlo a nuestro entorno de trabajo **Rstudio**.
+
+```{r echo=FALSE, eval=TRUE}
+
+Regresion <- read_excel("Datos/Sesion2/Regresion.xlsx", 
+    sheet = "Salarios")
+
+Regresion %>%
+  download_this(
+    output_name = "RegresionS",
+    output_extension = ".xlsx",
+    button_label = "Ejp Regresión Lineal Simple - Descargar archivo Excel",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save")
+```
+  ]
+  .panel[.panel-name[Rep. Gráfica]
+  
+```{r, echo=TRUE, xfig.width = 16, fig.height = 4.5}
+ggplot(Regresion, aes(x = Calificacion, y = Salario)) +
+         geom_point()+
+  ggtitle("Diagrama de dispersión Salarios vs Calificación")
+```
+   ]
+   
+   .panel[.panel-name[Alt Modelo 1]
+  
+```{r, echo=TRUE, eval=FALSE}
+# Ajuste a través de la función summary
+
+summary(lm(Salario ~ Calificacion, data = Regresion))
+```
+
+```{r, echo=FALSE, eval=TRUE}
+# Ajuste del modelo
+
+summary(lm(Salario ~ Calificacion, data = Regresion))
+```
+]
+  .panel[.panel-name[Alt Modelo 2]
+  
+```{r fit2, echo=TRUE, eval=TRUE}
+# Para hacer uso de la función tidy, instalar el paquete broom
+
+# install.packages("broom")
+# library(broom)
+
+# Ajuste del modelo
+fit2 <- lm(Salario ~ Calificacion, data = Regresion)
+
+# Resultados del modelo con tidy
+tidy(fit2)
+```
+    ]
+
+  .panel[.panel-name[El Modelo]
+
+El modelo estimado o recta de regresión lineal de nuestro ejemplo, viene dado por:
+<br>
+$$\widehat{\text{Salario}} = -6.63 + 8.22*\text{Calificación}$$
+<br>
+Esto es, un punto de más en la calificación obtenida por un empleado en sus estudios universitarios, aumenta en 8.22 unidades su salario promedio. A continuación, se representa de manera gráfica el modelo ajustado.
+]
+  
+  .panel[.panel-name[Gráfico Modelo]  
+ 
+```{r, echo=TRUE, xfig.width = 16, fig.height = 2.5}
+# Para construir este gráfico, se requiere instalar el paquete sjPlot
+# install.packages("sjPlot")
+# library(sjPlot)
+
+# Gráfico del ajuste
+plot_model(fit2,"pred", terms = ~Calificacion, 
+                ci.lvl = NA, 
+                show.data = TRUE, 
+                axis.title = c("Calificación en los estudios universitarios", "Salario"),
+                title = "Modelo Ajustado")
+```
+ 
+  ]
+  .panel[.panel-name[Eval. Supuestos]
+  
+```{r, echo=TRUE, eval = FALSE, warning=FALSE}
+# Ajuste del modelo
+fit2 <- lm(Salario ~ Calificacion, data = Regresion)  
+
+# Cálculo de los residuales (errores)
+Residual <- tidy(residuals(fit2)) %>% rename(Error = x)
+
+# Función de densidad de los residuales (errores)
+den_res <- ggplot(Residual, aes(x = Error)) +
+          geom_density()
+
+# qqplot para los residuales (errores)
+qq_res <- ggplot(Residual, aes(sample = Error)) +
+  stat_qq() +
+  stat_qq_line(col = "red")
+
+# Mostrar gráficos en una única columna
+grid.arrange(den_res, qq_res, ncol = 1)
+
+# Implementación prueba de normalidad para residuales
+shapiro.test(Residual$Error)
+```
+  ]
+  
+  .panel[.panel-name[Ejercicio]
+  
+```{r echo=FALSE}
+countdown(minutes = 30, right = "0%", top = "13%", font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+1. Explicar/predecir/ajustar, haciendo uso de un **modelo de regresión lineal simple**, los resultados promedio globales (PUNTAJE_GLOBAL) obtenidos por los estudiantes del conjunto de datos SaberPro en función de los resultados obtenidos por estos en la prueba de razonamiento cuantitativo (PUNT_RAZO_CUANT). Ajustar el modelo, evaluar las hipótesis asociadas a este, graficar el modelo resultante, así como verificar  el cumplimiento de los supuestos exigidos por este tipo de modelo estadístico.
+
+  ]
+  ]
+  
+---
+name: regresionm
+exclude: false
+
+### Modelamiento Estadístico - Regresión Múltiple
+
+.panelset[
+
+  .panel[.panel-name[Regresión Múltiple]
+  
+La regresión lineal múltiple, al igual que la simple, es una técnica de modelamiento estadístico para describir/predecir/explicar el comportamiento de una **variable numérica** de respuesta $Y$, también *llamada variable dependiente*, en función del comportamiento de **dos o más variables** numéricas o categóricas, también conocidas como *variables independientes* o *predictoras*. 
+
+##### Filosofía de un modelo de Regresión Lineal Múltiple 
+
+```{r , echo=FALSE, fig.align='center',  out.height="100%"}
+knitr::include_graphics("imagenes/RegresionLineal.jpg") 
+``` 
+  ]
+  
+  .panel[.panel-name[El modelo]
+ 
+ El modelo de regresión lineal múltiple está conformado por la siguiente ecuación. 
+<br>
+<br>
+
+  $$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p + \epsilon$$
+En donde,
+
+* $\beta_{0}$ es la intercepción con el eje $y$, esto es, la altura de la recta cuando todas la variables predictoras $x$ son iguales a $0$.
+* $\beta_{i}$ son las pendientes de las rectas asociadas con cada variable predictora $x$ y representa el aumento o disminución del valor de la respuesta ($y$) cuando aumentamos en **una unidad** el valor de la variable predictora $x$ respectiva.
+* $\epsilon$ son los errores aleatorios del modelo.
+   ]
+   
+  .panel[.panel-name[Los supuestos]
+
+La estimación/evaluación de un modelo de regresión lineal múltiple, al igual que en el caso de un modelo simple, exige el cumplimiento de cuatro supuestos: **linealidad, homosedasticidad, normalidad e independencia**
+ 
+ #### Supuestos Modelo de Regresión Lineal Múltiple
+ 
+ * Debe existir una relación lineal entre las variable independientes (predictoras) $x$ y la variable dependiente o de predicción $Y$ *(supuesto de linealidad)*.
+ * Las variables independientes, como su nombre lo indica, deben ser independientes entre sí *(supuesto de no multicolinealidad)*.
+ * Los residuos deben distribuirse de forma homogénea para todos los valores de la variable $Y$ *(supuesto de homosedasticidad)*.
+ * Los residuales deben distribuirse de manera normal *(supuesto de normalidad)*.
+ * los residuos deben distribuirse de manera independientes entre sí; es decir, no debe de existir algún tipo de correlación entre estos *(supuesto de independencia)*.
+  
+  ]
+  .panel[.panel-name[Inferencia Estadística]
+  
+
+Para evaluar la calidad del ajuste (pertinencia) de un modelo de **regresión lineal múltiple**, en principio, debemos contrastar las siguientes hipótesis estadísticas sobre los coeficientes/parámetros del modelo propuesto:
+  
+$$\left\{\begin{array}{ll} H_{0}:& \beta_{i} = 0 \\ H_{1}:& \beta_{i} \neq 0, i=0,1\\ \end{array}\right.$$
+
+* En donde se rechaza $H_{0}$, para cada $\beta_{i}$, con una confianza de $1-\alpha$, cuando los correspondientes $p-valores \leq \alpha$.
+   ]
+   
+  .panel[.panel-name[Ejemplo]
+  
+  [Ejemplo]()
+  
+Explicar/predecir/evaluar, a través de un modelo de **Regresión Lineal Múltiple**, el comportamiento de una variable hipotética $Y$ de una muestra conformada por 32 individuos en función del comportamiento de cuatro variables predictoras: $x1, x2, x3$ y $x4$.
+
+[Descargar Muestra de Datos]()
+
+Para el desarrollo de este ejercicio, en el boton siguiente y en formato Excel, pueden ser descargados los individuos que hacen parte de la muestra bajo estudio. Descargar este archivo e importarlo a nuestro entorno de trabajo **Rstudio**.
+
+```{r echo=FALSE, eval=TRUE}
+
+RegresionM <- read_excel("Datos/Sesion2/Regresion.xlsx", 
+    sheet = "Gasolina")
+
+RegresionM %>%
+  download_this(
+    output_name = "RegresionM",
+    output_extension = ".xlsx",
+    button_label = "Ejp Regresión Lineal Múltiple - Descargar archivo Excel",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save")
+```
+  ]
+  .panel[.panel-name[Cod. Gráfica]
+  
+```{r grafRM, echo=TRUE, eval=FALSE}
+# Para hacer uso de la función tidy, instalar el paquete tidyr
+
+# install.packages("tidyr")
+# library(tidyr)
+
+# Transformación de datos y construcción de gráfico
+
+RegresionM %>% pivot_longer(cols = c(x1:x4) , 
+                            names_to = "Variables",
+                            values_to = "Resultados") %>% 
+  ggplot(aes(x = Resultados, y = Y))+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  facet_wrap(~Variables, scales = "free_x")+
+  ggtitle("Diagramas de dispersión entre variable Y vs variables x")
+```
+   ]
+  .panel[.panel-name[Rep. Gráfica]
+  
+```{r ref.label="grafRM", echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, fig.width = 10, fig.height = 6}
+
+```
+ 
+  ]
+  
+  .panel[.panel-name[Est. Modelo]
+  
+```{r fit3, echo=TRUE, eval=TRUE}
+# Para hacer uso de la función tidy, instalar el paquete broom
+
+# install.packages("broom")
+# library(broom)
+
+# Ajuste del modelo
+fit3 <- lm(Y ~ x1 + x2 + x3 + x4
+, data = RegresionM)
+
+# Resultados del modelo con tidy
+tidy(fit3)
+```
+
+  ]
+  
+  .panel[.panel-name[El Modelo]
+  
+El modelo estimado o recta de regresión lineal múltiple de este ejemplo, viene dado por:
+<br>
+<br>
+$$\widehat{\text{Y}} = -6.8208 + 0.2272*\text{x1}+0.5537*\text{x2}-0.1495*\text{x3}+0.1547*\text{x4}$$
+]
+  
+  .panel[.panel-name[Eval. Supuestos]
+  
+```{r, echo=TRUE, eval = FALSE, warning=FALSE}
+# Ajuste del modelo
+fit3 <- lm(Y ~ x1 + x2 + x3 + x4
+, data = RegresionM)
+
+# Cálculo de los residuales (errores)
+Residual_RM <- tidy(residuals(fit3)) %>% rename(Error = x)
+
+# Función de densidad de los residuales (errores)
+den_res_RM <- ggplot(Residual_RM, aes(x = Error)) +
+          geom_density()
+
+# qqplot para los residuales (errores)
+qq_res_RM <- ggplot(Residual_RM, aes(sample = Error)) +
+  stat_qq() +
+  stat_qq_line(col = "red")
+
+# Mostrar gráficos en una única columna
+grid.arrange(den_res_RM, qq_res_RM, nrow = 1)
+
+# Implementación prueba de normalidad para residuales
+shapiro.test(Residual_RM$Error)
+```
+  ]
+  .panel[.panel-name[Ejercicio]
+  
+```{r echo=FALSE}
+countdown(minutes = 20, right = "0%", top = "13%", font_size = "2em")
+```  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+1. Explicar/predecir/ajustar, haciendo uso de un **modelo de regresión lineal múltiple**, los resultados promedio globales (PUNTAJE_GLOBAL) obtenidos por los estudiantes del conjunto de datos **SaberPro** en función de los resultados obtenidos por estos en las pruebas de razonamiento cuantitativo (PUNT_RAZO_CUANT), comunicación escrita (PUNT_COMU_ESCR), inglés (PUNT_INGLES) y lectura crítica (PUNT_LECT_CRIT). Ajustar el modelo, evaluar las hipótesis asociadas a este, así como verificar  el cumplimiento de los supuestos exigidos por este tipo de modelo estadístico. <br><br> **¿Qué podemos concluir acerca de los resultados promedio globales en el examen SaberPro con base en los resultados del modelo ajustado?**
+  ]
+  ]
+
+
+
   
 ---
 name: modulo2
@@ -4636,7 +5187,7 @@ exclude: true
 
 # Para tener en cuenta en un nuevo curso
 
-1. [Presentación con el paso 1 a 1 de las diferentes capas de un ggplot2](https://rstudio-conf-2020.github.io/design-ds-classroom/materials/01-curriculum-design/slides/01-curriculum-design.html#1). En la parte final de la presentación se tiene un ejemplo.
+1. [Presentación con el paso 1 a 1 de las diferentes capas de un ggplot2](https://rstudio-conf-2020.github.io/design-ds-classroom/materials/01-curriculum-design/slides/01-curriculum-design.html#1). En la parte final de esta presentación se tiene un ejemplo.
 
 2. Revisar cómo se incluye una referencia bibliográfica en una presnetación de xaringan. Ver la referencia de Canavos en la sección de pruebas de hipótesis.
 
@@ -4645,6 +5196,16 @@ exclude: true
 4. Revisar el paquete **[patchwork](https://ggplot2-book.org/arranging-plots.html)** para agregar múltiples gráficos de ggplot2
 
 5. Adicionar el componente de limpieza de datos (antes o después de transformación). Revisar la diapositiva de datos faltantes que se tiene al final del componente de transformación de datos.
+
+6. Revisar como adicionar porcentajes en barras apiladas.
+
+7. Revisar el test de normalidad que se encuentra en el siguiente [enlace](https://www.learnbymarketing.com/tutorials/linear-regression-in-r/)
+
+8. Revisar a detalle y para el tema de regresión, el paquete library(sjPlot)
+
+9. Revisar el siguiente paquete de gráficos en ggplot2 con detalles estadísticos (ggstatsplot). https://indrajeetpatil.github.io/ggstatsplot/
+
+<!-- Ejemplo PASO A PASO de un GGPLOT2-->
 
 ---
 exclude: true
