@@ -85,6 +85,7 @@ library(moments)
 library(gridExtra)
 library(broom)
 library(sjPlot)
+library(flipbookr)
 xaringanExtra::use_tile_view()
 xaringanExtra::use_clipboard()
 xaringanExtra::use_webcam()
@@ -139,7 +140,7 @@ background-size: cover
 ---
 class: center, middle
 
-# `r emo::ji("teacher")` <br> ¿Quién Será Su Profesor?<br>Su Tutor<br>Su "Compañero"
+# `r emo::ji("teacher")` <br> ¿Quién Será Su rofesor?<br>Su Tutor<br>Su "Compañero"
 
 ---
 class: middle, hide-logo
@@ -378,7 +379,7 @@ knitr::include_graphics("imagenes/RyRstudio.jpg")
 ]
 
 ---
-# ¿Cómo instalar R y Rstudio en nuestras computadoras?
+# ¿Cómo instalar R y Rstudio en nuestros computadores?
 <br><br>
 
 ### Para instalar R y Rstudio en nuestras computadoras, los invitamos a seguir los pasos definidos en el Capítulo 1, [Instalar R y Rstudio](https://rbasico.netlify.app/1-instalar), del libro [Un Primer Curso de R.](https://rbasico.netlify.app/) <br> Ir al contenido de este documento dando click en el siguiente enlace. <br>
@@ -1262,9 +1263,9 @@ countdown(minutes = 3, top = 0, padding = "15px", font_size = "1em")
   ]
   .panel[.panel-name[Funciones Auxiliares]
 
-La función ***select()***, que permite seleccionar de manera rápida variables de un **data.frame()** o **tibble()**, puede estar acompañada de funciones auxiliares que permiten seleccionar de manera rápida subconjuntos de variables a partir de patrónes o regularidades presentes en los nombres de estas. A continuación, se presenta el listado de funciones auxiliares que pueden ser usadas en conjunto con la función ***select()***.
+La función ***select()***, que permite seleccionar de manera rápida variables de un **data.frame()** o **tibble()**, puede estar acompañada de funciones auxiliares que permiten seleccionar subconjuntos de variables a partir de patrónes o regularidades presentes en los nombres. A continuación, se presenta el listado de funciones auxiliares que pueden ser usadas en conjunto con la función ***select()***.
 
-### Lista de variables auxiliares de la función select()
+#### Lista de variables auxiliares de la función select()
 
 ```{r, echo=TRUE, eval=FALSE}
 starts_with() # Las variables inician con
@@ -1272,8 +1273,11 @@ ends_with() # Las variables finalizan con
 contains() # Las variables contienen
 matches() # Selección de variables con expresiones regulares
 any_of() # Selección de variables a partir de un vector con nombres de variables
-num_range() # Selección de varibles por un patrón
+one_of() # Revisar el siguiente ejemplo df %>% select(-one_of('var1', 'var1'))
+num_range() # Selección de variables por un patrón
+last_col() # Seleccione la última variable 
 everything() # Seleccionar todas las variables de un conjunto de datos
+where() # Para la selección de variables según tipologías
 ```  
   
   ]
@@ -1850,6 +1854,24 @@ Mostrar los resultados del nuevo conjunto de datos a través del **Environment**
 
 ---
 exclude: false
+# .center[Filtrar individuos - funciones if_all e if_any]
+
+Estas son funciones que cumplen la misma tarea de la función across, aplicables a la función filter. Aunque se puede hacer uso de across en combinación con este verbo, su uso está en desuso.
+
+Ver los siguientes ejemplos.
+
+iris %>% filter(if_any(contains("Sepal"), ~. < 2.3))
+
+iris %>% filter(if_all(contains("Sepal"), ~.x > 3.8))
+
+Contrastar los resultados del anterior código y 
+ver el mensaje de advertencia que sale.
+
+iris %>% filter(across(contains("Sepal"), ~. > 3.8))
+
+
+---
+exclude: false
 # .center[Crear resúmenes a partir de variables]
 
 .panelset[
@@ -2137,6 +2159,29 @@ Otra función interesante es [get_dupes](http://sfirke.github.io/janitor/referen
 
 ---
 exclude: true
+# Pivotar Datos
+
+---
+exclude: true
+#### .center[Pivotar a lo largo]
+
+```{r , echo=FALSE, out.width="90%", fig.align='center'}
+knitr::include_graphics("imagenes/pivot_longer.gif")
+```
+[Fuente: Vishal Katti](https://www.vishalkatti.com/posts/2022-08-29-tidyrpivotwider/)
+
+---
+exclude: true
+#### .center[Pivotar a lo ancho]
+
+```{r , echo=FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics("imagenes/pivot_wider.gif")
+```
+[Fuente: Vishal Katti](https://www.vishalkatti.com/posts/2022-08-29-tidyrpivotwider/)
+
+
+---
+exclude: true
 # Limpieza de datos
 
 ```{r , echo=FALSE, out.height="100%", fig.align='center'}
@@ -2152,9 +2197,21 @@ exclude: true
 
 Para gestionar/manipular/ tratar con datos faltantes en nuestros conjuntos de datos, recomendamos el [capítulo 20](https://r4ds.hadley.nz/missing-values.html) del libro [R for Data Science (2e)](https://r4ds.hadley.nz/)
 
+Revisar el siguiente sitio [web](https://www.codingprof.com/3-ways-to-replace-nas-with-zeros-in-r-examples/#:~:text=The%20classic%20way%20to%20replace,and%20assign%20them%20a%20zero.)
+
 ### Imputación de datos faltantes
 
-Para tener un mayor conocimiento sobre los procesos de imputación de datos faltantes, recomendamos explorar el sitio web [Missing Value Imputation](https://statisticsglobe.com/missing-data-imputation-statistics/).
+* Para tener un mayor conocimiento sobre los procesos de imputación de datos faltantes, recomendamos explorar el sitio web [Missing Value Imputation](https://statisticsglobe.com/missing-data-imputation-statistics/).
+
+* Cuando los datos faltantes se encuentran en un archivo aparte/diferente, se recomienda usar la función [rows_update](https://twitter.com/cghlewis/status/1547917884776624130?s=27&t=wT2bOekocdkHRllauMcJ8Q) de dplyr.
+
+
+---
+exclude: true
+
+# .center[Gestión/revisión de datos atípicos]
+
+* Revisar, en principio, el siguiente artículo/sitio wed. [Ir al enlace](https://www.maximaformacion.es/blog-dat/como-lidiar-con-los-datos-atipicos-outliers/)
 
 ---
 exclude: false
@@ -2439,6 +2496,12 @@ ylab("Ancho del Sépalo")
 
 * **Tema**: *theme_bw()*. Ver más temas disponibles en: <br> [lista de temas](https://ggplot2.tidyverse.org/reference/ggtheme.html)
 
+---
+exclude: false
+
+## .center[Manaul de uso de aes() en ggplot2]
+
+[Manual aes()](https://ggplot2tor.com/)
 
 ---
 exclude: true
@@ -2453,7 +2516,7 @@ Para trabajar con facetas (varias parcelas dentro de un mismo entorno gráfico) 
 * [Enlace 5](`http://www.cookbook-r.com/Graphs/Facets_(ggplot2)`). El enlace 5 correcto es:
 http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/
 
-## Paquetes paar gestionar facetas en ggplot2
+## Paquetes para gestionar facetas en ggplot2
 
 Para manipular/crear distintan facetas en el paquete ggplot2, existe el paquete [patchwork](https://patchwork.data-imaginist.com/index.html). En el siguiente [enlace](https://statisticsglobe.com/patchwork-r-package), se presenta una introducción al uso de este paquete.
 
@@ -2518,6 +2581,28 @@ knitr::include_graphics("imagenes/ThemeGgplot2V2.png")
 
 *Fuente de la imagen: *[Henry Wang - @henrywangnl](https://henrywang.nl/ggplot2-theme-elements-demonstration/)
 
+
+---
+exclude: true
+
+## .center[Características de un tema en ggplot2 - Opción 3]
+
+```{r , echo=FALSE, out.width="65%", fig.align='center'}
+knitr::include_graphics("imagenes/ThemeGgplot2V3.png") 
+```
+
+*Fuente de la imagen: *[cmdline](https://cmdlinetips.com/2021/05/tips-to-customize-text-color-font-size-in-ggplot2-with-element_text/)
+
+---
+exclude: true
+
+## .center[Otros enlaces de interés para personalizar un tema en ggplot2]
+
+* [Líneas](https://cmdlinetips.com/2021/05/tips-to-customize-lines-in-ggplot2-with-element_line/)
+* [Rectangulos](https://cmdlinetips.com/2021/06/7-tips-to-customize-rectangle-elements-in-ggplot2-element_rect/)
+* [Textos, fondos, tamaños](https://cmdlinetips.com/2021/05/tips-to-customize-text-color-font-size-in-ggplot2-with-element_text/)
+* [Mejores diagraams de dispersión](https://cmdlinetips.com/2019/11/9-tips-to-make-better-scatter-plots-with-ggplot2-in-r/)
+
 ---
 exclude: true
 
@@ -2526,6 +2611,18 @@ exclude: true
 A continuación, se presentan algunos enlaces de interés para la exploración de diversas posibilidades de temas existentes, así como la creación de temas propios.
 
 * [Enlace 1](https://r-charts.com/es/ggplot2/temas/)
+
+---
+exclude: true
+# Addings para el trabajo con ggplot2
+
+1. El addin/paquete [esquisse](https://dreamrs.github.io/esquisse/index.html) permite crear gráficos en **ggplot2** de manera interactiva, así como recuperar sus respectivos códigos.
+
+---
+exclude: true
+## Enlaces para el trabajo con etiquetas de longitud larga
+
+Ir al siguiente [sitio web](https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/) en donde se presentan varios ejemplos sobre cómo tratar con etiquetas largas en el eje x.
 
 ---
 exclude: false
@@ -3824,6 +3921,15 @@ exclude: true
 
 ]
 ]
+
+---
+exclude: true
+## .center[Articulo paquetes análisis exploratorio en R]
+
+En este [link](https://arxiv.org/pdf/1904.02101.pdf), se encuentra un artículo con listado y estudio de impacto de los principales paquetes existentes en R para el análisis exploratorio.
+
+https://arxiv.org/pdf/1904.02101.pdf
+
 
 ---
 class: center, middle
@@ -5183,11 +5289,13 @@ background-size: cover
 
 
 ---
-exclude: true
+exclude: false
 
-# Para tener en cuenta en un nuevo curso
+# Para tener en cuenta en un nuevo curso - parte 1
 
-1. [Presentación con el paso 1 a 1 de las diferentes capas de un ggplot2](https://rstudio-conf-2020.github.io/design-ds-classroom/materials/01-curriculum-design/slides/01-curriculum-design.html#1). En la parte final de esta presentación se tiene un ejemplo.
+1. [Presentación paso a paso (1 a 1) de las diferentes capas de un ggplot2](https://rstudio-conf-2020.github.io/design-ds-classroom/materials/01-curriculum-design/slides/01-curriculum-design.html#1). En la parte final de esta presentación se tiene un ejemplo.
+
+Contrastar/ver/revisar el paquete [flipbookr](https://evamaerey.github.io/flipbookr/index.html) el cual cumple la misma función. Ver un ejemplo de este paquete en la parte final de esta presentación (ALTERNATIVA 2).
 
 2. Revisar cómo se incluye una referencia bibliográfica en una presnetación de xaringan. Ver la referencia de Canavos en la sección de pruebas de hipótesis.
 
@@ -5203,7 +5311,34 @@ exclude: true
 
 8. Revisar a detalle y para el tema de regresión, el paquete library(sjPlot)
 
+---
+exclude: false
+# Para tener en cuenta en un nuevo curso - parte 2
+
 9. Revisar el siguiente paquete de gráficos en ggplot2 con detalles estadísticos (ggstatsplot). https://indrajeetpatil.github.io/ggstatsplot/
+
+10. Ver la posibilidad de insertar las respuestas de los ejercicios de manera web a través del paquete [webexercises](https://psyteachr.github.io/webexercises/). En la parte final del archivo de Trabajos RMD se encuentra disponible un ejemplo para el caso de un documento RMD.
+
+11. Tener en cuenta, para el caso de la función filter, el uso de la función [between()](https://dplyr.tidyverse.org/reference/between.html) de **dplyr** para la selección de un conjunto de individuos que se encuentran dentro de un rango de observaciones de una variable numérica.
+Ejp.
+filter(starwars, between(height, 100, 150))
+
+12. Incluir/analizar la inclusión de la función **[recode()](https://dplyr.tidyverse.org/reference/recode.html)** de dplyr para la recodificación en la misma o en una nueva variable dentro de la función mutate() como alternativa a la función case_when().
+
+13. Revisar el siguiente sitio web en donde se presenta un resumen para las [pruebas de hipótesis de comparación](https://www.maximaformacion.es/blog-dat/guia-para-encontrar-tu-prueba-estadistica/). 
+
+14. Incluir, en el componente del operador **PIPE** (%>%), el adding/paquete [ViewPipeSteps](https://github.com/daranzolin/ViewPipeSteps) el cual permite mostrar todos los conjuntos de datos involucrados/generados al usar este operador.
+
+---
+exclude: false
+# Para tener en cuenta en un nuevo curso - parte 3
+
+15. Revisar, para el caso de los procesos de importación a R a través de un data.frame , el Paquete/adding [editData](https://cran.r-project.org/web/packages/editData/vignettes/editData.html) para editar un data.frame desde Rstudio.
+Ver el siguiente ejemplo a través de un [GIT](https://twitter.com/RosanaFerrero/status/1541392148074860544)
+
+16. Revisar/explorar el paquete [correlation](https://easystats.github.io/correlation/) para el caso de los análisis de correlación. Ver también el contenido del siguiente enlace. https://easystats.github.io/see/articles/correlation.html
+
+
 
 <!-- Ejemplo PASO A PASO de un GGPLOT2-->
 
@@ -5253,3 +5388,48 @@ ggplot(data = iris,
 ```{r ref.label="capa-3", echo=FALSE}
 ```
 ]
+
+<!-- Ejemplo PASO A PASO de un GGPLOT2 - ALTERNATIVA 2-->
+
+---
+exclude: FALSE
+
+`r chunk_reveal("my_iris")`
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+```
+
+
+```{r my_iris, include = FALSE, message=FALSE, warning=FALSE, error=FALSE}
+iris %>%
+  select(Petal.Length, Sepal.Length, Species) %>% 
+  filter(Species %in% c("virginica", "setosa")) %>%
+  ggplot() +
+  aes(x = Petal.Length) + #BREAK
+  aes(y = Sepal.Length) + #BREAK
+  geom_point(
+    alpha = .8, size = 5) + 
+  aes(color = Species)
+```
+
+---
+# Nueva diapositiva

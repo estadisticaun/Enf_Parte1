@@ -16,7 +16,7 @@ library(dplyr)
 library(writexl)
 library(downloadthis)
 library(psych)
-library(webexercises)
+library(webexercises) # Ejercicios en la web
 ```
 
 ```{r setup1, include = FALSE}
@@ -105,24 +105,103 @@ Una vez descargado el conjunto de datos de excel en nuestros computadores, reali
 
 Mostar/insertar, en el scrip de R creado para el desarrollo del presente trabajo, el contenido de la anterior consulta.
 
-## Prueba
+<br>
 
-`r hide("Dar click para ver la solución")`
+## Taller 2 - Final. Estadística Descriptiva y Correlacional
 
-```{r eval = FALSE}
-# fill and axis changes
-ggplot(dat_long, aes(x = rt, fill = language)) +
-  geom_histogram(binwidth = 10) +
-  scale_x_continuous(name = "Reaction time (ms)") +
-  scale_fill_discrete(name = "Group",
-                      labels = c("Monolingual", "Bilingual"))
-# add in dodge
-ggplot(dat_long, aes(x = rt, fill = language)) +
-  geom_histogram(binwidth = 10, position = "dodge") +
-  scale_x_continuous(name = "Reaction time (ms)") +
-  scale_fill_discrete(name = "Group",
-                      labels = c("Monolingual", "Bilingual"))
+<br>
+
+
+#### Conjunto de datos
+
+Para el desarrollo del trabajo 2, descargar en nuestros computadores, el conjunto de datos llamado **Trabajo2** al dar clic en el botón de abajo. Este conjunto de datos está conformado por una muestra de 200 estudiantes de grado 11 que presentaron las pruebas Saber11 durante el año 2019 y para los cuales se cuenta con información de 14 variables las cuales se describen a continuación.
+
+1. Documento(DOCU) - *(Var ID)*.
+2. Jornada del colegio (JORNADA) - *(Var Categórica)*.
+3. Área de ubicaciónd el colegio (AREA) *(Var Categórica)*.
+4. Departamento de ubicación del colegio (DEPTO) *(Var Categórica)*.
+5. Sexo del estudiante (SEXO) *(Var Categórica)*.
+6. Número de integrantes del hogar del estudiante (NHOGAR) *(Var Categórica)*.
+7. Acceso a internet en el hogar de los estudiantes (INTERNET) *(Var Categórica)*.
+8. Pertenencia a etnias por parte de los estudiantes (ETNIA) *(Var Categórica)*.
+9. Puntaje obtenido en la prueba de lectura (PLECTURA) *(Var Numérica)*.
+10. Puntaje obtenido en la prueba de matemáticas (PMATEMATICAS) *(Var Numérica)*.
+11. Puntaje obtenido en la prueba de ciencias naturales (PNATURALES) *(Var Numérica)*.  
+12. Puntaje obtenido en la prueba de sociales (PSOCIALES) *(Var Numérica)*.
+13. Puntaje obtenido en la prueba de inglés (PINGLES) *(Var Numérica)*.
+14. Puntaje obtenido a nivel general(PGLOBAL) *(Var Numérica)*.
+
+```{r echo=FALSE}
+Paises <- read_excel("Datos/Trabajos/Trabajo2.xlsx")
+
+Paises %>%
+  download_this(
+    output_name = "Trabajo2",
+    output_extension = ".xlsx",
+    button_label = "Descargar archivo de datos - Trabajo 2",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save")
 ```
+<br>
 
 
-`r unhide()`
+#### Preguntas Trabajo 2 (Final)
+
+1. Representar, de **manera gráfica y tabular**, el comportamiento de las variables categóricas *-excepto la variable DEPTO-* del conjunto de datos disponible. Para la construcción de las tablas de frecuencia se puede hacer uso de la función *table()* disponible en la base del lenguaje R o, preferiblemente, las contenidas en los paquetes **summarytools** o **janitor**. De igual modo, la representación gráfica de estas variables debe ser hecha a través del paquete **ggplot2**.
+
+2. Representar de manera gráfica, a través de un diagrama de **densidad, boxplot o histograma**, la distribución de las variables de tipo numérico del conjunto de datos bajo estudio. Presentar los títulos, subtítulos y nombres de los ejes que se consideren pertinentes.
+
+3. Para las variables de tipo numérico calcular las siguientes estadísticas(medidas) descriptivas: **media/promedio, mediana, varianza, desviación estándar, coeficiente de asimetría, curtosis**, así como sus **quintíles**. A partir del comportamiento gráfico de estas variables y de sus medidas estadísticas, ¿qué podemos decir/concluir sobre la posibilidad de que las mismas provengan de distribuciones normales?
+
+4. Evaluar, haciendo uso de la prueba de **Shapiro-Wilks**, la hipótesis de normalidad de las variables numéricas de la base de datos bajo estudio. Previo a la evaluación de las hipótesis, construir gráficos de cuantil cuantil (qqplots) o densidad, para observar gráficamente si las mismas presentan o no una posible distribución normal. Haciendo uso de la función **grid.arrange()**, del paquete **gridExtra**, presentar en un único grafico de 3 filas y 2 columnas, los qqplots de las variables numéricas evaluadas.
+
+5. Evaluar, haciendo uso del coeficiente de correlación pertinente **(Pearson o Spearman)**, la **correlación** existente entre el puntaje global **(PGLOBAL)** obtenido por lo estudiantes de la muestra y los obtenidos por estos en las pruebas de lectura **(PLECTURA)**, matemáticas **(PMATEMATICAS)**, ciencias naturales **(PNATURALES)**, sociales **(PSOCIALES)** e inglés **(PINGLES)**. Previo al cálculo de estos coeficientes, construir haciendo uso del paquete **ggplot2** , los respectivos gráficos de dispersión y posterior a estos, realizar las pruebas de hipótesis respectivas sobre si dichos coeficientes son estadísticamente diferentes de cero.
+
+6. Crear, a partir de la variable puntaje global (**PGLOBAL**), una nueva variable categórica llamada **PGLOBAL3** con *tres modalidades/grupos*: **Bajo** si el estudiante obtuvo un puntaje global igual o inferior (<=) a 220 puntos, **Medio** si su puntaje estuvo ubicado entre 221 y 265 puntos y **Alto** si el mismo fue igual o superior (>=) a 266 puntos. Con base en la nueva variable creada, haciendo uso de la prueba de independencia **chi-cuadrado** y con una significancia del 5%, evaluar si existe asociación estadística entre los siguientes pares de variables:   
+
+* PGLOBAL3 vs JORNADA
+* PGLOBAL3 vs AREA
+* PGLOBAL3 vs SEXO
+* PGLOBAL3 vs NHOGAR
+* PGLOBAL3 vs INTERNET
+* PGLOBAL3 vs ETNIA
+<br>
+¿Qué conclusiones podemos extraer sobre las asociaciones evaluadas?
+
+
+*Nota: Previo a la aplicación de las pruebas Chi-Cuadrado verificar si estas, a partir de tablas cruzadas, cumplen con el supuesto exigido (al menos el 80% de las celdas con 5 o más individuos) y, en caso de no cumplirlo, realizar los ajustes respectivos a las variables originales (transformación de variables)*.
+
+7. Crear, a partir de la variable departamento de ubicación del colegio del estudiante **(DEPTO)** una nueva variable categórica llamada **DEPTO2** con 2 posibilidades: **Departamentos Grandes** si el colegio se ubica en alguno de los departamentos de BOGOTÁ, ANTIOQUIA, VALLE o SANTANDER y **Departamentos Pequeños** si el colegio se ubica en cualquiera de los otros departamentos del país. A partir de la nueva variable creada y haciendo uso de la variable categórica **PGLOBAL3** creada en el ejercicio anterior, verificar/evaluar:
+* Verificar gráficamente el **tipo de asociación** existente entre estas dos variables (PGLOBAL3 vs DEPTO2) a través de la construcción de un **diagrama de barras apiladas** haciendo uso de la librería **ggplot2**.
+* A través de una prueba **Chi-Cuadrado** y con una significancia del 5%, verificar si existe asociación estadística entre pertenecer a un colegio ubicado en un departamento grande o no (DEPTO2) y obtener un mejor o peor resultado promedio global (PGLOBAL3) en las pruebas del examen **Saber11**. 
+
+8. Construir un **modelo de regresión lineal simple** para evaluar si es posible explicar/predecir el comportamiento del **puntaje Global (PGLOBAL)** obtenido en la **Prueba Saber11** a partir del puntaje obtenido en la **prueba de Matemáticas (PMATEMATICAS)**. En el desarrollo de este ejercicio seguir los siguientes pasos: gráfico de dispersión entre las variables involucradas, ajustar el modelo, evaluar las hipótesis asociadas a los parámetros del modelo, presentar la ecuación ajustada, graficar el modelo resultante/ajustado, así como verificar el supuesto de noramildad de los errores/residuos exigido por este tipo de modelo estadístico.  
+
+
+
+<!-- ## Prueba -->
+
+<!-- `r hide("Dar click para ver la solución")` -->
+
+<!-- ```{r eval = FALSE} -->
+<!-- # fill and axis changes -->
+<!-- ggplot(dat_long, aes(x = rt, fill = language)) + -->
+<!--   geom_histogram(binwidth = 10) + -->
+<!--   scale_x_continuous(name = "Reaction time (ms)") + -->
+<!--   scale_fill_discrete(name = "Group", -->
+<!--                       labels = c("Monolingual", "Bilingual")) -->
+<!-- # add in dodge -->
+<!-- ggplot(dat_long, aes(x = rt, fill = language)) + -->
+<!--   geom_histogram(binwidth = 10, position = "dodge") + -->
+<!--   scale_x_continuous(name = "Reaction time (ms)") + -->
+<!--   scale_fill_discrete(name = "Group", -->
+<!--                       labels = c("Monolingual", "Bilingual")) -->
+<!-- ``` -->
+
+
+
+
+
+
+<!-- `r unhide()` -->
